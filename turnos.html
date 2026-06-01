@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reservá tu turno online en G-M Peluqueros Palermo.">
+  <title>Reservar Turno — G-M Peluqueros Palermo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="header scrolled"><div class="container"><nav class="nav"><a href="index.html" class="nav__logo">G<span>·</span>M <small style="font-size:.7em;font-weight:400;opacity:.7">Peluqueros</small></a><div class="nav__links"><a href="index.html#servicios" class="nav__link">Servicios</a><a href="index.html#equipo" class="nav__link">Equipo</a><a href="index.html#contacto" class="nav__link">Contacto</a><a href="faq.html" class="nav__link">FAQ</a></div><button class="nav__burger" id="burgerBtn"><span></span><span></span><span></span></button></nav></div></header>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<nav class="nav__mobile-drawer" id="mobileDrawer"><button id="closeDrawer" style="position:absolute;top:20px;right:20px;color:rgba(255,255,255,.6);background:none;border:none;cursor:pointer;font-size:1.4rem">✕</button><a href="index.html#servicios" class="nav__link">Servicios</a><a href="index.html#contacto" class="nav__link">Contacto</a><a href="faq.html" class="nav__link">FAQ</a></nav>
+
+<div class="booking-page">
+  <div class="container">
+    <div class="booking-header"><h1>Reservar Turno</h1><p>G-M Peluqueros · Jorge Luis Borges 2241, Palermo</p></div>
+
+    <div style="max-width:700px;margin:0 auto 48px;display:flex;align-items:center;justify-content:center;gap:0" id="stepsBar">
+      <div class="booking-step booking-step--active" id="step-ind-1"><div class="booking-step__num">1</div><div class="booking-step__label">Servicio</div></div>
+      <div class="booking-step-connector" id="conn-1"></div>
+      <div class="booking-step" id="step-ind-2"><div class="booking-step__num">2</div><div class="booking-step__label">Profesional</div></div>
+      <div class="booking-step-connector" id="conn-2"></div>
+      <div class="booking-step" id="step-ind-3"><div class="booking-step__num">3</div><div class="booking-step__label">Fecha</div></div>
+      <div class="booking-step-connector" id="conn-3"></div>
+      <div class="booking-step" id="step-ind-4"><div class="booking-step__num">4</div><div class="booking-step__label">Horario</div></div>
+      <div class="booking-step-connector" id="conn-4"></div>
+      <div class="booking-step" id="step-ind-5"><div class="booking-step__num">5</div><div class="booking-step__label">Datos</div></div>
+    </div>
+
+    <div class="booking-panel" id="panel-1">
+      <h2>¿Qué servicio buscás?</h2>
+      <p class="sub">Seleccioná el servicio que deseás reservar</p>
+      <div style="margin-bottom:24px"><input type="text" id="serviceSearch" placeholder="🔍  Buscar servicio…" style="width:100%;padding:12px 16px;border:1.5px solid var(--color-border);border-radius:var(--radius-pill);font-size:.95rem;outline:none" oninput="filterServices(this.value)"></div>
+      <div id="servicesContainer">
+        <div style="margin-bottom:8px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--color-muted)">Cortes</div>
+        <div class="service-grid" style="margin-bottom:24px">
+          <div class="service-option" data-id="1" data-name="Corte de cabello mujer" data-duration="45" onclick="selectService(this)"><div class="service-option__icon">✂</div><div class="service-option__name">Corte mujer</div><div class="service-option__meta"><span>⏱ 45 min</span></div></div>
+          <div class="service-option" data-id="2" data-name="Corte de cabello hombre" data-duration="30" onclick="selectService(this)"><div class="service-option__icon">✂</div><div class="service-option__name">Corte hombre</div><div class="service-option__meta"><span>⏱ 30 min</span></div></div>
+          <div class="service-option" data-id="3" data-name="Corte + Brushing" data-duration="60" onclick="selectService(this)"><div class="service-option__icon">✂</div><div class="service-option__name">Corte + Brushing</div><div class="service-option__meta"><span>⏱ 60 min</span></div></div>
+        </div>
+        <div style="margin-bottom:8px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--color-muted)">Color y Mechas</div>
+        <div class="service-grid" style="margin-bottom:24px">
+          <div class="service-option" data-id="4" data-name="Coloración completa" data-duration="90" onclick="selectService(this)"><div class="service-option__icon">🎨</div><div class="service-option__name">Coloración completa</div><div class="service-option__meta"><span>⏱ 90 min</span></div></div>
+          <div class="service-option" data-id="5" data-name="Balayage / Mechas" data-duration="120" onclick="selectService(this)"><div class="service-option__icon">✨</div><div class="service-option__name">Balayage / Mechas</div><div class="service-option__meta"><span>⏱ 120 min</span></div></div>
+          <div class="service-option" data-id="6" data-name="Babylights" data-duration="150" onclick="selectService(this)"><div class="service-option__icon">💫</div><div class="service-option__name">Babylights</div><div class="service-option__meta"><span>⏱ 150 min</span></div></div>
+          <div class="service-option" data-id="7" data-name="Retoque de raíz" data-duration="60" onclick="selectService(this)"><div class="service-option__icon">🎨</div><div class="service-option__name">Retoque de raíz</div><div class="service-option__meta"><span>⏱ 60 min</span></div></div>
+        </div>
+        <div style="margin-bottom:8px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--color-muted)">Tratamientos y Alisados</div>
+        <div class="service-grid">
+          <div class="service-option" data-id="8" data-name="Hidratación profunda" data-duration="60" onclick="selectService(this)"><div class="service-option__icon">💧</div><div class="service-option__name">Hidratación profunda</div><div class="service-option__meta"><span>⏱ 60 min</span></div></div>
+          <div class="service-option" data-id="9" data-name="Keratina" data-duration="150" onclick="selectService(this)"><div class="service-option__icon">⚡</div><div class="service-option__name">Keratina</div><div class="service-option__meta"><span>⏱ 150 min</span></div></div>
+          <div class="service-option" data-id="10" data-name="Brushing" data-duration="40" onclick="selectService(this)"><div class="service-option__icon">💨</div><div class="service-option__name">Brushing</div><div class="service-option__meta"><span>⏱ 40 min</span></div></div>
+          <div class="service-option" data-id="11" data-name="Arreglo de barba" data-duration="20" onclick="selectService(this)"><div class="service-option__icon">✂</div><div class="service-option__name">Arreglo de barba</div><div class="service-option__meta"><span>⏱ 20 min</span></div></div>
+        </div>
+      </div>
+      <div class="booking-nav"><span style="font-size:.9rem;color:var(--color-muted)">Paso 1 de 5</span><button class="btn btn-primary" onclick="goToStep(2)" id="btn-step1" disabled>Siguiente →</button></div>
+    </div>
+
+    <div class="booking-panel hidden" id="panel-2">
+      <h2>¿Con quién querés atenderte?</h2>
+      <p class="sub" id="step2-sub">Seleccionaste: <strong id="selected-service-name">—</strong></p>
+      <div class="professional-grid">
+        <div class="professional-option professional-option--any" data-id="0" data-name="Cualquier profesional" onclick="selectProfessional(this)"><div style="width:72px;height:72px;border-radius:50%;background:var(--color-cream);display:flex;align-items:center;justify-content:center;font-size:1.8rem">🎲</div><div class="professional-option__name">Sin preferencia</div><div class="professional-option__role" style="color:var(--color-muted)">Más disponibilidad</div></div>
+        <div class="professional-option" data-id="1" data-name="Mariana G." onclick="selectProfessional(this)"><div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#8B6914,#C8A96E);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:white;font-weight:700">M</div><div class="professional-option__name">Mariana G.</div><div class="professional-option__role">Colorista</div><div style="font-size:.78rem;color:var(--color-muted)">★★★★★</div></div>
+        <div class="professional-option" data-id="2" data-name="Nicolás M." onclick="selectProfessional(this)"><div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#1a3a2a,#2D5A4F);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:white;font-weight:700">N</div><div class="professional-option__name">Nicolás M.</div><div class="professional-option__role">Peluquero</div><div style="font-size:.78rem;color:var(--color-muted)">★★★★★</div></div>
+        <div class="professional-option" data-id="3" data-name="Sofía R." onclick="selectProfessional(this)"><div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#3a1a2a,#6B3A5F);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:white;font-weight:700">S</div><div class="professional-option__name">Sofía R.</div><div class="professional-option__role">Peluquera</div><div style="font-size:.78rem;color:var(--color-muted)">★★★★★</div></div>
+      </div>
+      <div class="booking-nav"><button class="btn btn-outline-dark" onclick="goToStep(1)">← Volver</button><button class="btn btn-primary" onclick="goToStep(3)" id="btn-step2" disabled>Siguiente →</button></div>
+    </div>
+
+    <div class="booking-panel hidden" id="panel-3">
+      <h2>Elegí una fecha</h2>
+      <p class="sub" id="step3-sub">Mostrando disponibilidad</p>
+      <div class="calendar-wrapper" id="calendarWrapper"></div>
+      <div class="calendar-legend" style="margin-top:16px"><span><span class="legend-dot legend-dot--available"></span>Disponible</span><span><span class="legend-dot legend-dot--full"></span>Completo</span><span><span class="legend-dot legend-dot--closed"></span>Cerrado</span></div>
+      <div class="booking-nav"><button class="btn btn-outline-dark" onclick="goToStep(2)">← Volver</button><button class="btn btn-primary" onclick="goToStep(4)" id="btn-step3" disabled>Siguiente →</button></div>
+    </div>
+
+    <div class="booking-panel hidden" id="panel-4">
+      <div class="slots-header"><h2>Elegí un horario</h2><p class="sub" id="step4-sub">—</p></div>
+      <div class="slots-section-label">Mañana</div>
+      <div class="slots-grid" id="slots-morning">
+        <button class="slot-btn" onclick="selectSlot(this,'09:00')">09:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'09:30')">09:30</button>
+        <button class="slot-btn" onclick="selectSlot(this,'10:00')">10:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'10:30')">10:30</button>
+        <button class="slot-btn" onclick="selectSlot(this,'11:00')">11:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'11:30')">11:30</button>
+        <button class="slot-btn" disabled>12:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'12:30')">12:30</button>
+      </div>
+      <div class="slots-section-label">Tarde</div>
+      <div class="slots-grid" id="slots-afternoon">
+        <button class="slot-btn" onclick="selectSlot(this,'14:00')">14:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'14:30')">14:30</button>
+        <button class="slot-btn" disabled>15:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'15:30')">15:30</button>
+        <button class="slot-btn" onclick="selectSlot(this,'16:00')">16:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'16:30')">16:30</button>
+        <button class="slot-btn" onclick="selectSlot(this,'17:00')">17:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'18:00')">18:00</button>
+        <button class="slot-btn" onclick="selectSlot(this,'19:00')">19:00</button>
+      </div>
+      <div class="slot-duration hidden" id="slotDuration"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="slotDurationText">—</span></div>
+      <div class="booking-nav"><button class="btn btn-outline-dark" onclick="goToStep(3)">← Volver</button><button class="btn btn-primary" onclick="goToStep(5)" id="btn-step4" disabled>Siguiente →</button></div>
+    </div>
+
+    <div class="booking-panel hidden" id="panel-5">
+      <h2>Tus datos</h2>
+      <p class="sub">Completá tu información para confirmar el turno</p>
+      <form class="booking-form" id="bookingForm" onsubmit="submitBooking(event)">
+        <div class="form-row">
+          <div class="form-group"><label>Nombre *</label><input type="text" id="firstName" required placeholder="Tu nombre"></div>
+          <div class="form-group"><label>Apellido *</label><input type="text" id="lastName" required placeholder="Tu apellido"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Teléfono / WhatsApp *</label><input type="tel" id="phone" required placeholder="11 5555-5555"></div>
+          <div class="form-group"><label>Email *</label><input type="email" id="email" required placeholder="tu@email.com"></div>
+        </div>
+        <div class="form-group"><label>Notas (opcional)</label><textarea id="notes" placeholder="¿Alguna aclaración?"></textarea></div>
+        <label class="form-check"><input type="checkbox" id="whatsappOpt" checked><span>Recordatorio por WhatsApp</span></label>
+        <label class="form-check"><input type="checkbox" id="emailOpt" checked><span>Confirmación por email</span></label>
+        <div class="booking-summary">
+          <h4>Resumen</h4>
+          <div class="summary-row"><span>Servicio</span><span id="sum-service">—</span></div>
+          <div class="summary-row"><span>Profesional</span><span id="sum-prof">—</span></div>
+          <div class="summary-row"><span>Fecha</span><span id="sum-date">—</span></div>
+          <div class="summary-row"><span>Hora</span><span id="sum-time">—</span></div>
+          <hr class="summary-divider">
+          <div class="summary-row"><span>Duración</span><span id="sum-duration">—</span></div>
+          <div class="summary-row"><span>Local</span><span>Jorge Luis Borges 2241, Palermo</span></div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg w-full">✓ Confirmar turno gratis</button>
+        <p class="booking-note">Pagás al finalizar tu visita · Sin cargo por reserva online</p>
+      </form>
+      <div style="margin-top:16px"><button class="btn btn-outline-dark" onclick="goToStep(4)">← Volver</button></div>
+    </div>
+
+    <div class="booking-panel hidden" id="panel-confirm">
+      <div class="confirmation">
+        <div class="confirmation__icon"><svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h2>¡Turno confirmado!</h2>
+        <p>Te enviamos la confirmación por WhatsApp y email. ¡Te esperamos!</p>
+        <div class="confirmation__details">
+          <div class="summary-row" style="padding:8px 0;border-bottom:1px solid var(--color-border)"><span style="color:var(--color-muted)">Servicio</span><span id="conf-service">—</span></div>
+          <div class="summary-row" style="padding:8px 0;border-bottom:1px solid var(--color-border)"><span style="color:var(--color-muted)">Profesional</span><span id="conf-prof">—</span></div>
+          <div class="summary-row" style="padding:8px 0;border-bottom:1px solid var(--color-border)"><span style="color:var(--color-muted)">Fecha y hora</span><span id="conf-datetime">—</span></div>
+          <div class="summary-row" style="padding:8px 0"><span style="color:var(--color-muted)">Dirección</span><span>Jorge Luis Borges 2241, Palermo</span></div>
+        </div>
+        <div style="background:rgba(37,211,102,.08);border-radius:var(--radius-md);padding:16px;margin-bottom:24px;font-size:.9rem;color:var(--color-success)">📲 Recibirás un recordatorio por WhatsApp 24h y 1h antes.</div>
+        <div class="confirmation__actions">
+          <a href="#" id="addToCalendarBtn" class="btn btn-outline-dark btn-sm">📅 Agregar a Google Calendar</a>
+          <a href="https://wa.me/541148314376" target="_blank" class="btn btn-outline-dark btn-sm">💬 WhatsApp</a>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap">
+          <a href="index.html" class="btn btn-primary btn-sm">Volver al inicio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="https://wa.me/541148314376" target="_blank" class="whatsapp-float"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
+<script src="js/main.js"></script>
+<script src="js/booking.js"></script>
+</body>
+</html>
