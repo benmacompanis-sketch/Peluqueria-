@@ -5,7 +5,7 @@
 'use strict';
 
 const SUPABASE_URL = 'https://nelwxqhambuvqnbtyqid.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lbHd4cWhhbWJ1dnFuYnR5cWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMDQ1NTIsImV4cCI6MjA5NTg4MDU1Mn0.RhnAspgbvTkzIhNkl-jDQz6FfqhOmHpnoVR_zYna9Jw';
+const SUPABASE_KEY = 'sb_publishable_M5zOX7-GB8oSb8om2MEmOw_x3_dVwrV';
 
 // ── Estado del wizard ─────────────────────────────────────────────
 const booking = {
