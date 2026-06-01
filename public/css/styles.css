@@ -126,6 +126,15 @@ p { font-size: 1rem; color: var(--color-text); }
 }
 .btn-sm { padding: 10px 22px; font-size: .875rem; }
 .btn-lg { padding: 18px 48px; font-size: 1.05rem; }
+.btn-white {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+.btn-white:hover {
+  background: var(--color-cream);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255,255,255,.25);
+}
 
 /* ── Header / Nav ────────────────────────────────────────── */
 .header {
@@ -148,6 +157,7 @@ p { font-size: 1rem; color: var(--color-text); }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 48px;
 }
 .nav__logo {
   font-family: var(--font-serif);
@@ -161,7 +171,7 @@ p { font-size: 1rem; color: var(--color-text); }
 .nav__links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
 }
 .nav__link {
   color: rgba(255,255,255,.85);
@@ -395,6 +405,7 @@ p { font-size: 1rem; color: var(--color-text); }
   color: var(--color-muted);
   font-size: .85rem;
 }
+.service-card__price-badge { font-size:.82rem; font-weight:700; color:var(--color-gold); background:rgba(200,169,110,.1); padding:3px 8px; border-radius:var(--radius-sm); }
 
 /* ── CTA Banner ──────────────────────────────────────────── */
 .cta-banner {
@@ -539,6 +550,33 @@ p { font-size: 1rem; color: var(--color-text); }
 }
 .testimonial-card__name { font-weight: 600; font-size: .9rem; }
 .testimonial-card__since { color: var(--color-muted); font-size: .8rem; }
+
+/* ── Google Reviews ──────────────────────────────────────── */
+.reviews-section { background: var(--color-black); padding: var(--section-py) 0; }
+.reviews-header { display:flex; align-items:center; gap:24px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:var(--radius-lg); padding:20px 28px; margin-bottom:32px; flex-wrap:wrap; }
+.reviews-header__brand { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.reviews-header__brand-label { color:rgba(255,255,255,.7); font-size:.9rem; font-weight:500; }
+.reviews-header__score { display:flex; align-items:center; gap:10px; flex:1; }
+.reviews-header__num { font-size:1.8rem; font-weight:700; font-family:var(--font-serif); color:var(--color-gold); }
+.reviews-header__stars { color:var(--color-gold); font-size:1.2rem; letter-spacing:2px; }
+.reviews-header__sub { color:rgba(255,255,255,.45); font-size:.82rem; margin-top:2px; }
+.reviews-header__link { color:var(--color-gold); font-size:.88rem; font-weight:600; white-space:nowrap; text-decoration:none; transition:opacity .2s; }
+.reviews-header__link:hover { opacity:.75; }
+.reviews-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.review-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.09); border-radius:var(--radius-lg); padding:20px; display:flex; flex-direction:column; gap:14px; transition:background .2s, border-color .2s; }
+.review-card:hover { background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.16); }
+.review-card__top { display:flex; align-items:center; gap:12px; }
+.review-card__avatar { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; color:white; flex-shrink:0; }
+.review-card__info { flex:1; min-width:0; }
+.review-card__name { font-weight:600; font-size:.9rem; color:var(--color-white); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.review-card__role { color:rgba(255,255,255,.45); font-size:.75rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.review-card__meta { display:flex; align-items:center; justify-content:space-between; }
+.review-card__stars { color:var(--color-gold); font-size:.9rem; letter-spacing:1px; }
+.review-card__time { color:rgba(255,255,255,.4); font-size:.75rem; }
+.review-card__text { color:rgba(255,255,255,.72); font-size:.875rem; line-height:1.7; }
+.review-card__text mark { background:none; color:var(--color-gold); font-weight:600; }
+@media (max-width:1024px) { .reviews-grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px) { .reviews-grid { grid-template-columns:1fr; } .reviews-header { flex-direction:column; align-items:flex-start; gap:12px; } }
 
 /* ── Ubicación ───────────────────────────────────────────── */
 .ubicacion { padding: var(--section-py) 0; }
