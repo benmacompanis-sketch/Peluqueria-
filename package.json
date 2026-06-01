@@ -1,0 +1,12 @@
+{
+  "name": "gm-peluqueros-palermo",
+  "version": "1.0.0",
+  "description": "Sitio web profesional con sistema de turnos para G-M Peluqueros Palermo",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve public -l 3000",
+    "start": "npx serve public -l 8080"
+  },
+  "keywords": ["peluquería", "palermo", "turnos", "reservas"],
+  "author": "G-M Peluqueros Palermo"
+}

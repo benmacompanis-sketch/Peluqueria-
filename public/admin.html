@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panel de Administración — G-M Peluqueros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__header">
+      <div class="admin-sidebar__logo">G<span>·</span>M Admin</div>
+      <div class="admin-sidebar__role">Panel de Gestión</div>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav__section">Principal</div>
+      <a href="#dashboard" class="admin-nav__link active" onclick="showSection('dashboard',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="#agenda" class="admin-nav__link" onclick="showSection('agenda',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Agenda
+      </a>
+      <a href="#clientes" class="admin-nav__link" onclick="showSection('clientes',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Clientes
+      </a>
+
+      <div class="admin-nav__section">Gestión</div>
+      <a href="#empleados" class="admin-nav__link" onclick="showSection('empleados',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Empleados
+      </a>
+      <a href="#servicios" class="admin-nav__link" onclick="showSection('servicios',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg>
+        Servicios
+      </a>
+      <a href="#horarios" class="admin-nav__link" onclick="showSection('horarios',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Horarios
+      </a>
+
+      <div class="admin-nav__section">Reportes</div>
+      <a href="#estadisticas" class="admin-nav__link" onclick="showSection('estadisticas',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Estadísticas
+      </a>
+      <a href="#pagos" class="admin-nav__link" onclick="showSection('pagos',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Pagos
+      </a>
+
+      <div class="admin-nav__section">Sistema</div>
+      <a href="#configuracion" class="admin-nav__link" onclick="showSection('configuracion',this)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Configuración
+      </a>
+      <a href="index.html" class="admin-nav__link" style="margin-top:16px;color:rgba(255,255,255,.4)">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Volver al sitio
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1 id="pageTitle">Dashboard</h1>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-size:.85rem;color:var(--color-muted)" id="todayDate"></span>
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--color-gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--color-black);font-size:.9rem">A</div>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- ── DASHBOARD ─────────────────────────────────────────── -->
+      <div id="section-dashboard">
+        <div class="grid-4" style="margin-bottom:32px">
+          <div class="stat-card">
+            <div class="stat-card__label">Turnos hoy</div>
+            <div class="stat-card__value">12</div>
+            <div class="stat-card__change up">↑ 3 vs ayer</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Ingresos del mes</div>
+            <div class="stat-card__value" style="font-size:1.4rem">$284.000</div>
+            <div class="stat-card__change up">↑ 18% vs mes anterior</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Tasa de cancelación</div>
+            <div class="stat-card__value">8%</div>
+            <div class="stat-card__change down">↓ 2% vs mes anterior</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Clientes nuevos</div>
+            <div class="stat-card__value">34</div>
+            <div class="stat-card__change up">↑ 12% este mes</div>
+          </div>
+        </div>
+
+        <!-- Turnos de hoy -->
+        <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);margin-bottom:24px">
+          <div style="padding:20px 24px;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center">
+            <h3 style="font-size:1rem">Turnos de hoy — Domingo 1 de junio</h3>
+            <a href="#" class="btn btn-primary btn-sm" onclick="showSection('agenda')">Ver agenda completa</a>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Cliente</th>
+                  <th>Servicio</th>
+                  <th>Profesional</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>09:00</strong></td>
+                  <td>María González</td>
+                  <td>Corte + Brushing</td>
+                  <td>Mariana G.</td>
+                  <td><span class="badge badge-confirmed">Confirmado</span></td>
+                  <td>
+                    <button onclick="showToastAdmin('Marcado como completado')" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Completar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>10:00</strong></td>
+                  <td>Carlos Ruiz</td>
+                  <td>Coloración completa</td>
+                  <td>Mariana G.</td>
+                  <td><span class="badge badge-confirmed">Confirmado</span></td>
+                  <td><button onclick="showToastAdmin('Marcado como completado')" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Completar</button></td>
+                </tr>
+                <tr>
+                  <td><strong>10:30</strong></td>
+                  <td>Ana Martínez</td>
+                  <td>Corte hombre</td>
+                  <td>Nicolás M.</td>
+                  <td><span class="badge badge-pending">Pendiente</span></td>
+                  <td><button onclick="showToastAdmin('Turno confirmado')" style="color:var(--color-gold);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Confirmar</button></td>
+                </tr>
+                <tr>
+                  <td><strong>11:30</strong></td>
+                  <td>Laura Perez</td>
+                  <td>Balayage</td>
+                  <td>Mariana G.</td>
+                  <td><span class="badge badge-confirmed">Confirmado</span></td>
+                  <td><button onclick="showToastAdmin('Marcado como completado')" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Completar</button></td>
+                </tr>
+                <tr>
+                  <td><strong>14:00</strong></td>
+                  <td>Rodrigo Silva</td>
+                  <td>Keratina</td>
+                  <td>Sofía R.</td>
+                  <td><span class="badge badge-confirmed">Confirmado</span></td>
+                  <td><button onclick="showToastAdmin('Marcado como completado')" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Completar</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Servicios más populares -->
+        <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px">
+          <h3 style="font-size:1rem;margin-bottom:20px">Servicios más solicitados — Junio 2025</h3>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Corte mujer</span><span style="font-weight:600">31%</span></div>
+              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:31%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Coloración completa</span><span style="font-weight:600">24%</span></div>
+              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:24%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Balayage / Mechas</span><span style="font-weight:600">18%</span></div>
+              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:18%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Corte hombre</span><span style="font-weight:600">15%</span></div>
+              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:15%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Keratina</span><span style="font-weight:600">12%</span></div>
+              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:12%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AGENDA ─────────────────────────────────────────────── -->
+      <div id="section-agenda" class="hidden">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+          <div>
+            <h2 style="font-size:1.3rem">Agenda semanal</h2>
+            <p style="color:var(--color-muted);font-size:.9rem">Semana del 1 al 7 de junio de 2025</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="showToastAdmin('Función disponible en versión completa')">+ Nuevo turno manual</button>
+        </div>
+        <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden">
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Cliente</th>
+                  <th>Servicio</th>
+                  <th>Profesional</th>
+                  <th>Estado</th>
+                  <th>Fuente</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="agendaTableBody">
+                <!-- Generado por JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ESTADÍSTICAS ────────────────────────────────────────── -->
+      <div id="section-estadisticas" class="hidden">
+        <div class="grid-2" style="margin-bottom:32px">
+          <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px">
+            <h3 style="font-size:1rem;margin-bottom:20px">Ingresos mensuales (2025)</h3>
+            <div style="display:flex;align-items:flex-end;gap:12px;height:160px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
+                <span style="font-size:.7rem;color:var(--color-muted)">$180k</span>
+                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:45%"></div>
+                <span style="font-size:.72rem;color:var(--color-muted)">Ene</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
+                <span style="font-size:.7rem;color:var(--color-muted)">$210k</span>
+                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:52%"></div>
+                <span style="font-size:.72rem;color:var(--color-muted)">Feb</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
+                <span style="font-size:.7rem;color:var(--color-muted)">$240k</span>
+                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:60%"></div>
+                <span style="font-size:.72rem;color:var(--color-muted)">Mar</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
+                <span style="font-size:.7rem;color:var(--color-muted)">$220k</span>
+                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:55%"></div>
+                <span style="font-size:.72rem;color:var(--color-muted)">Abr</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
+                <span style="font-size:.7rem;color:var(--color-muted)">$260k</span>
+                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:65%"></div>
+                <span style="font-size:.72rem;color:var(--color-muted)">May</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
+                <span style="font-size:.7rem;color:var(--color-muted)">$284k</span>
+                <div style="width:100%;background:rgba(200,169,110,.4);border-radius:4px 4px 0 0;height:71%;border:2px dashed var(--color-gold)"></div>
+                <span style="font-size:.72rem;color:var(--color-gold);font-weight:700">Jun</span>
+              </div>
+            </div>
+          </div>
+          <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px">
+            <h3 style="font-size:1rem;margin-bottom:20px">Turnos por profesional — Junio</h3>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:8px;align-items:center">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:32px;height:32px;border-radius:50%;background:var(--color-gold);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--color-black)">M</div>
+                    Mariana G.
+                  </div>
+                  <span style="font-weight:700">34 turnos</span>
+                </div>
+                <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:85%;height:100%;background:#C8A96E;border-radius:var(--radius-pill)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:8px;align-items:center">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#2D5A4F;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:white">N</div>
+                    Nicolás M.
+                  </div>
+                  <span style="font-weight:700">28 turnos</span>
+                </div>
+                <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:70%;height:100%;background:#2D5A4F;border-radius:var(--radius-pill)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:8px;align-items:center">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#6B3A5F;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:white">S</div>
+                    Sofía R.
+                  </div>
+                  <span style="font-weight:700">21 turnos</span>
+                </div>
+                <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:52%;height:100%;background:#6B3A5F;border-radius:var(--radius-pill)"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-4">
+          <div class="stat-card">
+            <div class="stat-card__label">Total turnos (mes)</div>
+            <div class="stat-card__value">83</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Ticket promedio</div>
+            <div class="stat-card__value" style="font-size:1.4rem">$3.421</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Nuevos clientes</div>
+            <div class="stat-card__value">34</div>
+            <div class="stat-card__change up">↑ 12%</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Tasa de retorno</div>
+            <div class="stat-card__value">68%</div>
+            <div class="stat-card__change up">↑ 5%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Otros sections (placeholders) -->
+      <div id="section-clientes" class="hidden">
+        <h2 style="font-size:1.3rem;margin-bottom:24px">Gestión de Clientes</h2>
+        <p style="color:var(--color-muted)">Lista completa de clientes con historial de turnos, pagos y preferencias. Disponible en versión completa con backend.</p>
+      </div>
+      <div id="section-empleados" class="hidden">
+        <h2 style="font-size:1.3rem;margin-bottom:24px">Gestión de Empleados</h2>
+        <p style="color:var(--color-muted)">ABM de empleados, asignación de servicios, gestión de horarios y vacaciones. Disponible en versión completa con backend.</p>
+      </div>
+      <div id="section-servicios" class="hidden">
+        <h2 style="font-size:1.3rem;margin-bottom:24px">Gestión de Servicios</h2>
+        <p style="color:var(--color-muted)">Crear, editar y desactivar servicios. Configurar duración, precios y categorías. Disponible en versión completa con backend.</p>
+      </div>
+      <div id="section-horarios" class="hidden">
+        <h2 style="font-size:1.3rem;margin-bottom:24px">Gestión de Horarios</h2>
+        <p style="color:var(--color-muted)">Configurar horarios laborales semanales por empleado, gestionar ausencias y feriados. Disponible en versión completa con backend.</p>
+      </div>
+      <div id="section-pagos" class="hidden">
+        <h2 style="font-size:1.3rem;margin-bottom:24px">Registro de Pagos</h2>
+        <p style="color:var(--color-muted)">Historial completo de pagos, métodos utilizados, cierres de caja diarios. Disponible en versión completa con backend.</p>
+      </div>
+      <div id="section-configuracion" class="hidden">
+        <h2 style="font-size:1.3rem;margin-bottom:24px">Configuración del Sistema</h2>
+        <p style="color:var(--color-muted)">Configurar integraciones (WhatsApp, Google Calendar, MercadoPago), horarios generales del local, reglas de cancelación y recordatorios. Disponible en versión completa con backend.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  // Admin navigation
+  function showSection(id, linkEl) {
+    document.querySelectorAll('[id^="section-"]').forEach(s => s.classList.add('hidden'));
+    const section = document.getElementById('section-' + id);
+    if (section) section.classList.remove('hidden');
+
+    document.querySelectorAll('.admin-nav__link').forEach(l => l.classList.remove('active'));
+    if (linkEl) linkEl.classList.add('active');
+
+    const titles = { dashboard:'Dashboard', agenda:'Agenda', clientes:'Clientes', empleados:'Empleados', servicios:'Servicios', horarios:'Horarios', estadisticas:'Estadísticas', pagos:'Pagos', configuracion:'Configuración' };
+    document.getElementById('pageTitle').textContent = titles[id] || id;
+  }
+
+  // Today's date
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('es-AR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  // Demo agenda data
+  const demoTurnos = [
+    { hora:'09:00', cliente:'María González', servicio:'Corte + Brushing', prof:'Mariana G.', estado:'confirmed', fuente:'web' },
+    { hora:'09:30', cliente:'Pedro López', servicio:'Corte hombre', prof:'Nicolás M.', estado:'completed', fuente:'phone' },
+    { hora:'10:00', cliente:'Carlos Ruiz', servicio:'Coloración completa', prof:'Mariana G.', estado:'confirmed', fuente:'web' },
+    { hora:'10:30', cliente:'Ana Martínez', servicio:'Balayage', prof:'Mariana G.', estado:'pending', fuente:'web' },
+    { hora:'11:00', cliente:'Luis Torres', servicio:'Keratina', prof:'Sofía R.', estado:'confirmed', fuente:'whatsapp' },
+    { hora:'11:30', cliente:'Laura Pérez', servicio:'Corte mujer', prof:'Sofía R.', estado:'confirmed', fuente:'web' },
+    { hora:'14:00', cliente:'Marta Silva', servicio:'Babylights', prof:'Mariana G.', estado:'confirmed', fuente:'web' },
+    { hora:'15:30', cliente:'Jorge García', servicio:'Arreglo barba', prof:'Nicolás M.', estado:'cancelled', fuente:'web' },
+    { hora:'16:00', cliente:'Claudia Vega', servicio:'Hidratación', prof:'Sofía R.', estado:'confirmed', fuente:'phone' },
+  ];
+
+  const badgeMap = { confirmed:'badge-confirmed', pending:'badge-pending', completed:'badge-completed', cancelled:'badge-cancelled' };
+  const badgeTxt = { confirmed:'Confirmado', pending:'Pendiente', completed:'Completado', cancelled:'Cancelado' };
+  const fuenteMap = { web:'🌐 Web', phone:'📞 Teléfono', whatsapp:'💬 WhatsApp', walkin:'🚶 Presencial' };
+
+  const tbody = document.getElementById('agendaTableBody');
+  if (tbody) {
+    tbody.innerHTML = demoTurnos.map(t => `
+      <tr>
+        <td><strong>${t.hora}</strong></td>
+        <td>${t.cliente}</td>
+        <td>${t.servicio}</td>
+        <td>${t.prof}</td>
+        <td><span class="badge ${badgeMap[t.estado]}">${badgeTxt[t.estado]}</span></td>
+        <td style="font-size:.8rem;color:var(--color-muted)">${fuenteMap[t.fuente]||t.fuente}</td>
+        <td><button onclick="showToastAdmin('Acción ejecutada')" style="font-size:.8rem;color:var(--color-gold);font-weight:600;background:none;border:none;cursor:pointer">Ver</button></td>
+      </tr>
+    `).join('');
+  }
+
+  function showToastAdmin(msg) {
+    if (window.showToast) window.showToast(msg, 'success');
+  }
+</script>
+</body>
+</html>
