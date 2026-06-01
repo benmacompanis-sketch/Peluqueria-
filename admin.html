@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Panel de Administración — G-M Peluqueros</title>
+  <title>Admin — G-M Peluqueros</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
@@ -12,55 +12,15 @@
 <body>
 
 <div class="admin-layout">
-  <!-- Sidebar -->
   <aside class="admin-sidebar">
     <div class="admin-sidebar__header">
       <div class="admin-sidebar__logo">G<span>·</span>M Admin</div>
-      <div class="admin-sidebar__role">Panel de Gestión</div>
+      <div class="admin-sidebar__role">Panel de Reservas</div>
     </div>
     <nav class="admin-nav">
-      <div class="admin-nav__section">Principal</div>
-      <a href="#dashboard" class="admin-nav__link active" onclick="showSection('dashboard',this)">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Dashboard
-      </a>
-      <a href="#agenda" class="admin-nav__link" onclick="showSection('agenda',this)">
+      <a href="#" class="admin-nav__link active">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Agenda
-      </a>
-      <a href="#clientes" class="admin-nav__link" onclick="showSection('clientes',this)">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        Clientes
-      </a>
-
-      <div class="admin-nav__section">Gestión</div>
-      <a href="#empleados" class="admin-nav__link" onclick="showSection('empleados',this)">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Empleados
-      </a>
-      <a href="#servicios" class="admin-nav__link" onclick="showSection('servicios',this)">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg>
-        Servicios
-      </a>
-      <a href="#horarios" class="admin-nav__link" onclick="showSection('horarios',this)">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Horarios
-      </a>
-
-      <div class="admin-nav__section">Reportes</div>
-      <a href="#estadisticas" class="admin-nav__link" onclick="showSection('estadisticas',this)">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Estadísticas
-      </a>
-      <a href="#pagos" class="admin-nav__link" onclick="showSection('pagos',this)">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        Pagos
-      </a>
-
-      <div class="admin-nav__section">Sistema</div>
-      <a href="#configuracion" class="admin-nav__link" onclick="showSection('configuracion',this)">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-        Configuración
       </a>
       <a href="index.html" class="admin-nav__link" style="margin-top:16px;color:rgba(255,255,255,.4)">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -69,253 +29,68 @@
     </nav>
   </aside>
 
-  <!-- Main content -->
   <div class="admin-main">
     <div class="admin-topbar">
-      <h1 id="pageTitle">Dashboard</h1>
+      <h1>Agenda de Reservas</h1>
       <div style="display:flex;align-items:center;gap:16px">
         <span style="font-size:.85rem;color:var(--color-muted)" id="todayDate"></span>
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--color-gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--color-black);font-size:.9rem">A</div>
+        <button onclick="cargarReservas()" style="background:none;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:6px 14px;font-size:.85rem;cursor:pointer;color:var(--color-muted)">↺ Actualizar</button>
       </div>
     </div>
 
     <div class="admin-content">
+      <!-- Filtros -->
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+        <button class="filter-btn active" onclick="filtrar('todos',this)">Todos</button>
+        <button class="filter-btn" onclick="filtrar('pendiente',this)">Pendientes</button>
+        <button class="filter-btn" onclick="filtrar('confirmado',this)">Confirmados</button>
+        <button class="filter-btn" onclick="filtrar('completado',this)">Completados</button>
+        <button class="filter-btn" onclick="filtrar('cancelado',this)">Cancelados</button>
+      </div>
 
-      <!-- ── DASHBOARD ─────────────────────────────────────────── -->
-      <div id="section-dashboard">
-        <div class="grid-4" style="margin-bottom:32px">
-          <div class="stat-card">
-            <div class="stat-card__label">Turnos hoy</div>
-            <div class="stat-card__value">12</div>
-            <div class="stat-card__change up">↑ 3 vs ayer</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">Ingresos del mes</div>
-            <div class="stat-card__value" style="font-size:1.4rem">$284.000</div>
-            <div class="stat-card__change up">↑ 18% vs mes anterior</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">Tasa de cancelación</div>
-            <div class="stat-card__value">8%</div>
-            <div class="stat-card__change down">↓ 2% vs mes anterior</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">Clientes nuevos</div>
-            <div class="stat-card__value">34</div>
-            <div class="stat-card__change up">↑ 12% este mes</div>
-          </div>
-        </div>
-
-        <!-- Turnos de hoy -->
-        <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);margin-bottom:24px">
-          <div style="padding:20px 24px;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center">
-            <h3 style="font-size:1rem" id="todayTableTitle">Turnos de hoy</h3>
-            <a href="#" class="btn btn-primary btn-sm" onclick="showSection('agenda')">Ver agenda completa</a>
-          </div>
-          <div style="overflow-x:auto">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Hora</th>
-                  <th>Cliente</th>
-                  <th>Servicio</th>
-                  <th>Profesional</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody id="todayTableBody">
-                <tr><td colspan="6" style="text-align:center;color:var(--color-muted);padding:32px">Cargando turnos…</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Servicios más populares -->
-        <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px">
-          <h3 style="font-size:1rem;margin-bottom:20px">Servicios más solicitados — Junio 2025</h3>
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Corte mujer</span><span style="font-weight:600">31%</span></div>
-              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:31%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Coloración completa</span><span style="font-weight:600">24%</span></div>
-              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:24%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Balayage / Mechas</span><span style="font-weight:600">18%</span></div>
-              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:18%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Corte hombre</span><span style="font-weight:600">15%</span></div>
-              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:15%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px"><span>Keratina</span><span style="font-weight:600">12%</span></div>
-              <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:12%;height:100%;background:var(--color-gold);border-radius:var(--radius-pill)"></div></div>
-            </div>
-          </div>
+      <!-- Tabla -->
+      <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden">
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Profesional</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="reservasTableBody">
+              <tr><td colspan="7" style="text-align:center;color:var(--color-muted);padding:40px">Cargando reservas…</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-
-      <!-- ── AGENDA ─────────────────────────────────────────────── -->
-      <div id="section-agenda" class="hidden">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
-          <div>
-            <h2 style="font-size:1.3rem">Agenda semanal</h2>
-            <p style="color:var(--color-muted);font-size:.9rem">Semana del 1 al 7 de junio de 2025</p>
-          </div>
-          <button class="btn btn-primary btn-sm" onclick="showToastAdmin('Función disponible en versión completa')">+ Nuevo turno manual</button>
-        </div>
-        <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden">
-          <div style="overflow-x:auto">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Hora</th>
-                  <th>Cliente</th>
-                  <th>Servicio</th>
-                  <th>Profesional</th>
-                  <th>Estado</th>
-                  <th>Fuente</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="agendaTableBody">
-                <!-- Generado por JS -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── ESTADÍSTICAS ────────────────────────────────────────── -->
-      <div id="section-estadisticas" class="hidden">
-        <div class="grid-2" style="margin-bottom:32px">
-          <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px">
-            <h3 style="font-size:1rem;margin-bottom:20px">Ingresos mensuales (2025)</h3>
-            <div style="display:flex;align-items:flex-end;gap:12px;height:160px">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
-                <span style="font-size:.7rem;color:var(--color-muted)">$180k</span>
-                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:45%"></div>
-                <span style="font-size:.72rem;color:var(--color-muted)">Ene</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
-                <span style="font-size:.7rem;color:var(--color-muted)">$210k</span>
-                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:52%"></div>
-                <span style="font-size:.72rem;color:var(--color-muted)">Feb</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
-                <span style="font-size:.7rem;color:var(--color-muted)">$240k</span>
-                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:60%"></div>
-                <span style="font-size:.72rem;color:var(--color-muted)">Mar</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
-                <span style="font-size:.7rem;color:var(--color-muted)">$220k</span>
-                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:55%"></div>
-                <span style="font-size:.72rem;color:var(--color-muted)">Abr</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
-                <span style="font-size:.7rem;color:var(--color-muted)">$260k</span>
-                <div style="width:100%;background:var(--color-gold);border-radius:4px 4px 0 0;height:65%"></div>
-                <span style="font-size:.72rem;color:var(--color-muted)">May</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1">
-                <span style="font-size:.7rem;color:var(--color-muted)">$284k</span>
-                <div style="width:100%;background:rgba(200,169,110,.4);border-radius:4px 4px 0 0;height:71%;border:2px dashed var(--color-gold)"></div>
-                <span style="font-size:.72rem;color:var(--color-gold);font-weight:700">Jun</span>
-              </div>
-            </div>
-          </div>
-          <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px">
-            <h3 style="font-size:1rem;margin-bottom:20px">Turnos por profesional — Junio</h3>
-            <div style="display:flex;flex-direction:column;gap:16px">
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:8px;align-items:center">
-                  <div style="display:flex;align-items:center;gap:8px">
-                    <div style="width:32px;height:32px;border-radius:50%;background:var(--color-gold);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--color-black)">M</div>
-                    Mariana G.
-                  </div>
-                  <span style="font-weight:700">34 turnos</span>
-                </div>
-                <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:85%;height:100%;background:#C8A96E;border-radius:var(--radius-pill)"></div></div>
-              </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:8px;align-items:center">
-                  <div style="display:flex;align-items:center;gap:8px">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#2D5A4F;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:white">N</div>
-                    Nicolás M.
-                  </div>
-                  <span style="font-weight:700">28 turnos</span>
-                </div>
-                <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:70%;height:100%;background:#2D5A4F;border-radius:var(--radius-pill)"></div></div>
-              </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:8px;align-items:center">
-                  <div style="display:flex;align-items:center;gap:8px">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#6B3A5F;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:white">S</div>
-                    Sofía R.
-                  </div>
-                  <span style="font-weight:700">21 turnos</span>
-                </div>
-                <div style="height:8px;background:var(--color-border);border-radius:var(--radius-pill)"><div style="width:52%;height:100%;background:#6B3A5F;border-radius:var(--radius-pill)"></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-4">
-          <div class="stat-card">
-            <div class="stat-card__label">Total turnos (mes)</div>
-            <div class="stat-card__value">83</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">Ticket promedio</div>
-            <div class="stat-card__value" style="font-size:1.4rem">$3.421</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">Nuevos clientes</div>
-            <div class="stat-card__value">34</div>
-            <div class="stat-card__change up">↑ 12%</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__label">Tasa de retorno</div>
-            <div class="stat-card__value">68%</div>
-            <div class="stat-card__change up">↑ 5%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Otros sections (placeholders) -->
-      <div id="section-clientes" class="hidden">
-        <h2 style="font-size:1.3rem;margin-bottom:24px">Gestión de Clientes</h2>
-        <p style="color:var(--color-muted)">Lista completa de clientes con historial de turnos, pagos y preferencias. Disponible en versión completa con backend.</p>
-      </div>
-      <div id="section-empleados" class="hidden">
-        <h2 style="font-size:1.3rem;margin-bottom:24px">Gestión de Empleados</h2>
-        <p style="color:var(--color-muted)">ABM de empleados, asignación de servicios, gestión de horarios y vacaciones. Disponible en versión completa con backend.</p>
-      </div>
-      <div id="section-servicios" class="hidden">
-        <h2 style="font-size:1.3rem;margin-bottom:24px">Gestión de Servicios</h2>
-        <p style="color:var(--color-muted)">Crear, editar y desactivar servicios. Configurar duración, precios y categorías. Disponible en versión completa con backend.</p>
-      </div>
-      <div id="section-horarios" class="hidden">
-        <h2 style="font-size:1.3rem;margin-bottom:24px">Gestión de Horarios</h2>
-        <p style="color:var(--color-muted)">Configurar horarios laborales semanales por empleado, gestionar ausencias y feriados. Disponible en versión completa con backend.</p>
-      </div>
-      <div id="section-pagos" class="hidden">
-        <h2 style="font-size:1.3rem;margin-bottom:24px">Registro de Pagos</h2>
-        <p style="color:var(--color-muted)">Historial completo de pagos, métodos utilizados, cierres de caja diarios. Disponible en versión completa con backend.</p>
-      </div>
-      <div id="section-configuracion" class="hidden">
-        <h2 style="font-size:1.3rem;margin-bottom:24px">Configuración del Sistema</h2>
-        <p style="color:var(--color-muted)">Configurar integraciones (WhatsApp, Google Calendar, MercadoPago), horarios generales del local, reglas de cancelación y recordatorios. Disponible en versión completa con backend.</p>
-      </div>
-
     </div>
   </div>
 </div>
+
+<style>
+.filter-btn {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: white;
+  font-size: .85rem;
+  cursor: pointer;
+  color: var(--color-muted);
+  font-weight: 500;
+  transition: all .2s;
+}
+.filter-btn.active, .filter-btn:hover {
+  background: var(--color-black);
+  color: white;
+  border-color: var(--color-black);
+}
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="js/main.js"></script>
@@ -327,130 +102,73 @@
   const badgeMap = { pendiente:'badge-pending', confirmado:'badge-confirmed', completado:'badge-completed', cancelado:'badge-cancelled' };
   const badgeTxt = { pendiente:'Pendiente', confirmado:'Confirmado', completado:'Completado', cancelado:'Cancelado' };
 
-  // ── Supabase helpers ───────────────────────────────────────────────
-  async function sbFetch(table, query) {
-    let q = db.from(table).select('*');
-    if (query) q = query(q);
-    const { data, error } = await q;
-    if (error) throw new Error(error.message);
-    return data;
-  }
+  let todasReservas = [];
+  let filtroActivo = 'todos';
 
-  async function sbPatch(id, data) {
-    const { error } = await db.from('reservas').update(data).eq('id', id);
-    if (error) throw new Error(error.message);
-  }
-
-  // ── Render fila de reserva ─────────────────────────────────────────
-  function filaReserva(r, mostrarFecha) {
-    const badge = badgeMap[r.estado] || 'badge-pending';
-    const txt   = badgeTxt[r.estado] || r.estado;
-    const fecha = mostrarFecha ? `<td style="font-size:.82rem;color:var(--color-muted)">${r.fecha}</td>` : '';
-    let acciones = '';
-    if (r.estado === 'pendiente') {
-      acciones = `<button onclick="cambiarEstado('${r.id}','confirmado',this)" style="color:var(--color-gold);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Confirmar</button>`;
-    } else if (r.estado === 'confirmado') {
-      acciones = `<button onclick="cambiarEstado('${r.id}','completado',this)" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Completar</button>`;
+  async function cargarReservas() {
+    const tbody = document.getElementById('reservasTableBody');
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--color-muted);padding:40px">Cargando…</td></tr>';
+    try {
+      const { data, error } = await db.from('reservas').select('*').order('fecha', { ascending: false }).order('hora').limit(200);
+      if (error) throw error;
+      todasReservas = data;
+      renderTabla();
+    } catch(e) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#e74c3c;padding:40px">Error: ${e.message}</td></tr>`;
     }
-    if (r.estado !== 'cancelado' && r.estado !== 'completado') {
-      acciones += `<button onclick="cambiarEstado('${r.id}','cancelado',this)" style="color:#e74c3c;font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✗ Cancelar</button>`;
-    }
-    return `<tr id="row-${r.id}">
-      <td><strong>${r.hora}</strong></td>
-      <td>${r.nombre} ${r.apellido}<br><span style="font-size:.75rem;color:var(--color-muted)">${r.telefono}</span></td>
-      <td>${r.servicio}</td>
-      <td>${r.profesional || '—'}</td>
-      ${fecha}
-      <td><span class="badge ${badge}">${txt}</span></td>
-      <td>${acciones}</td>
-    </tr>`;
   }
 
-  // ── Cambiar estado ─────────────────────────────────────────────────
+  function renderTabla() {
+    const tbody = document.getElementById('reservasTableBody');
+    const lista = filtroActivo === 'todos' ? todasReservas : todasReservas.filter(r => r.estado === filtroActivo);
+    if (!lista.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--color-muted);padding:40px">No hay reservas</td></tr>';
+      return;
+    }
+    tbody.innerHTML = lista.map(r => {
+      const badge = badgeMap[r.estado] || 'badge-pending';
+      const txt   = badgeTxt[r.estado] || r.estado;
+      let acciones = '';
+      if (r.estado === 'pendiente') {
+        acciones = `<button onclick="cambiarEstado('${r.id}','confirmado',this)" style="color:var(--color-gold);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Confirmar</button>`;
+      } else if (r.estado === 'confirmado') {
+        acciones = `<button onclick="cambiarEstado('${r.id}','completado',this)" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Completar</button>`;
+      }
+      if (r.estado !== 'cancelado' && r.estado !== 'completado') {
+        acciones += `<button onclick="cambiarEstado('${r.id}','cancelado',this)" style="color:#e74c3c;font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✗ Cancelar</button>`;
+      }
+      return `<tr id="row-${r.id}">
+        <td style="font-size:.85rem">${r.fecha}</td>
+        <td><strong>${r.hora}</strong></td>
+        <td>${r.nombre} ${r.apellido}<br><span style="font-size:.75rem;color:var(--color-muted)">${r.telefono}</span></td>
+        <td>${r.servicio}</td>
+        <td>${r.profesional || '—'}</td>
+        <td><span class="badge ${badge}">${txt}</span></td>
+        <td>${acciones}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  window.filtrar = function(estado, btn) {
+    filtroActivo = estado;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTabla();
+  };
+
   window.cambiarEstado = async function(id, nuevoEstado, btn) {
     btn.disabled = true;
     btn.textContent = '…';
-    try {
-      await sbPatch(id, { estado: nuevoEstado });
-      const row = document.getElementById(`row-${id}`);
-      const badgeTd = row.querySelector('.badge');
-      badgeTd.className = `badge ${badgeMap[nuevoEstado]}`;
-      badgeTd.textContent = badgeTxt[nuevoEstado];
-      const td = btn.parentElement;
-      td.innerHTML = nuevoEstado === 'completado' ? '<span style="color:var(--color-success);font-size:.82rem">✓ Completado</span>' :
-                     nuevoEstado === 'cancelado'  ? '<span style="color:#e74c3c;font-size:.82rem">✗ Cancelado</span>'  :
-                     `<button onclick="cambiarEstado('${id}','completado',this)" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Completar</button><button onclick="cambiarEstado('${id}','cancelado',this)" style="color:#e74c3c;font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✗ Cancelar</button>`;
-      showToastAdmin(`Estado actualizado: ${badgeTxt[nuevoEstado]}`);
-    } catch {
-      btn.disabled = false;
-      btn.textContent = 'Error';
-      showToastAdmin('No se pudo actualizar');
-    }
+    const { error } = await db.from('reservas').update({ estado: nuevoEstado }).eq('id', id);
+    if (error) { btn.disabled = false; btn.textContent = 'Error'; return; }
+    const r = todasReservas.find(x => x.id === id);
+    if (r) r.estado = nuevoEstado;
+    renderTabla();
+    if (window.showToast) window.showToast('Estado actualizado', 'success');
   };
 
-  // ── Cargar turnos de hoy ───────────────────────────────────────────
-  async function cargarHoy() {
-    const hoy = new Date().toISOString().split('T')[0];
-    const tbody = document.getElementById('todayTableBody');
-    const title = document.getElementById('todayTableTitle');
-    try {
-      const data = await sbFetch('reservas', q => q.eq('fecha', hoy).order('hora'));
-      const label = new Date().toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' });
-      title.textContent = `Turnos de hoy — ${label.charAt(0).toUpperCase() + label.slice(1)}`;
-
-      // Stats
-      document.querySelector('.stat-card:nth-child(1) .stat-card__value').textContent = data.length;
-
-      if (!data.length) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--color-muted);padding:32px">No hay turnos para hoy</td></tr>';
-        return;
-      }
-      tbody.innerHTML = data.map(r => filaReserva(r, false)).join('');
-    } catch {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#e74c3c;padding:32px">Error al cargar turnos</td></tr>';
-    }
-  }
-
-  // ── Cargar agenda completa ─────────────────────────────────────────
-  async function cargarAgenda() {
-    const tbody = document.getElementById('agendaTableBody');
-    try {
-      const data = await sbFetch('reservas', q => q.order('fecha', { ascending: false }).order('hora').limit(100));
-      if (!data.length) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--color-muted);padding:32px">No hay reservas aún</td></tr>';
-        return;
-      }
-      tbody.innerHTML = data.map(r => filaReserva(r, true)).join('');
-    } catch {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#e74c3c;padding:32px">Error al cargar agenda</td></tr>';
-    }
-  }
-
-  // ── Nav ────────────────────────────────────────────────────────────
-  function showSection(id, linkEl) {
-    document.querySelectorAll('[id^="section-"]').forEach(s => s.classList.add('hidden'));
-    const section = document.getElementById('section-' + id);
-    if (section) section.classList.remove('hidden');
-    document.querySelectorAll('.admin-nav__link').forEach(l => l.classList.remove('active'));
-    if (linkEl) linkEl.classList.add('active');
-    const titles = { dashboard:'Dashboard', agenda:'Agenda', clientes:'Clientes', empleados:'Empleados', servicios:'Servicios', horarios:'Horarios', estadisticas:'Estadísticas', pagos:'Pagos', configuracion:'Configuración' };
-    document.getElementById('pageTitle').textContent = titles[id] || id;
-    if (id === 'agenda') cargarAgenda();
-  }
-
-  function showToastAdmin(msg) {
-    if (window.showToast) window.showToast(msg, 'success');
-  }
-
-  // ── Actualizar thead de agenda para incluir columna Fecha ──────────
-  const agendaThead = document.querySelector('#section-agenda thead tr');
-  if (agendaThead) {
-    agendaThead.innerHTML = '<th>Hora</th><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Fecha</th><th>Estado</th><th>Acciones</th>';
-  }
-
-  // ── Init ───────────────────────────────────────────────────────────
   document.getElementById('todayDate').textContent = new Date().toLocaleDateString('es-AR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-  cargarHoy();
+  cargarReservas();
 </script>
 </body>
 </html>
