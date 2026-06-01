@@ -5,7 +5,8 @@
 'use strict';
 
 const SUPABASE_URL = 'https://nelwxqhambuvqnbtyqid.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_M5zOX7-GB8oSb8om2MEmOw_x3_dVwrV';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lbHd4cWhhbWJ1dnFuYnR5cWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMDQ1NTIsImV4cCI6MjA5NTg4MDU1Mn0.RhnAspgbvTkzIhNkl-jDQz6FfqhOmHpnoVR_zYna9Jw';
+const db = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
 // ── Estado del wizard ─────────────────────────────────────────────
 const booking = {
@@ -241,18 +242,16 @@ window.submitBooking = function(e) {
     estado:      'pendiente'
   };
 
-  fetch(`${SUPABASE_URL}/rest/v1/reservas`, {
-    method: 'POST',
-    headers: {
-      'Content-Type':  'application/json',
-      'apikey':        SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Prefer':        'return=minimal'
-    },
-    body: JSON.stringify(reserva)
-  })
-  .then(res => {
-    if (!res.ok) throw new Error('Error al guardar la reserva');
+  const insertPromise = db
+    ? db.from('reservas').insert([reserva])
+    : fetch(`${SUPABASE_URL}/rest/v1/reservas`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
+        body: JSON.stringify(reserva)
+      }).then(r => ({ error: r.ok ? null : { message: 'Error HTTP' } }));
+
+  insertPromise.then(({ error }) => {
+    if (error) throw new Error(error.message);
 
     document.getElementById('conf-service').textContent = reserva.servicio || '—';
     document.getElementById('conf-prof').textContent    = reserva.profesional || '—';

@@ -317,34 +317,28 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="js/main.js"></script>
 <script>
   const SB_URL = 'https://nelwxqhambuvqnbtyqid.supabase.co';
-  const SB_KEY = 'sb_publishable_M5zOX7-GB8oSb8om2MEmOw_x3_dVwrV';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lbHd4cWhhbWJ1dnFuYnR5cWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMDQ1NTIsImV4cCI6MjA5NTg4MDU1Mn0.RhnAspgbvTkzIhNkl-jDQz6FfqhOmHpnoVR_zYna9Jw';
+  const db = window.supabase.createClient(SB_URL, SB_KEY);
 
   const badgeMap = { pendiente:'badge-pending', confirmado:'badge-confirmed', completado:'badge-completed', cancelado:'badge-cancelled' };
   const badgeTxt = { pendiente:'Pendiente', confirmado:'Confirmado', completado:'Completado', cancelado:'Cancelado' };
 
   // ── Supabase helpers ───────────────────────────────────────────────
-  async function sbFetch(path) {
-    const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
-      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
-    });
-    if (!res.ok) throw new Error('Error al cargar datos');
-    return res.json();
+  async function sbFetch(table, query) {
+    let q = db.from(table).select('*');
+    if (query) q = query(q);
+    const { data, error } = await q;
+    if (error) throw new Error(error.message);
+    return data;
   }
 
   async function sbPatch(id, data) {
-    await fetch(`${SB_URL}/rest/v1/reservas?id=eq.${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SB_KEY,
-        'Authorization': `Bearer ${SB_KEY}`,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(data)
-    });
+    const { error } = await db.from('reservas').update(data).eq('id', id);
+    if (error) throw new Error(error.message);
   }
 
   // ── Render fila de reserva ─────────────────────────────────────────
@@ -400,7 +394,7 @@
     const tbody = document.getElementById('todayTableBody');
     const title = document.getElementById('todayTableTitle');
     try {
-      const data = await sbFetch(`reservas?fecha=eq.${hoy}&order=hora.asc`);
+      const data = await sbFetch('reservas', q => q.eq('fecha', hoy).order('hora'));
       const label = new Date().toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' });
       title.textContent = `Turnos de hoy — ${label.charAt(0).toUpperCase() + label.slice(1)}`;
 
@@ -421,7 +415,7 @@
   async function cargarAgenda() {
     const tbody = document.getElementById('agendaTableBody');
     try {
-      const data = await sbFetch('reservas?order=fecha.desc,hora.asc&limit=100');
+      const data = await sbFetch('reservas', q => q.order('fecha', { ascending: false }).order('hora').limit(100));
       if (!data.length) {
         tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--color-muted);padding:32px">No hay reservas aún</td></tr>';
         return;
