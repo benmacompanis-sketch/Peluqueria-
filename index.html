@@ -5,19 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="G-M Peluqueros Palermo — Tu peluquería unisex en el corazón de Palermo Viejo. Cortes, color, mechas, balayage y tratamientos capilares. Reservá tu turno online. Jorge Luis Borges 2241, CABA.">
   <meta name="keywords" content="peluquería palermo, peluquería palermo viejo, corte pelo palermo, balayage palermo, mechas palermo, keratina palermo, turno peluquería palermo, unisex">
+  <meta name="author" content="G-M Peluqueros Palermo">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.gmpeluqueros.com.ar/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.gmpeluqueros.com.ar/">
+  <meta property="og:title" content="G-M Peluqueros Palermo — Cortes, Color y Tratamientos">
+  <meta property="og:description" content="Peluquería unisex en Palermo Viejo. Profesionales de confianza, precios accesibles. Reservá tu turno online.">
+  <meta property="og:image" content="https://www.gmpeluqueros.com.ar/images/og-image.jpg">
+
   <title>G-M Peluqueros Palermo — Peluquería Unisex en Palermo Viejo</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "HairSalon",
     "name": "G-M Peluqueros Palermo",
-    "description": "Peluquería unisex en Palermo Viejo, Buenos Aires.",
-    "url": "https://benmacompanis-sketch.github.io/Peluqueria-/",
+    "description": "Peluquería unisex en Palermo Viejo, Buenos Aires. Cortes, coloración, mechas, balayage, keratina y tratamientos capilares. Turno online disponible.",
+    "url": "https://www.gmpeluqueros.com.ar",
     "telephone": "+541148314376",
     "address": {
       "@type": "PostalAddress",
@@ -26,22 +41,33 @@
       "addressRegion": "Buenos Aires",
       "postalCode": "C1425FFE",
       "addressCountry": "AR"
-    }
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": -34.5881, "longitude": -58.4293 },
+    "openingHoursSpecification": [
+      {"@type": "OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"20:00"},
+      {"@type": "OpeningHoursSpecification","dayOfWeek":["Saturday"],"opens":"09:00","closes":"18:00"}
+    ],
+    "priceRange": "$$",
+    "sameAs": ["https://www.instagram.com/peluquerosgm","https://www.facebook.com/p/GM-Peluqueros-Palermo-100063585002049"]
   }
   </script>
 </head>
 <body>
+
+<!-- ═══════════════════════════ HEADER ════════════════════════════ -->
 <header class="header header--transparent" id="header">
   <div class="container">
     <nav class="nav">
-      <a href="index.html" class="nav__logo">G<span>·</span>M <small style="font-size:.7em;font-weight:400;opacity:.7">Peluqueros</small></a>
+      <a href="/" class="nav__logo">G<span>·</span>M <small style="font-size:.7em;font-weight:400;opacity:.7">Peluqueros</small></a>
+
       <div class="nav__links">
         <a href="#servicios" class="nav__link">Servicios</a>
-        <a href="#galeria" class="nav__link">Galería</a>
-        <a href="#equipo" class="nav__link">Equipo</a>
-        <a href="#contacto" class="nav__link">Contacto</a>
-        <a href="faq.html" class="nav__link">FAQ</a>
+        <a href="galeria.html" class="nav__link">Galería</a>
+        <a href="equipo.html" class="nav__link">Equipo</a>
+        <a href="blog.html" class="nav__link">Blog</a>
+        <a href="contacto.html" class="nav__link">Contacto</a>
       </div>
+
       <div style="display:flex;align-items:center;gap:16px">
         <a href="tel:+541148314376" class="nav__phone" aria-label="Llamar">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.82 19.79 19.79 0 01.67 2.18 2 2 0 012.65 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
@@ -49,22 +75,30 @@
         </a>
         <a href="turnos.html" class="btn btn-primary btn-sm nav__cta">Reservar turno</a>
       </div>
-      <button class="nav__burger" id="burgerBtn" aria-label="Menú"><span></span><span></span><span></span></button>
+
+      <button class="nav__burger" id="burgerBtn" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
   </div>
 </header>
+
+<!-- Mobile drawer -->
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <nav class="nav__mobile-drawer" id="mobileDrawer">
   <button id="closeDrawer" style="position:absolute;top:20px;right:20px;color:rgba(255,255,255,.6);background:none;border:none;cursor:pointer;font-size:1.4rem">✕</button>
   <a href="#servicios" class="nav__link">Servicios</a>
-  <a href="#galeria" class="nav__link">Galería</a>
-  <a href="#equipo" class="nav__link">Equipo</a>
-  <a href="#contacto" class="nav__link">Contacto</a>
+  <a href="galeria.html" class="nav__link">Galería</a>
+  <a href="equipo.html" class="nav__link">Equipo</a>
+  <a href="blog.html" class="nav__link">Blog</a>
+  <a href="contacto.html" class="nav__link">Contacto</a>
   <a href="faq.html" class="nav__link">FAQ</a>
+  <a href="contacto.html" class="nav__link">Contacto</a>
   <a href="turnos.html" class="btn btn-primary w-full" style="margin-top:16px;text-align:center">Reservar turno</a>
   <a href="tel:+541148314376" style="margin-top:12px;color:rgba(255,255,255,.5);font-size:.9rem;text-align:center">☎ 11 4831-4376</a>
 </nav>
 
+<!-- ═══════════════════════════ HERO ══════════════════════════════ -->
 <section class="hero" id="inicio">
   <div class="hero__bg"></div>
   <div class="container">
@@ -89,23 +123,34 @@
       </div>
     </div>
   </div>
+  <div class="hero__scroll">
+    <span>Scroll</span>
+    <svg width="16" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 16 24"><rect x="1" y="1" width="14" height="22" rx="7"/><line x1="8" y1="6" x2="8" y2="10"/></svg>
+  </div>
 </section>
 
+<!-- ═══════════════════ PILARES (propuesta de valor) ══════════════ -->
 <section class="pilares section--cream">
   <div class="container">
     <div class="grid-3">
       <div class="pilar-card reveal">
-        <div class="pilar-card__icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg></div>
+        <div class="pilar-card__icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+        </div>
         <h3>Profesionales de confianza</h3>
-        <p>Más de 15 años formando estilistas apasionados que se actualizan con las últimas tendencias.</p>
+        <p>Más de 15 años formando estilistas apasionados que se actualizan constantemente con las últimas tendencias.</p>
       </div>
       <div class="pilar-card reveal reveal-delay-1">
-        <div class="pilar-card__icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div class="pilar-card__icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
         <h3>Trato personalizado</h3>
-        <p>Te atendemos como en casa. Galletitas, agua y charla amigable mientras tu servicio toma efecto.</p>
+        <p>Te atendemos como en casa. Galletitas, agua y una charla amigable mientras tu servicio toma efecto.</p>
       </div>
       <div class="pilar-card reveal reveal-delay-2">
-        <div class="pilar-card__icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="pilar-card__icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
         <h3>Precios accesibles</h3>
         <p>Calidad premium sin pretensiones. Servicios impecables a precios que respetan tu bolsillo.</p>
       </div>
@@ -113,30 +158,38 @@
   </div>
 </section>
 
+<!-- ═══════════════════════ SERVICIOS ══════════════════════════════ -->
 <section class="section" id="servicios">
   <div class="container">
     <div class="section-header reveal">
       <span class="eyebrow">Nuestros servicios</span>
-      <h2>Desde el corte más clásico hasta la transformación más audaz</h2>
+      <h2>Desde el corte más clásico<br>hasta la transformación más audaz</h2>
       <p>Cada servicio está pensado para que salgas sintiéndote increíble</p>
     </div>
+
     <div class="grid-4">
+      <!-- Cortes -->
       <article class="service-card reveal">
-        <div class="service-card__img" style="background:linear-gradient(135deg,#2c2c2c,#555);display:flex;align-items:center;justify-content:center;min-height:200px">
-          <svg width="48" height="48" fill="none" stroke="rgba(200,169,110,.8)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg>
+        <div class="service-card__img" style="background:linear-gradient(135deg,#2c2c2c,#555);display:flex;align-items:center;justify-content:center">
+          <svg width="48" height="48" fill="none" stroke="rgba(200,169,110,.8)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
         </div>
         <div class="service-card__body">
           <div class="service-card__cat">Cortes</div>
           <h3>Corte de cabello</h3>
           <p>Mujer, hombre y niños. Con o sin brushing. Te asesoramos según tu tipo de cara.</p>
           <div class="service-card__footer">
-            <div class="service-card__duration"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30–60 min</div>
+            <div class="service-card__duration">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              30–60 min
+            </div>
             <a href="turnos.html" class="btn btn-outline-dark btn-sm">Reservar</a>
           </div>
         </div>
       </article>
+
+      <!-- Color -->
       <article class="service-card reveal reveal-delay-1">
-        <div class="service-card__img" style="background:linear-gradient(135deg,#8B6914,#C8A96E);display:flex;align-items:center;justify-content:center;min-height:200px">
+        <div class="service-card__img" style="background:linear-gradient(135deg,#8B6914,#C8A96E);display:flex;align-items:center;justify-content:center">
           <svg width="48" height="48" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
         </div>
         <div class="service-card__body">
@@ -144,13 +197,18 @@
           <h3>Coloración · Balayage · Mechas</h3>
           <p>Coloraciones personalizadas, balayage natural, babylights, mechas y decoloración.</p>
           <div class="service-card__footer">
-            <div class="service-card__duration"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 90–150 min</div>
+            <div class="service-card__duration">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              90–150 min
+            </div>
             <a href="turnos.html" class="btn btn-outline-dark btn-sm">Reservar</a>
           </div>
         </div>
       </article>
+
+      <!-- Tratamientos -->
       <article class="service-card reveal reveal-delay-2">
-        <div class="service-card__img" style="background:linear-gradient(135deg,#1a4a3a,#2D7A4F);display:flex;align-items:center;justify-content:center;min-height:200px">
+        <div class="service-card__img" style="background:linear-gradient(135deg,#1a4a3a,#2D7A4F);display:flex;align-items:center;justify-content:center">
           <svg width="48" height="48" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <div class="service-card__body">
@@ -158,13 +216,18 @@
           <h3>Hidratación · Nutrición · Botox</h3>
           <p>Tratamientos de reconstrucción y nutrición profunda. Ideal post-coloración o cabello dañado.</p>
           <div class="service-card__footer">
-            <div class="service-card__duration"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 45–90 min</div>
+            <div class="service-card__duration">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              45–90 min
+            </div>
             <a href="turnos.html" class="btn btn-outline-dark btn-sm">Reservar</a>
           </div>
         </div>
       </article>
+
+      <!-- Keratina -->
       <article class="service-card reveal reveal-delay-3">
-        <div class="service-card__img" style="background:linear-gradient(135deg,#2a1a3a,#6B3FA0);display:flex;align-items:center;justify-content:center;min-height:200px">
+        <div class="service-card__img" style="background:linear-gradient(135deg,#2a1a3a,#6B3FA0);display:flex;align-items:center;justify-content:center">
           <svg width="48" height="48" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
         <div class="service-card__body">
@@ -172,29 +235,55 @@
           <h3>Keratina · Alisado vegano</h3>
           <p>Eliminá el frizz y mantené el pelo liso por meses. Fórmulas sin formol disponibles.</p>
           <div class="service-card__footer">
-            <div class="service-card__duration"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 120–180 min</div>
+            <div class="service-card__duration">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              120–180 min
+            </div>
             <a href="turnos.html" class="btn btn-outline-dark btn-sm">Reservar</a>
           </div>
         </div>
       </article>
     </div>
+
+    <div class="text-center mt-32">
+      <a href="servicios.html" class="btn btn-outline-dark">Ver todos los servicios →</a>
+    </div>
   </div>
 </section>
 
+<!-- ══════════════════ CTA RESERVA ONLINE ═════════════════════════ -->
 <section class="cta-banner">
   <div class="container">
     <h2 class="reveal">Reservá tu turno en 60 segundos</h2>
     <p class="reveal">Sin llamadas, sin esperas. Elegí tu servicio, profesional y horario desde tu celular, a cualquier hora del día.</p>
+
     <div class="steps reveal">
-      <div class="step"><div class="step__num">1</div><div class="step__label">Elegí tu servicio</div></div>
-      <div class="step"><div class="step__num">2</div><div class="step__label">Elegí tu profesional</div></div>
-      <div class="step"><div class="step__num">3</div><div class="step__label">Confirmá fecha y hora</div></div>
-      <div class="step"><div class="step__num">4</div><div class="step__label">¡Listo!</div></div>
+      <div class="step">
+        <div class="step__num">1</div>
+        <div class="step__label">Elegí tu servicio</div>
+      </div>
+      <div class="step">
+        <div class="step__num">2</div>
+        <div class="step__label">Elegí tu profesional</div>
+      </div>
+      <div class="step">
+        <div class="step__num">3</div>
+        <div class="step__label">Confirmá fecha y hora</div>
+      </div>
+      <div class="step">
+        <div class="step__num">4</div>
+        <div class="step__label">¡Listo!</div>
+      </div>
     </div>
-    <a href="turnos.html" class="btn btn-primary btn-lg reveal">Reservar mi turno ahora</a>
+
+    <a href="turnos.html" class="btn btn-primary btn-lg reveal">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Reservar mi turno ahora
+    </a>
   </div>
 </section>
 
+<!-- ═══════════════════════ GALERÍA ═══════════════════════════════ -->
 <section class="section" id="galeria">
   <div class="container">
     <div class="section-header reveal">
@@ -202,23 +291,50 @@
       <h2>Transformaciones reales</h2>
       <p>Cada foto es un cliente real. Mirá los resultados que podés esperar.</p>
     </div>
+
     <div class="gallery-filters reveal">
       <button class="gallery-filter active" data-filter="all">Todos</button>
       <button class="gallery-filter" data-filter="color">Color</button>
       <button class="gallery-filter" data-filter="cortes">Cortes</button>
       <button class="gallery-filter" data-filter="tratamientos">Tratamientos</button>
     </div>
+
     <div class="gallery-grid reveal">
-      <div class="gallery-grid__item gallery-grid__item--tall" data-cat="color" style="background:linear-gradient(160deg,#8B6914,#C8A96E,#8B4513);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Balayage</div>
-      <div class="gallery-grid__item" data-cat="cortes" style="background:linear-gradient(135deg,#2c2c2c,#555);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Corte hombre</div>
-      <div class="gallery-grid__item" data-cat="color" style="background:linear-gradient(135deg,#4a2060,#9B59B6);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Coloración</div>
-      <div class="gallery-grid__item" data-cat="tratamientos" style="background:linear-gradient(135deg,#1a4a3a,#2D7A4F);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Tratamiento</div>
-      <div class="gallery-grid__item" data-cat="color" style="background:linear-gradient(135deg,#7a4a10,#D4A843);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Mechas</div>
-      <div class="gallery-grid__item" data-cat="cortes" style="background:linear-gradient(135deg,#1a1a2e,#4a4a7a);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Corte mujer</div>
+      <div class="gallery-grid__item gallery-grid__item--tall" data-cat="color">
+        <div style="width:100%;height:100%;background:linear-gradient(160deg,#8B6914,#C8A96E,#8B4513);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Foto balayage</div>
+        <div class="gallery-grid__overlay">
+          <svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+      </div>
+      <div class="gallery-grid__item" data-cat="cortes">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#2c2c2c,#555);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Foto corte hombre</div>
+        <div class="gallery-grid__overlay"><svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="gallery-grid__item" data-cat="color">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#4a2060,#9B59B6);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Foto coloración</div>
+        <div class="gallery-grid__overlay"><svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="gallery-grid__item" data-cat="tratamientos">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a4a3a,#2D7A4F);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Foto tratamiento</div>
+        <div class="gallery-grid__overlay"><svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="gallery-grid__item" data-cat="color">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#7a4a10,#D4A843);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Foto mechas</div>
+        <div class="gallery-grid__overlay"><svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="gallery-grid__item" data-cat="cortes">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#4a4a7a);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.85rem">Foto corte mujer</div>
+        <div class="gallery-grid__overlay"><svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+    </div>
+
+    <div class="text-center mt-32">
+      <a href="galeria.html" class="btn btn-outline-dark">Ver galería completa →</a>
     </div>
   </div>
 </section>
 
+<!-- ══════════════════════ EQUIPO (preview) ══════════════════════ -->
 <section class="section section--cream" id="equipo">
   <div class="container">
     <div class="section-header reveal">
@@ -226,9 +342,12 @@
       <h2>Profesionales que aman lo que hacen</h2>
       <p>Conocé al equipo de G-M Peluqueros y reservá directamente con tu favorito/a</p>
     </div>
+
     <div class="grid-3">
       <div class="team-card reveal">
-        <div class="team-card__img" style="background:linear-gradient(135deg,#2c2c2c,#555);height:260px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3)"><svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="team-card__img" style="background:linear-gradient(135deg,#2c2c2c,#555);height:260px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3)">
+          <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
         <div class="team-card__body">
           <h3>Mariana G.</h3>
           <div class="team-card__role">Colorista · Directora Técnica</div>
@@ -236,8 +355,11 @@
           <a href="turnos.html?prof=1" class="btn btn-primary btn-sm w-full">Reservar con Mariana</a>
         </div>
       </div>
+
       <div class="team-card reveal reveal-delay-1">
-        <div class="team-card__img" style="background:linear-gradient(135deg,#1a3a2a,#2D5A4F);height:260px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3)"><svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="team-card__img" style="background:linear-gradient(135deg,#1a3a2a,#2D5A4F);height:260px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3)">
+          <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
         <div class="team-card__body">
           <h3>Nicolás M.</h3>
           <div class="team-card__role">Peluquero · Especialista en Cortes</div>
@@ -245,8 +367,11 @@
           <a href="turnos.html?prof=2" class="btn btn-primary btn-sm w-full">Reservar con Nicolás</a>
         </div>
       </div>
+
       <div class="team-card reveal reveal-delay-2">
-        <div class="team-card__img" style="background:linear-gradient(135deg,#3a1a2a,#6B3A5F);height:260px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3)"><svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="team-card__img" style="background:linear-gradient(135deg,#3a1a2a,#6B3A5F);height:260px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3)">
+          <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
         <div class="team-card__body">
           <h3>Sofía R.</h3>
           <div class="team-card__role">Peluquera · Tratamientos</div>
@@ -255,9 +380,14 @@
         </div>
       </div>
     </div>
+
+    <div class="text-center mt-32">
+      <a href="equipo.html" class="btn btn-outline-dark">Conocer al equipo completo →</a>
+    </div>
   </div>
 </section>
 
+<!-- ══════════════════════ TESTIMONIOS ════════════════════════════ -->
 <section class="testimonios">
   <div class="container">
     <div class="section-header reveal">
@@ -265,69 +395,168 @@
       <h2>Lo que dicen nuestros clientes</h2>
       <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px">
         <span style="font-size:1.5rem;font-weight:700;font-family:var(--font-serif)">4.9</span>
-        <span style="color:var(--color-gold)">★★★★★</span>
+        <span style="color:var(--color-gold);display:flex;gap:2px">★★★★★</span>
         <span style="color:var(--color-muted);font-size:.9rem">en Google Reviews</span>
       </div>
     </div>
+
     <div class="grid-3">
       <div class="testimonial-card reveal">
         <div class="testimonial-card__stars">★★★★★</div>
         <p class="testimonial-card__text">"La atención y servicio, excelentes. Te dan ganas de no irte y conforme a los cortes y tintes también súper bien."</p>
         <div class="testimonial-card__author">
           <div style="width:44px;height:44px;border-radius:50%;background:var(--color-cream);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--color-gold)">M</div>
-          <div><div class="testimonial-card__name">María L.</div><div class="testimonial-card__since">Cliente desde 2020 · Google Review</div></div>
+          <div>
+            <div class="testimonial-card__name">María L.</div>
+            <div class="testimonial-card__since">Cliente desde 2020 · Google Review</div>
+          </div>
         </div>
       </div>
+
       <div class="testimonial-card reveal reveal-delay-1">
         <div class="testimonial-card__stars">★★★★★</div>
         <p class="testimonial-card__text">"Muy buena onda. Gente divertida y alegre. Y sobre todo excelentes profesionales. Te dan galletitas y agua mientras esperás."</p>
         <div class="testimonial-card__author">
           <div style="width:44px;height:44px;border-radius:50%;background:var(--color-cream);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--color-gold)">C</div>
-          <div><div class="testimonial-card__name">Carlos R.</div><div class="testimonial-card__since">Cliente desde 2021 · Google Review</div></div>
+          <div>
+            <div class="testimonial-card__name">Carlos R.</div>
+            <div class="testimonial-card__since">Cliente desde 2021 · Google Review</div>
+          </div>
         </div>
       </div>
+
       <div class="testimonial-card reveal reveal-delay-2">
         <div class="testimonial-card__stars">★★★★★</div>
-        <p class="testimonial-card__text">"Buena atención y excelentes precios, sin pretensiones. El mejor lugar para cuidar el pelo en Palermo."</p>
+        <p class="testimonial-card__text">"Buena atención y excelentes precios, sin pretensiones. El mejor lugar para cuidar el pelo en Palermo. Los recomiendo 100%."</p>
         <div class="testimonial-card__author">
           <div style="width:44px;height:44px;border-radius:50%;background:var(--color-cream);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--color-gold)">V</div>
-          <div><div class="testimonial-card__name">Valentina M.</div><div class="testimonial-card__since">Cliente desde 2022 · Google Review</div></div>
+          <div>
+            <div class="testimonial-card__name">Valentina M.</div>
+            <div class="testimonial-card__since">Cliente desde 2022 · Google Review</div>
+          </div>
         </div>
       </div>
+    </div>
+
+    <div class="text-center mt-32">
+      <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">Ver reseñas en Google ↗</a>
     </div>
   </div>
 </section>
 
+<!-- ═══════════════════ BLOG PREVIEW ══════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Blog</span>
+      <h2>Consejos y tendencias capilares</h2>
+    </div>
+    <div class="grid-3">
+      <article class="blog-card reveal">
+        <div class="blog-card__img" style="height:200px;background:linear-gradient(135deg,#8B6914,#C8A96E);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5)">Imagen del artículo</div>
+        <div class="blog-card__body">
+          <span class="blog-card__tag">Color</span>
+          <h3>Balayage vs. Mechas: ¿cuál es mejor para vos?</h3>
+          <p>Descubrí las diferencias entre las técnicas más populares de iluminación y cuál te queda mejor según tu tipo de cabello.</p>
+          <div class="blog-card__meta">12 mayo 2025 · 4 min lectura</div>
+        </div>
+      </article>
+      <article class="blog-card reveal reveal-delay-1">
+        <div class="blog-card__img" style="height:200px;background:linear-gradient(135deg,#1a4a3a,#2D7A4F);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5)">Imagen del artículo</div>
+        <div class="blog-card__body">
+          <span class="blog-card__tag">Cuidado</span>
+          <h3>5 consejos para mantener el color en casa</h3>
+          <p>Después de la coloración, el cuidado en casa hace toda la diferencia. Estos tips son de nuestras coloristas.</p>
+          <div class="blog-card__meta">5 mayo 2025 · 3 min lectura</div>
+        </div>
+      </article>
+      <article class="blog-card reveal reveal-delay-2">
+        <div class="blog-card__img" style="height:200px;background:linear-gradient(135deg,#2a1a3a,#6B3FA0);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5)">Imagen del artículo</div>
+        <div class="blog-card__body">
+          <span class="blog-card__tag">Tendencias</span>
+          <h3>Los cortes de cabello que arrasan en 2025</h3>
+          <p>Desde el wolf cut hasta el bob asimétrico: las tendencias que más vemos en nuestro salón de Palermo.</p>
+          <div class="blog-card__meta">28 abril 2025 · 5 min lectura</div>
+        </div>
+      </article>
+    </div>
+    <div class="text-center mt-32">
+      <a href="blog.html" class="btn btn-outline-dark">Ver todos los artículos →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ UBICACIÓN ══════════════════════════════ -->
 <section class="ubicacion section--cream" id="contacto">
   <div class="container">
-    <div class="section-header reveal"><span class="eyebrow">Encontranos</span><h2>Estamos en el corazón de Palermo</h2></div>
+    <div class="section-header reveal">
+      <span class="eyebrow">Encontranos</span>
+      <h2>Estamos en el corazón de Palermo</h2>
+    </div>
     <div class="grid-2" style="align-items:start;gap:48px">
       <div class="ubicacion__map reveal">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0!2d-58.4293!3d-34.5881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sJorge%20Luis%20Borges%202241%2C%20Palermo!5e0!3m2!1ses!2sar!4v1" allowfullscreen="" loading="lazy" title="Mapa"></iframe>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0!2d-58.4293!3d-34.5881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sJorge%20Luis%20Borges%202241%2C%20Palermo!5e0!3m2!1ses!2sar!4v1"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa G-M Peluqueros Palermo">
+        </iframe>
       </div>
       <div class="ubicacion__info reveal">
         <h3>G-M Peluqueros Palermo</h3>
+
         <div class="info-item">
-          <div class="info-item__icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div><div class="info-item__label">Dirección</div><div class="info-item__value">Jorge Luis Borges 2241<br>Entre Paraguay y Charcas<br>Palermo Viejo, CABA</div></div>
+          <div class="info-item__icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Dirección</div>
+            <div class="info-item__value">Jorge Luis Borges 2241<br>Entre Paraguay y Charcas<br>Palermo Viejo, CABA</div>
+          </div>
         </div>
+
         <div class="info-item">
-          <div class="info-item__icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.82 19.79 19.79 0 01.67 2.18 2 2 0 012.65 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
-          <div><div class="info-item__label">Teléfono</div><a href="tel:+541148314376" style="font-weight:500">11 4831-4376</a></div>
+          <div class="info-item__icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.82 19.79 19.79 0 01.67 2.18 2 2 0 012.65 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Teléfono</div>
+            <a href="tel:+541148314376" class="info-item__value" style="color:inherit">11 4831-4376</a>
+          </div>
         </div>
+
         <div class="info-item">
-          <div class="info-item__icon" style="background:rgba(37,211,102,.12);color:#25D366"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
-          <div><div class="info-item__label">WhatsApp</div><a href="https://wa.me/541148314376" target="_blank" style="color:var(--color-success)">Abrir chat →</a></div>
+          <div class="info-item__icon" style="background:rgba(37,211,102,.12);color:#25D366">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">WhatsApp</div>
+            <a href="https://wa.me/541148314376?text=Hola%2C%20quer%C3%ADa%20consultar%20sobre%20un%20turno" target="_blank" rel="noopener noreferrer" class="info-item__value" style="color:var(--color-success)">Abrir chat →</a>
+          </div>
         </div>
+
         <div class="info-item">
-          <div class="info-item__icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <div><div class="info-item__label">Horarios</div><table class="horarios-table"><tr><td>Lunes – Viernes</td><td>9:00 – 20:00</td></tr><tr><td>Sábados</td><td>9:00 – 18:00</td></tr><tr><td>Domingos</td><td style="color:var(--color-error)">Cerrado</td></tr></table></div>
+          <div class="info-item__icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Horarios</div>
+            <table class="horarios-table">
+              <tr><td>Lunes – Viernes</td><td>9:00 – 20:00</td></tr>
+              <tr><td>Sábados</td><td>9:00 – 18:00</td></tr>
+              <tr><td>Domingos</td><td style="color:var(--color-error)">Cerrado</td></tr>
+            </table>
+          </div>
         </div>
+
+        <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark mt-16">
+          Cómo llegar ↗
+        </a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ══════════════════════ FOOTER ══════════════════════════════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
@@ -335,19 +564,65 @@
         <div class="footer__logo">G<span>·</span>M Peluqueros</div>
         <p class="footer__desc">Tu peluquería unisex en el corazón de Palermo Viejo. Profesionales apasionados, trato personalizado y los mejores precios del barrio.</p>
         <div class="footer__social">
-          <a href="https://www.instagram.com/peluquerosgm" target="_blank" class="footer__social-link"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-          <a href="https://wa.me/541148314376" target="_blank" class="footer__social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          <a href="https://www.instagram.com/peluquerosgm" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Instagram">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/p/GM-Peluqueros-Palermo-100063585002049" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Facebook">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://wa.me/541148314376" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
         </div>
       </div>
-      <div><div class="footer__col-title">Servicios</div><a href="#servicios" class="footer__link">Cortes</a><a href="#servicios" class="footer__link">Color y mechas</a><a href="#servicios" class="footer__link">Balayage</a><a href="#servicios" class="footer__link">Tratamientos</a><a href="#servicios" class="footer__link">Keratina</a></div>
-      <div><div class="footer__col-title">La peluquería</div><a href="#equipo" class="footer__link">Nuestro equipo</a><a href="faq.html" class="footer__link">FAQ</a><a href="#contacto" class="footer__link">Contacto</a></div>
-      <div><div class="footer__col-title">Contacto</div><p style="font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.8">📍 Jorge Luis Borges 2241<br>Palermo, CABA<br>📞 <a href="tel:+541148314376" style="color:rgba(255,255,255,.5)">11 4831-4376</a></p></div>
+      <div>
+        <div class="footer__col-title">Servicios</div>
+        <a href="servicios.html#cortes" class="footer__link">Cortes de cabello</a>
+        <a href="servicios.html#color" class="footer__link">Coloración y mechas</a>
+        <a href="servicios.html#balayage" class="footer__link">Balayage</a>
+        <a href="servicios.html#tratamientos" class="footer__link">Tratamientos</a>
+        <a href="servicios.html#keratina" class="footer__link">Keratina</a>
+        <a href="servicios.html#barba" class="footer__link">Arreglo de barba</a>
+      </div>
+      <div>
+        <div class="footer__col-title">La peluquería</div>
+        <a href="nosotros.html" class="footer__link">Sobre nosotros</a>
+        <a href="equipo.html" class="footer__link">Nuestro equipo</a>
+        <a href="galeria.html" class="footer__link">Galería de trabajos</a>
+        <a href="blog.html" class="footer__link">Blog</a>
+        <a href="faq.html" class="footer__link">Preguntas frecuentes</a>
+        <a href="contacto.html" class="footer__link">Contacto</a>
+      </div>
+      <div>
+        <div class="footer__col-title">Legal</div>
+        <a href="privacidad.html" class="footer__link">Política de privacidad</a>
+        <a href="terminos.html" class="footer__link">Términos y condiciones</a>
+        <a href="cookies.html" class="footer__link">Política de cookies</a>
+        <div style="margin-top:24px">
+          <div class="footer__col-title">Contacto</div>
+          <p style="font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.8">
+            📍 Jorge Luis Borges 2241<br>Palermo, CABA<br>
+            📞 <a href="tel:+541148314376" style="color:rgba(255,255,255,.5)">11 4831-4376</a>
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="footer__bottom"><span>© 2025 G-M Peluqueros Palermo</span></div>
+    <div class="footer__bottom">
+      <span>© 2025 G-M Peluqueros Palermo. Todos los derechos reservados.</span>
+      <div class="footer__bottom-links">
+        <a href="privacidad.html" class="footer__link" style="font-size:.82rem">Privacidad</a>
+        <a href="terminos.html" class="footer__link" style="font-size:.82rem">Términos</a>
+      </div>
+    </div>
   </div>
 </footer>
 
-<a href="https://wa.me/541148314376?text=Hola%2C%20quer%C3%ADa%20consultar%20sobre%20un%20turno" target="_blank" class="whatsapp-float"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/541148314376?text=Hola%2C%20quer%C3%ADa%20consultar%20sobre%20un%20turno"
+   target="_blank" rel="noopener noreferrer"
+   class="whatsapp-float" aria-label="Contactar por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 
 <script src="js/main.js"></script>
 </body>
