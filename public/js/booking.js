@@ -4,6 +4,9 @@
 
 'use strict';
 
+const SUPABASE_URL = 'https://nelwxqhambuvqnbtyqid.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lbHd4cWhhbWJ1dnFuYnR5cWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMDQ1NTIsImV4cCI6MjA5NTg4MDU1Mn0.RhnAspgbvTkzIhNkl-jDQz6FfqhOmHpnoVR_zYna9Jw';
+
 // ── Estado del wizard ─────────────────────────────────────────────
 const booking = {
   service: null,
@@ -222,13 +225,37 @@ window.submitBooking = function(e) {
   btn.disabled = true;
   btn.textContent = 'Confirmando…';
 
-  // Simulación de llamada a la API
-  setTimeout(() => {
-    const serviceEl = document.querySelector(`.service-option.selected`);
-    const profEl    = document.querySelector(`.professional-option.selected`);
+  const serviceEl = document.querySelector('.service-option.selected');
+  const profEl    = document.querySelector('.professional-option.selected');
 
-    document.getElementById('conf-service').textContent  = serviceEl?.dataset.name || '—';
-    document.getElementById('conf-prof').textContent     = profEl?.dataset.name || '—';
+  const reserva = {
+    nombre:      firstName,
+    apellido:    lastName,
+    telefono:    phone,
+    email:       email,
+    servicio:    serviceEl?.dataset.name || '',
+    profesional: profEl?.dataset.name   || '',
+    fecha:       booking.date ? booking.date.toISOString().split('T')[0] : '',
+    hora:        booking.time || '',
+    duracion:    booking.duration || 30,
+    estado:      'pendiente'
+  };
+
+  fetch(`${SUPABASE_URL}/rest/v1/reservas`, {
+    method: 'POST',
+    headers: {
+      'Content-Type':  'application/json',
+      'apikey':        SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Prefer':        'return=minimal'
+    },
+    body: JSON.stringify(reserva)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Error al guardar la reserva');
+
+    document.getElementById('conf-service').textContent = reserva.servicio || '—';
+    document.getElementById('conf-prof').textContent    = reserva.profesional || '—';
 
     const dateStr = booking.date
       ? booking.date.toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' })
@@ -236,7 +263,6 @@ window.submitBooking = function(e) {
     document.getElementById('conf-datetime').textContent =
       `${dateStr.charAt(0).toUpperCase() + dateStr.slice(1)} a las ${booking.time || '—'}`;
 
-    // Google Calendar link
     if (booking.date && booking.time) {
       const [h, m] = (booking.time || '10:00').split(':').map(Number);
       const dur = booking.duration || 30;
@@ -249,8 +275,12 @@ window.submitBooking = function(e) {
       if (calBtn) { calBtn.href = calUrl; calBtn.target = '_blank'; }
     }
 
-    // Mostrar confirmación
     goToStep('confirm');
-    showToast('¡Turno confirmado! Revisá tu WhatsApp.', 'success');
-  }, 1200);
+    showToast('¡Turno confirmado!', 'success');
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.textContent = 'Confirmar turno';
+    showToast('No se pudo guardar la reserva. Intentá de nuevo.', 'error');
+  });
 };

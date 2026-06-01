@@ -109,7 +109,7 @@
         <!-- Turnos de hoy -->
         <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);margin-bottom:24px">
           <div style="padding:20px 24px;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center">
-            <h3 style="font-size:1rem">Turnos de hoy — Domingo 1 de junio</h3>
+            <h3 style="font-size:1rem" id="todayTableTitle">Turnos de hoy</h3>
             <a href="#" class="btn btn-primary btn-sm" onclick="showSection('agenda')">Ver agenda completa</a>
           </div>
           <div style="overflow-x:auto">
@@ -124,49 +124,8 @@
                   <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td><strong>09:00</strong></td>
-                  <td>María González</td>
-                  <td>Corte + Brushing</td>
-                  <td>Mariana G.</td>
-                  <td><span class="badge badge-confirmed">Confirmado</span></td>
-                  <td>
-                    <button onclick="showToastAdmin('Marcado como completado')" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Completar</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>10:00</strong></td>
-                  <td>Carlos Ruiz</td>
-                  <td>Coloración completa</td>
-                  <td>Mariana G.</td>
-                  <td><span class="badge badge-confirmed">Confirmado</span></td>
-                  <td><button onclick="showToastAdmin('Marcado como completado')" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Completar</button></td>
-                </tr>
-                <tr>
-                  <td><strong>10:30</strong></td>
-                  <td>Ana Martínez</td>
-                  <td>Corte hombre</td>
-                  <td>Nicolás M.</td>
-                  <td><span class="badge badge-pending">Pendiente</span></td>
-                  <td><button onclick="showToastAdmin('Turno confirmado')" style="color:var(--color-gold);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Confirmar</button></td>
-                </tr>
-                <tr>
-                  <td><strong>11:30</strong></td>
-                  <td>Laura Perez</td>
-                  <td>Balayage</td>
-                  <td>Mariana G.</td>
-                  <td><span class="badge badge-confirmed">Confirmado</span></td>
-                  <td><button onclick="showToastAdmin('Marcado como completado')" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Completar</button></td>
-                </tr>
-                <tr>
-                  <td><strong>14:00</strong></td>
-                  <td>Rodrigo Silva</td>
-                  <td>Keratina</td>
-                  <td>Sofía R.</td>
-                  <td><span class="badge badge-confirmed">Confirmado</span></td>
-                  <td><button onclick="showToastAdmin('Marcado como completado')" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✓ Completar</button></td>
-                </tr>
+              <tbody id="todayTableBody">
+                <tr><td colspan="6" style="text-align:center;color:var(--color-muted);padding:32px">Cargando turnos…</td></tr>
               </tbody>
             </table>
           </div>
@@ -360,57 +319,144 @@
 
 <script src="js/main.js"></script>
 <script>
-  // Admin navigation
+  const SB_URL = 'https://nelwxqhambuvqnbtyqid.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lbHd4cWhhbWJ1dnFuYnR5cWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMDQ1NTIsImV4cCI6MjA5NTg4MDU1Mn0.RhnAspgbvTkzIhNkl-jDQz6FfqhOmHpnoVR_zYna9Jw';
+
+  const badgeMap = { pendiente:'badge-pending', confirmado:'badge-confirmed', completado:'badge-completed', cancelado:'badge-cancelled' };
+  const badgeTxt = { pendiente:'Pendiente', confirmado:'Confirmado', completado:'Completado', cancelado:'Cancelado' };
+
+  // ── Supabase helpers ───────────────────────────────────────────────
+  async function sbFetch(path) {
+    const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+    });
+    if (!res.ok) throw new Error('Error al cargar datos');
+    return res.json();
+  }
+
+  async function sbPatch(id, data) {
+    await fetch(`${SB_URL}/rest/v1/reservas?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SB_KEY,
+        'Authorization': `Bearer ${SB_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(data)
+    });
+  }
+
+  // ── Render fila de reserva ─────────────────────────────────────────
+  function filaReserva(r, mostrarFecha) {
+    const badge = badgeMap[r.estado] || 'badge-pending';
+    const txt   = badgeTxt[r.estado] || r.estado;
+    const fecha = mostrarFecha ? `<td style="font-size:.82rem;color:var(--color-muted)">${r.fecha}</td>` : '';
+    let acciones = '';
+    if (r.estado === 'pendiente') {
+      acciones = `<button onclick="cambiarEstado('${r.id}','confirmado',this)" style="color:var(--color-gold);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Confirmar</button>`;
+    } else if (r.estado === 'confirmado') {
+      acciones = `<button onclick="cambiarEstado('${r.id}','completado',this)" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Completar</button>`;
+    }
+    if (r.estado !== 'cancelado' && r.estado !== 'completado') {
+      acciones += `<button onclick="cambiarEstado('${r.id}','cancelado',this)" style="color:#e74c3c;font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✗ Cancelar</button>`;
+    }
+    return `<tr id="row-${r.id}">
+      <td><strong>${r.hora}</strong></td>
+      <td>${r.nombre} ${r.apellido}<br><span style="font-size:.75rem;color:var(--color-muted)">${r.telefono}</span></td>
+      <td>${r.servicio}</td>
+      <td>${r.profesional || '—'}</td>
+      ${fecha}
+      <td><span class="badge ${badge}">${txt}</span></td>
+      <td>${acciones}</td>
+    </tr>`;
+  }
+
+  // ── Cambiar estado ─────────────────────────────────────────────────
+  window.cambiarEstado = async function(id, nuevoEstado, btn) {
+    btn.disabled = true;
+    btn.textContent = '…';
+    try {
+      await sbPatch(id, { estado: nuevoEstado });
+      const row = document.getElementById(`row-${id}`);
+      const badgeTd = row.querySelector('.badge');
+      badgeTd.className = `badge ${badgeMap[nuevoEstado]}`;
+      badgeTd.textContent = badgeTxt[nuevoEstado];
+      const td = btn.parentElement;
+      td.innerHTML = nuevoEstado === 'completado' ? '<span style="color:var(--color-success);font-size:.82rem">✓ Completado</span>' :
+                     nuevoEstado === 'cancelado'  ? '<span style="color:#e74c3c;font-size:.82rem">✗ Cancelado</span>'  :
+                     `<button onclick="cambiarEstado('${id}','completado',this)" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Completar</button><button onclick="cambiarEstado('${id}','cancelado',this)" style="color:#e74c3c;font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✗ Cancelar</button>`;
+      showToastAdmin(`Estado actualizado: ${badgeTxt[nuevoEstado]}`);
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Error';
+      showToastAdmin('No se pudo actualizar');
+    }
+  };
+
+  // ── Cargar turnos de hoy ───────────────────────────────────────────
+  async function cargarHoy() {
+    const hoy = new Date().toISOString().split('T')[0];
+    const tbody = document.getElementById('todayTableBody');
+    const title = document.getElementById('todayTableTitle');
+    try {
+      const data = await sbFetch(`reservas?fecha=eq.${hoy}&order=hora.asc`);
+      const label = new Date().toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' });
+      title.textContent = `Turnos de hoy — ${label.charAt(0).toUpperCase() + label.slice(1)}`;
+
+      // Stats
+      document.querySelector('.stat-card:nth-child(1) .stat-card__value').textContent = data.length;
+
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--color-muted);padding:32px">No hay turnos para hoy</td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map(r => filaReserva(r, false)).join('');
+    } catch {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#e74c3c;padding:32px">Error al cargar turnos</td></tr>';
+    }
+  }
+
+  // ── Cargar agenda completa ─────────────────────────────────────────
+  async function cargarAgenda() {
+    const tbody = document.getElementById('agendaTableBody');
+    try {
+      const data = await sbFetch('reservas?order=fecha.desc,hora.asc&limit=100');
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--color-muted);padding:32px">No hay reservas aún</td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map(r => filaReserva(r, true)).join('');
+    } catch {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#e74c3c;padding:32px">Error al cargar agenda</td></tr>';
+    }
+  }
+
+  // ── Nav ────────────────────────────────────────────────────────────
   function showSection(id, linkEl) {
     document.querySelectorAll('[id^="section-"]').forEach(s => s.classList.add('hidden'));
     const section = document.getElementById('section-' + id);
     if (section) section.classList.remove('hidden');
-
     document.querySelectorAll('.admin-nav__link').forEach(l => l.classList.remove('active'));
     if (linkEl) linkEl.classList.add('active');
-
     const titles = { dashboard:'Dashboard', agenda:'Agenda', clientes:'Clientes', empleados:'Empleados', servicios:'Servicios', horarios:'Horarios', estadisticas:'Estadísticas', pagos:'Pagos', configuracion:'Configuración' };
     document.getElementById('pageTitle').textContent = titles[id] || id;
-  }
-
-  // Today's date
-  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('es-AR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
-  // Demo agenda data
-  const demoTurnos = [
-    { hora:'09:00', cliente:'María González', servicio:'Corte + Brushing', prof:'Mariana G.', estado:'confirmed', fuente:'web' },
-    { hora:'09:30', cliente:'Pedro López', servicio:'Corte hombre', prof:'Nicolás M.', estado:'completed', fuente:'phone' },
-    { hora:'10:00', cliente:'Carlos Ruiz', servicio:'Coloración completa', prof:'Mariana G.', estado:'confirmed', fuente:'web' },
-    { hora:'10:30', cliente:'Ana Martínez', servicio:'Balayage', prof:'Mariana G.', estado:'pending', fuente:'web' },
-    { hora:'11:00', cliente:'Luis Torres', servicio:'Keratina', prof:'Sofía R.', estado:'confirmed', fuente:'whatsapp' },
-    { hora:'11:30', cliente:'Laura Pérez', servicio:'Corte mujer', prof:'Sofía R.', estado:'confirmed', fuente:'web' },
-    { hora:'14:00', cliente:'Marta Silva', servicio:'Babylights', prof:'Mariana G.', estado:'confirmed', fuente:'web' },
-    { hora:'15:30', cliente:'Jorge García', servicio:'Arreglo barba', prof:'Nicolás M.', estado:'cancelled', fuente:'web' },
-    { hora:'16:00', cliente:'Claudia Vega', servicio:'Hidratación', prof:'Sofía R.', estado:'confirmed', fuente:'phone' },
-  ];
-
-  const badgeMap = { confirmed:'badge-confirmed', pending:'badge-pending', completed:'badge-completed', cancelled:'badge-cancelled' };
-  const badgeTxt = { confirmed:'Confirmado', pending:'Pendiente', completed:'Completado', cancelled:'Cancelado' };
-  const fuenteMap = { web:'🌐 Web', phone:'📞 Teléfono', whatsapp:'💬 WhatsApp', walkin:'🚶 Presencial' };
-
-  const tbody = document.getElementById('agendaTableBody');
-  if (tbody) {
-    tbody.innerHTML = demoTurnos.map(t => `
-      <tr>
-        <td><strong>${t.hora}</strong></td>
-        <td>${t.cliente}</td>
-        <td>${t.servicio}</td>
-        <td>${t.prof}</td>
-        <td><span class="badge ${badgeMap[t.estado]}">${badgeTxt[t.estado]}</span></td>
-        <td style="font-size:.8rem;color:var(--color-muted)">${fuenteMap[t.fuente]||t.fuente}</td>
-        <td><button onclick="showToastAdmin('Acción ejecutada')" style="font-size:.8rem;color:var(--color-gold);font-weight:600;background:none;border:none;cursor:pointer">Ver</button></td>
-      </tr>
-    `).join('');
+    if (id === 'agenda') cargarAgenda();
   }
 
   function showToastAdmin(msg) {
     if (window.showToast) window.showToast(msg, 'success');
   }
+
+  // ── Actualizar thead de agenda para incluir columna Fecha ──────────
+  const agendaThead = document.querySelector('#section-agenda thead tr');
+  if (agendaThead) {
+    agendaThead.innerHTML = '<th>Hora</th><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Fecha</th><th>Estado</th><th>Acciones</th>';
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('es-AR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  cargarHoy();
 </script>
 </body>
 </html>
