@@ -213,7 +213,7 @@ p { font-size: 1rem; color: var(--color-text); }
   display: none;
   position: fixed;
   top: 0; right: 0; bottom: 0;
-  width: 280px;
+  width: 100%;
   background: var(--color-black);
   z-index: 1100;
   padding: 80px 32px 40px;
@@ -225,10 +225,11 @@ p { font-size: 1rem; color: var(--color-text); }
 }
 .nav__mobile-drawer.open { transform: translateX(0); }
 .nav__mobile-drawer .nav__link {
-  font-size: 1.1rem;
-  padding: 12px 0;
+  font-size: 1.25rem;
+  padding: 16px 0;
   border-bottom: 1px solid rgba(255,255,255,.08);
   display: block;
+  letter-spacing: .02em;
 }
 
 .drawer-overlay {
@@ -1358,6 +1359,9 @@ p { font-size: 1rem; color: var(--color-text); }
   .nav__links, .nav__phone, .nav__cta { display: none; }
   .nav__burger { display: flex; }
   .nav__mobile-drawer { display: flex; }
+
+  /* Logo más compacto en mobile */
+  .nav__logo { font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
 
   .hero__scroll { display: none; }
 
