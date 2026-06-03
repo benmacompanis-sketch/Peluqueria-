@@ -3146,3 +3146,276 @@ a { transition: color .2s ease, opacity .2s ease; }
 /* ── Remove inline quotes from blockquote text ──────────── */
 /* (the HTML has " at start and " at end — hide them via font-size:0 trick not needed,
    the CSS pseudo-elements add the marks instead) */
+
+/* ═══════════════════════════════════════════════════════════
+   WOW — Premium visual identity overhaul
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Hero: large brand watermark ─────────────────────────── */
+.hero__wordmark {
+  position: absolute;
+  right: -4%;
+  top: 50%;
+  transform: translateY(-52%);
+  font-family: var(--font-serif);
+  font-size: clamp(260px, 36vw, 560px);
+  font-weight: 900;
+  line-height: .82;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(212,168,67,.065);
+  letter-spacing: -.06em;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  animation: wordmarkDrift 20s ease-in-out infinite alternate;
+}
+@keyframes wordmarkDrift {
+  0%   { transform: translateY(-52%) scale(1); opacity: 1; }
+  100% { transform: translateY(-54%) scale(1.025); opacity: .75; }
+}
+@media (max-width: 768px) { .hero__wordmark { display: none; } }
+
+/* ── Hero: gold diagonal accent ──────────────────────────── */
+.hero__content::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-lt));
+  margin-bottom: 28px;
+  opacity: .8;
+}
+
+/* ── Hero: H1 larger on big screens ──────────────────────── */
+@media (min-width: 1024px) {
+  .hero h1 {
+    font-size: clamp(3.2rem, 7vw, 5.8rem);
+    letter-spacing: -.04em;
+  }
+}
+
+/* ── Trust bar: editorial large-number layout ────────────── */
+.trust-bar {
+  padding: 52px 0;
+  border-top: 1px solid rgba(212,168,67,.12);
+  border-bottom: 1px solid rgba(212,168,67,.06);
+}
+.trust-item {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 0 52px;
+}
+.trust-item__num {
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+.trust-item__label {
+  max-width: 150px;
+  text-align: center;
+  font-size: .8rem;
+  color: rgba(255,255,255,.5);
+  line-height: 1.4;
+}
+
+/* ── Gallery: zoom effect on background ──────────────────── */
+.gallery-item__bg {
+  transition: transform .75s cubic-bezier(.25,.46,.45,.94);
+  will-change: transform;
+}
+.gallery-grid__item:hover .gallery-item__bg {
+  transform: scale(1.07);
+}
+
+/* ── Gallery: overlay refinements ───────────────────────── */
+.gallery-grid__overlay {
+  padding: 22px 18px;
+  gap: 5px;
+}
+.gallery-grid__cat-label {
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--color-gold-lt);
+}
+.gallery-grid__title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+/* ── Gallery item: border on hover ──────────────────────── */
+.gallery-grid__item {
+  border: 1px solid transparent;
+  transition: border-color .3s ease;
+}
+.gallery-grid__item:hover {
+  border-color: rgba(212,168,67,.25);
+}
+
+/* ── Team cards: premium large initials ──────────────────── */
+.team-avatar-initials {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(212,168,67,.35);
+  letter-spacing: -.04em;
+  line-height: 1;
+  transition: -webkit-text-stroke-color .4s ease;
+}
+.team-card:hover .team-avatar-initials {
+  -webkit-text-stroke-color: rgba(212,168,67,.65);
+}
+
+/* ── Before/After: gold divider with icon ────────────────── */
+.ba-divider {
+  width: 4px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(212,168,67,.7) 30%, rgba(212,168,67,.9) 50%, rgba(212,168,67,.7) 70%, transparent 100%);
+  position: relative;
+  flex-shrink: 0;
+}
+.ba-divider__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, var(--color-gold-dk), var(--color-gold));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--color-black);
+  box-shadow: 0 0 20px rgba(212,168,67,.45), 0 2px 8px rgba(0,0,0,.3);
+  pointer-events: none;
+  line-height: 34px;
+  text-align: center;
+}
+
+/* ── Brand quote: more cinematic ─────────────────────────── */
+.brand-quote blockquote {
+  font-size: clamp(1.4rem, 3.2vw, 2.5rem);
+  max-width: 880px;
+  line-height: 1.4;
+  letter-spacing: -.01em;
+}
+.brand-quote blockquote cite {
+  font-size: .82rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-top: 28px;
+  display: block;
+}
+
+/* ── Pilar cards: left-aligned, less generic ─────────────── */
+.pilar-card {
+  text-align: left;
+}
+.pilar-card__icon {
+  margin: 0 0 24px;
+}
+.pilar-card h3 {
+  font-size: 1.15rem;
+  letter-spacing: -.02em;
+}
+
+/* ── Service cards: stronger 3D lift ────────────────────── */
+.service-card:hover {
+  transform: translateY(-12px) scale(1.015);
+  box-shadow: 0 28px 64px rgba(0,0,0,.16), 0 0 0 1px rgba(212,168,67,.18);
+  border-color: rgba(212,168,67,.2);
+}
+
+/* ── Service card img: add subtle radial glow ────────────── */
+.service-card__img {
+  position: relative;
+}
+.service-card__img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(255,255,255,.04) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── Pre-footer CTA: more dramatic ──────────────────────── */
+.pre-footer-cta {
+  background: linear-gradient(135deg, #0d0b07 0%, #1a1508 50%, #0d0b07 100%);
+  position: relative;
+  overflow: hidden;
+}
+.pre-footer-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 100% at 50% 50%, rgba(212,168,67,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.pre-footer-cta h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: -.02em;
+}
+
+/* ── Nav logo: gold accent on first letter ───────────────── */
+.nav__logo::first-letter {
+  color: var(--color-gold);
+}
+
+/* ── Section headers: slightly larger eyebrow ───────────── */
+.section-header .eyebrow {
+  font-size: .75rem;
+  letter-spacing: .25em;
+}
+
+/* ── Reviews section: stronger featured quote ───────────── */
+.reviews-featured-quote {
+  border-left: 2px solid rgba(212,168,67,.3);
+  padding-left: 32px;
+  text-align: left;
+  max-width: 560px;
+  margin: 0 auto 56px;
+}
+.reviews-featured-quote::before {
+  left: 24px;
+  top: -20px;
+  font-size: 6rem;
+}
+
+/* ── Footer: gold top accent ─────────────────────────────── */
+.footer::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(212,168,67,.4) 30%, var(--color-gold) 50%, rgba(212,168,67,.4) 70%, transparent 100%);
+}
+
+/* ── Scroll reveal: smoother timings ─────────────────────── */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-scale {
+  transition-duration: .75s;
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
+}
+
+/* ── WhatsApp float: larger, more visible ────────────────── */
+.whatsapp-float {
+  width: 58px;
+  height: 58px;
+  box-shadow: 0 8px 32px rgba(37,211,102,.35), 0 2px 8px rgba(0,0,0,.25);
+}
+.whatsapp-float:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 16px 48px rgba(37,211,102,.45);
+}
