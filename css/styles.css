@@ -3419,3 +3419,22 @@ a { transition: color .2s ease, opacity .2s ease; }
   transform: scale(1.1) translateY(-3px);
   box-shadow: 0 16px 48px rgba(37,211,102,.45);
 }
+
+/* ── Real photos: ensure proper display ─────────────────── */
+.service-card__img {
+  background-size: cover !important;
+  background-position: center !important;
+}
+.service-card__img > svg { display: none; }
+.team-card__img {
+  background-size: cover !important;
+  background-position: center center !important;
+}
+.gallery-item__bg {
+  background-size: cover !important;
+  background-position: center !important;
+}
+.ba-half {
+  background-size: cover !important;
+  background-position: center !important;
+}
