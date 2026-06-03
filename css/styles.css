@@ -1984,3 +1984,265 @@ p { font-size: 1rem; color: var(--color-text); line-height: 1.7; }
 .hidden { display: none !important; }
 
 /* Reveal defined above in Premium Design System */
+
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM OVERHAUL — Visual elevation layer
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Directional reveals ──────────────────────────────────── */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity .75s cubic-bezier(.4,0,.2,1), transform .75s cubic-bezier(.4,0,.2,1);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity .75s cubic-bezier(.4,0,.2,1), transform .75s cubic-bezier(.4,0,.2,1);
+}
+.reveal-scale {
+  opacity: 0;
+  transform: scale(.94);
+  transition: opacity .75s cubic-bezier(.4,0,.2,1), transform .75s cubic-bezier(.4,0,.2,1);
+}
+.reveal-left.visible,
+.reveal-right.visible,
+.reveal-scale.visible { opacity: 1; transform: none; }
+.reveal-delay-4 { transition-delay: .48s; }
+.reveal-delay-5 { transition-delay: .60s; }
+
+/* ── Section wave separators ─────────────────────────────── */
+.wave-divider {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin: 0;
+}
+.wave-divider svg { display: block; width: 100%; }
+
+/* ── Hero cinematic enhancements ─────────────────────────── */
+.hero__video-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero__video-layer video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .35;
+}
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(160deg, rgba(10,10,10,.92) 0%, rgba(25,18,8,.82) 50%, rgba(10,10,10,.88) 100%);
+}
+.hero__light-streak {
+  position: absolute;
+  top: -10%; left: 60%;
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse, rgba(212,168,67,.07) 0%, transparent 70%);
+  z-index: 0;
+  animation: streakFloat 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes streakFloat {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(-80px,60px) scale(1.2); }
+}
+
+/* ── Trust bar animated counters ─────────────────────────── */
+.trust-item__num {
+  font-variant-numeric: tabular-nums;
+  transition: color .3s;
+}
+.trust-item:hover .trust-item__num { color: var(--color-gold-lt); }
+
+/* ── Gallery — premium hover depth ──────────────────────── */
+.gallery-grid__item {
+  box-shadow: 0 2px 16px rgba(0,0,0,.1);
+  transition: transform .4s cubic-bezier(.4,0,.2,1), box-shadow .4s ease;
+}
+.gallery-grid__item:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 16px 48px rgba(0,0,0,.22);
+  z-index: 2;
+}
+.gallery-grid__overlay {
+  background: linear-gradient(160deg, rgba(20,12,0,.3) 0%, rgba(212,168,67,.15) 100%);
+  backdrop-filter: blur(1px);
+}
+
+/* ── Service card — glassmorphism hover ─────────────────── */
+.service-card {
+  background: linear-gradient(145deg, #fff 0%, #fdf9f4 100%);
+}
+.service-card:hover {
+  background: white;
+  box-shadow: 0 12px 48px rgba(212,168,67,.12), 0 2px 12px rgba(0,0,0,.06);
+}
+
+/* ── Pilar cards — layered depth ────────────────────────── */
+.pilar-card {
+  background: linear-gradient(145deg, #ffffff 0%, #fdf9f4 100%);
+  box-shadow: 0 2px 16px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.04);
+}
+.pilar-card:hover {
+  box-shadow: 0 20px 56px rgba(0,0,0,.10), 0 4px 16px rgba(212,168,67,.08);
+}
+
+/* ── CTA Banner — stronger atmospheric glow ─────────────── */
+.cta-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 40% 60% at 20% 50%, rgba(212,168,67,.05) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 50%, rgba(212,168,67,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Team cards — elevated ──────────────────────────────── */
+.team-card {
+  background: linear-gradient(145deg, #fff 0%, #fdf9f4 100%);
+  box-shadow: 0 4px 20px rgba(0,0,0,.07);
+}
+.team-card:hover {
+  box-shadow: 0 16px 56px rgba(0,0,0,.12), 0 4px 16px rgba(212,168,67,.1);
+}
+
+/* ── Reviews section — editorial overhaul ───────────────── */
+.reviews-section {
+  position: relative;
+  overflow: hidden;
+}
+.reviews-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,67,.3), transparent);
+}
+.reviews-section::after {
+  content: '';
+  position: absolute;
+  bottom: 50%; left: 50%;
+  transform: translate(-50%, 50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(ellipse, rgba(212,168,67,.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.review-card {
+  position: relative;
+  overflow: hidden;
+}
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 10px; right: 16px;
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(212,168,67,.08);
+  pointer-events: none;
+}
+.review-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(0,0,0,.3);
+}
+
+/* ── Pre-footer CTA ─────────────────────────────────────── */
+.pre-footer-cta {
+  background: linear-gradient(135deg, var(--color-gold-dk) 0%, var(--color-gold) 50%, var(--color-gold-lt) 100%);
+  padding: 56px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.pre-footer-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E") repeat;
+  background-size: 180px;
+  opacity: .04;
+}
+.pre-footer-cta h2 {
+  color: var(--color-black);
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  margin-bottom: 12px;
+  position: relative;
+}
+.pre-footer-cta p {
+  color: rgba(20,20,20,.7);
+  font-size: 1.05rem;
+  margin-bottom: 32px;
+  position: relative;
+}
+.pre-footer-cta .btn-dark {
+  background: var(--color-black);
+  color: var(--color-white);
+  font-weight: 700;
+  padding: 17px 44px;
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  position: relative;
+  transition: all .3s ease;
+  box-shadow: 0 6px 24px rgba(0,0,0,.25);
+}
+.pre-footer-cta .btn-dark:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0,0,0,.35);
+}
+
+/* ── Footer — premium redesign ──────────────────────────── */
+.footer {
+  background: linear-gradient(170deg, #111 0%, #0A0A0A 100%);
+}
+.footer__top-bar {
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 20px 0;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer__top-bar-claim {
+  color: rgba(255,255,255,.45);
+  font-size: .82rem;
+  letter-spacing: .04em;
+}
+.footer__top-bar-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-gold);
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+/* ── Parallax support ───────────────────────────────────── */
+.hero__bg {
+  will-change: transform;
+}
+
+/* ── Stagger children ───────────────────────────────────── */
+.stagger-children > *:nth-child(1) { transition-delay: 0s; }
+.stagger-children > *:nth-child(2) { transition-delay: .1s; }
+.stagger-children > *:nth-child(3) { transition-delay: .2s; }
+.stagger-children > *:nth-child(4) { transition-delay: .3s; }
+
+/* ── Mobile adjustments for new components ──────────────── */
+@media (max-width: 768px) {
+  .pre-footer-cta { padding: 40px 0; }
+  .footer__top-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+@media (max-width: 480px) {
+  .pre-footer-cta h2 { font-size: 1.5rem; }
+  .pre-footer-cta .btn-dark { width: 100%; max-width: 320px; padding: 17px 24px; }
+}

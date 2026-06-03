@@ -99,6 +99,8 @@
 <!-- ═══════════════════════════ HERO ══════════════════════════════ -->
 <section class="hero" id="inicio">
   <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__light-streak"></div>
   <div class="hero__grain"></div>
   <div class="container">
     <div class="hero__content">
@@ -138,23 +140,28 @@
   <div class="container">
     <div class="trust-bar__inner">
       <div class="trust-item">
-        <div class="trust-item__num">200+</div>
+        <div class="trust-item__num" data-count="200" data-suffix="+">200+</div>
         <div class="trust-item__label">Clientes satisfechos</div>
       </div>
       <div class="trust-item">
-        <div class="trust-item__num">4.9★</div>
+        <div class="trust-item__num" data-count="4.9" data-suffix="★" data-decimals="1">4.9★</div>
         <div class="trust-item__label">Reseñas en Google</div>
       </div>
       <div class="trust-item">
-        <div class="trust-item__num">15+</div>
+        <div class="trust-item__num" data-count="15" data-suffix="+">15+</div>
         <div class="trust-item__label">Años de experiencia</div>
       </div>
       <div class="trust-item">
-        <div class="trust-item__num">100%</div>
+        <div class="trust-item__num" data-count="100" data-suffix="%">100%</div>
         <div class="trust-item__label">Reserva online</div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Wave divider: dark → cream -->
+<div class="wave-divider" style="background:var(--color-black)">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 56" preserveAspectRatio="none" height="56"><path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#F7F3EC"/></svg>
 </div>
 
 <!-- ═══════════════════ PILARES (propuesta de valor) ══════════════ -->
@@ -428,6 +435,11 @@
   </div>
 </section>
 
+<!-- Wave divider: white → dark -->
+<div class="wave-divider" style="background:var(--color-white)">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 56" preserveAspectRatio="none" height="56"><path d="M0,0 C360,56 1080,56 1440,0 L1440,56 L0,56 Z" fill="#141414"/></svg>
+</div>
+
 <!-- ══════════════════════ RESEÑAS GOOGLE ══════════════════════════ -->
 <section class="reviews-section">
   <div class="container">
@@ -524,6 +536,11 @@
 </section>
 
 
+<!-- Wave divider: dark → cream -->
+<div class="wave-divider" style="background:var(--color-black)">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 56" preserveAspectRatio="none" height="56"><path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#F7F3EC"/></svg>
+</div>
+
 <!-- ══════════════════════ UBICACIÓN ══════════════════════════════ -->
 <section class="ubicacion section--cream" id="contacto">
   <div class="container">
@@ -532,14 +549,14 @@
       <h2>Estamos en el corazón de [Tu barrio]</h2>
     </div>
     <div class="grid-2" style="align-items:start;gap:48px">
-      <div class="ubicacion__map reveal">
+      <div class="ubicacion__map reveal-left">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0!2d-58.4293!3d-34.5881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sJorge%20Luis%20Borges%202241%2C%20Palermo!5e0!3m2!1ses!2sar!4v1"
           allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           title="Mapa [Nombre de tu peluquería]">
         </iframe>
       </div>
-      <div class="ubicacion__info reveal">
+      <div class="ubicacion__info reveal-right">
         <h3>[Nombre de tu peluquería]</h3>
 
         <div class="info-item">
@@ -594,9 +611,24 @@
   </div>
 </section>
 
+<!-- ══════════════════ PRE-FOOTER CTA ══════════════════════════════ -->
+<section class="pre-footer-cta">
+  <div class="container" style="max-width:640px;position:relative">
+    <h2>¿Listo para tu próxima transformación?</h2>
+    <p>Reservá online en minutos. Sin llamadas, sin señas, sin esperas.</p>
+    <a href="turnos.html" class="btn-dark">Reservar turno ahora →</a>
+  </div>
+</section>
+
 <!-- ══════════════════════ FOOTER ══════════════════════════════════ -->
 <footer class="footer">
   <div class="container">
+    <div class="footer__top-bar">
+      <div class="footer__top-bar-rating">
+        ★★★★★ <span style="color:rgba(255,255,255,.4);font-weight:400">4.9 en Google · Más de 200 clientes</span>
+      </div>
+      <div class="footer__top-bar-claim">Reserva online 24/7 · Sin señas · Sin esperas</div>
+    </div>
     <div class="footer__grid">
       <div>
         <div class="footer__logo">[Nombre de tu peluquería]</div>

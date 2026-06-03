@@ -154,6 +154,66 @@ window.showToast = function(message, type = 'info') {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
 })();
 
+// ── Parallax en hero background ──────────────────────────────────
+(function initParallax() {
+  const heroBg = document.querySelector('.hero__bg');
+  if (!heroBg || window.matchMedia('(max-width: 768px)').matches) return;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    heroBg.style.transform = `translateY(${y * 0.35}px)`;
+  }, { passive: true });
+})();
+
+// ── Animated counters ─────────────────────────────────────────────
+(function initCounters() {
+  const items = document.querySelectorAll('[data-count]');
+  if (!items.length) return;
+
+  const ease = t => t < .5 ? 2*t*t : -1+(4-2*t)*t;
+
+  const animateCounter = (el) => {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
+    const duration = 1800;
+    const start = performance.now();
+
+    const tick = (now) => {
+      const elapsed = Math.min((now - start) / duration, 1);
+      const value = target * ease(elapsed);
+      el.textContent = decimals ? value.toFixed(decimals) + suffix : Math.round(value) + suffix;
+      if (elapsed < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  items.forEach(el => observer.observe(el));
+})();
+
+// ── Reveal con dirección (left / right / scale) ───────────────────
+(function initDirectionalReveal() {
+  const els = document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale');
+  if (!els.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  els.forEach(el => observer.observe(el));
+})();
+
 // ── Preload URL params para turnos ────────────────────────────────
 (function handleTurnosParams() {
   if (!window.location.pathname.includes('turnos')) return;
