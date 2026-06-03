@@ -223,3 +223,49 @@ window.showToast = function(message, type = 'info') {
     window._preselectedProf = prof;
   }
 })();
+
+// ── Stats showcase counters ────────────────────────────────────────
+(function initShowcaseCounters() {
+  const items = document.querySelectorAll('.stat-showcase-item__number[data-count]');
+  if (!items.length) return;
+
+  const ease = t => t < .5 ? 2*t*t : -1+(4-2*t)*t;
+
+  const animateCounter = (el) => {
+    const target   = parseFloat(el.dataset.count);
+    const suffix   = el.dataset.suffix || '';
+    const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
+    const duration = 2000;
+    const start    = performance.now();
+    const tick = (now) => {
+      const elapsed = Math.min((now - start) / duration, 1);
+      const value   = target * ease(elapsed);
+      el.textContent = decimals ? value.toFixed(decimals) + suffix : Math.round(value) + suffix;
+      if (elapsed < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { animateCounter(entry.target); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.5 });
+
+  items.forEach(el => observer.observe(el));
+})();
+
+// ── 3D card tilt micro-interaction ────────────────────────────────
+(function initCardTilt() {
+  if (window.matchMedia('(max-width: 768px)').matches) return;
+  const cards = document.querySelectorAll('.pilar-card, .ba-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width  - 0.5;
+      const y = (e.clientY - rect.top)  / rect.height - 0.5;
+      card.style.transform = `perspective(700px) rotateY(${x * 5}deg) rotateX(${-y * 3}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+})();
