@@ -105,7 +105,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const target = document.querySelector(a.getAttribute('href'));
     if (!target) return;
     e.preventDefault();
-    const offset = 80;
+    const header = document.getElementById('header');
+    const offset = header ? header.offsetHeight : 72;
     window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
   });
 });
