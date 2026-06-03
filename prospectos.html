@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kit Prospección — Peluquerías Buenos Aires</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --accent: #7c6af7;
+      --accent2: #f7706a;
+      --green: #3ecf8e;
+      --yellow: #f5c842;
+      --red: #f7706a;
+      --text: #e8eaf0;
+      --muted: #8890a8;
+      --border: #2e3248;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; padding: 24px; min-height: 100vh; }
+
+    /* Header */
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+    .header h1 { font-size: 1.6rem; font-weight: 700; }
+    .header h1 span { color: var(--accent); }
+    .badge { background: var(--surface2); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: var(--muted); }
+
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 32px; }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; }
+    .stat-value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* Table */
+    .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .section-title::before { content: ''; display: block; width: 4px; height: 20px; background: var(--accent); border-radius: 2px; }
+    .table-wrap { overflow-x: auto; margin-bottom: 40px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    thead th { background: var(--surface2); color: var(--muted); text-align: left; padding: 10px 14px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--border); }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:hover { background: var(--surface); }
+    tbody td { padding: 12px 14px; vertical-align: middle; }
+    .rank { font-weight: 700; color: var(--muted); font-size: 0.8rem; }
+    .name { font-weight: 600; }
+    .barrio { color: var(--muted); font-size: 0.82rem; }
+    .score-bar { display: flex; align-items: center; gap: 8px; }
+    .bar { height: 6px; border-radius: 3px; background: var(--border); width: 80px; flex-shrink: 0; }
+    .bar-fill { height: 100%; border-radius: 3px; }
+    .score-num { font-weight: 700; min-width: 24px; }
+    .tag { display: inline-block; padding: 3px 9px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; }
+    .tag-alta { background: rgba(62,207,142,0.15); color: var(--green); }
+    .tag-media { background: rgba(245,200,66,0.15); color: var(--yellow); }
+    .tag-baja { background: rgba(247,112,106,0.15); color: var(--red); }
+    .web-yes { color: var(--green); font-size: 0.8rem; }
+    .web-no { color: var(--red); font-size: 0.8rem; }
+    .web-basic { color: var(--yellow); font-size: 0.8rem; }
+    .contact-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 5px 12px; border-radius: 6px; font-size: 0.78rem; cursor: pointer; transition: all 0.15s; }
+    .contact-btn:hover { background: var(--accent); color: #fff; }
+
+    /* Detail cards */
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; margin-bottom: 40px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .card-name { font-size: 1rem; font-weight: 700; }
+    .card-barrio { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .card-score { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+    .card-row { display: flex; gap: 8px; margin-bottom: 8px; font-size: 0.82rem; }
+    .card-label { color: var(--muted); min-width: 80px; flex-shrink: 0; }
+    .card-val { color: var(--text); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+    .card-msg { font-size: 0.82rem; background: var(--surface2); border-radius: 8px; padding: 12px 14px; line-height: 1.55; color: #c5cde8; border-left: 3px solid var(--accent); position: relative; }
+    .copy-btn { position: absolute; top: 8px; right: 8px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); padding: 3px 8px; border-radius: 5px; font-size: 0.7rem; cursor: pointer; transition: all 0.15s; }
+    .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+
+    /* Export */
+    .export-bar { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+    .export-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; display: flex; align-items: center; gap: 8px; }
+    .export-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Footer */
+    footer { color: var(--muted); font-size: 0.75rem; text-align: center; padding-top: 24px; border-top: 1px solid var(--border); }
+
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px; max-width: 520px; width: 90%; position: relative; }
+    .modal-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+    .modal-msg { font-size: 0.88rem; background: var(--surface2); padding: 16px; border-radius: 8px; line-height: 1.6; white-space: pre-wrap; color: #c5cde8; }
+    .modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+    .modal-actions { margin-top: 14px; display: flex; gap: 10px; }
+    .btn-primary { background: var(--accent); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Prospectos — <span>Peluquerías Buenos Aires</span></h1>
+    <p style="color:var(--muted);font-size:0.82rem;margin-top:4px;">Generado el 3 de junio de 2026 · Servicio ofrecido: Web con turnos, servicios y galería</p>
+  </div>
+  <span class="badge">10 prospectos analizados</span>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat"><div class="stat-value">10</div><div class="stat-label">Negocios analizados</div></div>
+  <div class="stat"><div class="stat-value" style="color:var(--red)">6</div><div class="stat-label">Sin web propia</div></div>
+  <div class="stat"><div class="stat-value" style="color:var(--yellow)">3</div><div class="stat-label">Web básica / sin turnos</div></div>
+  <div class="stat"><div class="stat-value" style="color:var(--green)">8.2</div><div class="stat-label">Score promedio top 5</div></div>
+  <div class="stat"><div class="stat-value">CABA</div><div class="stat-label">Zona de búsqueda</div></div>
+</div>
+
+<!-- Table -->
+<div class="section-title">Tabla de prospectos ordenada por oportunidad</div>
+<div class="table-wrap">
+  <table id="prospectos-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Negocio</th>
+        <th>Barrio</th>
+        <th>Contacto</th>
+        <th>Web propia</th>
+        <th>Turnos online</th>
+        <th>Galería</th>
+        <th>Oportunidad</th>
+        <th>Score</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank">01</td>
+        <td class="name">Lord Barbería</td>
+        <td class="barrio">Belgrano / Cañitas</td>
+        <td>Solo Facebook</td>
+        <td><span class="web-no">✗ No tiene</span></td>
+        <td><span class="web-no">✗ No</span></td>
+        <td><span class="web-no">✗ No</span></td>
+        <td><span class="tag tag-alta">Alta</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:93%;background:var(--green)"></div></div>
+            <span class="score-num">9.3</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(0)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">02</td>
+        <td class="name">Punto de Belleza</td>
+        <td class="barrio">Villa Crespo</td>
+        <td>WhatsApp · 11-4914-3368</td>
+        <td><span class="web-no">✗ No tiene</span></td>
+        <td><span class="web-no">✗ Solo WA</span></td>
+        <td><span class="web-no">✗ No</span></td>
+        <td><span class="tag tag-alta">Alta</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:90%;background:var(--green)"></div></div>
+            <span class="score-num">9.0</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(1)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">03</td>
+        <td class="name">Barbería Argentina</td>
+        <td class="barrio">Caballito · Saavedra · Barracas</td>
+        <td>Instagram @barberia.argentina</td>
+        <td><span class="web-no">✗ No tiene</span></td>
+        <td><span class="web-no">✗ Walk-in</span></td>
+        <td><span class="web-no">✗ No</span></td>
+        <td><span class="tag tag-alta">Alta</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:88%;background:var(--green)"></div></div>
+            <span class="score-num">8.8</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(2)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">04</td>
+        <td class="name">Barberin</td>
+        <td class="barrio">Palermo Soho</td>
+        <td>Facebook + Instagram @barberin_palermo</td>
+        <td><span class="web-no">✗ No tiene</span></td>
+        <td><span class="web-no">✗ No</span></td>
+        <td><span class="web-basic">~ Solo Instagram</span></td>
+        <td><span class="tag tag-alta">Alta</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:82%;background:var(--green)"></div></div>
+            <span class="score-num">8.2</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(3)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">05</td>
+        <td class="name">Ego Barber Shop</td>
+        <td class="barrio">Palermo Soho</td>
+        <td>WA · 011 2390-3072</td>
+        <td><span class="web-basic">~ negocio.site</span></td>
+        <td><span class="web-basic">~ Solo Fresha</span></td>
+        <td><span class="web-no">✗ No</span></td>
+        <td><span class="tag tag-alta">Alta</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:80%;background:var(--yellow)"></div></div>
+            <span class="score-num">8.0</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(4)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">06</td>
+        <td class="name">Pelukids</td>
+        <td class="barrio">Buenos Aires (infantil)</td>
+        <td>pelukids.com.ar</td>
+        <td><span class="web-basic">~ Tiene web</span></td>
+        <td><span class="web-no">✗ Sin sistema</span></td>
+        <td><span class="web-basic">~ Básica</span></td>
+        <td><span class="tag tag-media">Media</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:70%;background:var(--yellow)"></div></div>
+            <span class="score-num">7.0</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(5)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">07</td>
+        <td class="name">Vipeluquerías</td>
+        <td class="barrio">Boedo · Caballito</td>
+        <td>vipeluquerias.com.ar</td>
+        <td><span class="web-basic">~ Tiene web</span></td>
+        <td><span class="web-basic">~ Solo WhatsApp</span></td>
+        <td><span class="web-basic">~ Básica</span></td>
+        <td><span class="tag tag-media">Media</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:65%;background:var(--yellow)"></div></div>
+            <span class="score-num">6.5</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(6)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">08</td>
+        <td class="name">Mala Testa Barbería</td>
+        <td class="barrio">Caballito</td>
+        <td>malatestabarberia.com.ar</td>
+        <td><span class="web-basic">~ Tiene web</span></td>
+        <td><span class="web-basic">~ Solo WhatsApp</span></td>
+        <td><span class="web-basic">~ Básica</span></td>
+        <td><span class="tag tag-media">Media</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:60%;background:var(--yellow)"></div></div>
+            <span class="score-num">6.0</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(7)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">09</td>
+        <td class="name">Mala Peluquería</td>
+        <td class="barrio">Palermo (2 locales)</td>
+        <td>malapeluqueria.com</td>
+        <td><span class="web-yes">✓ Tiene web</span></td>
+        <td><span class="web-basic">~ Parcial</span></td>
+        <td><span class="web-basic">~ Básica</span></td>
+        <td><span class="tag tag-media">Media</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:52%;background:var(--yellow)"></div></div>
+            <span class="score-num">5.2</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(8)">Ver mensaje</button></td>
+      </tr>
+      <tr>
+        <td class="rank">10</td>
+        <td class="name">Hacha Brava</td>
+        <td class="barrio">Buenos Aires (varias suc.)</td>
+        <td>hachabrava.com.ar</td>
+        <td><span class="web-yes">✓ Tiene web</span></td>
+        <td><span class="web-yes">✓ Sistema propio</span></td>
+        <td><span class="web-yes">✓ Sí</span></td>
+        <td><span class="tag tag-baja">Baja</span></td>
+        <td>
+          <div class="score-bar">
+            <div class="bar"><div class="bar-fill" style="width:25%;background:var(--red)"></div></div>
+            <span class="score-num">2.5</span>
+          </div>
+        </td>
+        <td><button class="contact-btn" onclick="openModal(9)">Ver mensaje</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Top 5 Detail cards -->
+<div class="section-title">Análisis detallado — Top 5 prospectos</div>
+<div class="cards">
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Lord Barbería</div>
+        <div class="card-barrio">Migueletes 1264 · Belgrano / Cañitas · CABA</div>
+      </div>
+      <div class="card-score">9.3</div>
+    </div>
+    <div class="card-row"><span class="card-label">Contacto</span><span class="card-val">facebook.com/lordbarberia</span></div>
+    <div class="card-row"><span class="card-label">Presencia</span><span class="card-val">Solo Facebook — sin Instagram, sin web</span></div>
+    <div class="card-row"><span class="card-label">Turnos</span><span class="card-val">Sin sistema online identificado</span></div>
+    <div class="card-row"><span class="card-label">Galería</span><span class="card-val">No tiene en web propia</span></div>
+    <div class="card-row"><span class="card-label">Por qué ahora</span><span class="card-val">Belgrano/Cañitas tiene alto poder adquisitivo. Sin web = pierde clientes que buscan en Google.</span></div>
+    <hr class="divider" />
+    <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px;">MENSAJE PERSONALIZADO — WhatsApp / DM Facebook</div>
+    <div class="card-msg" id="msg-0">
+¡Hola! Vi que Lord Barbería atiende en Cañitas 💈
+
+Soy desarrollador web y armo páginas para peluquerías con sistema de turnos online, galería de trabajos y lista de servicios. Todo desde el celular, sin complicaciones.
+
+La web permite que tus clientes reserven solos a cualquier hora — sin llamadas, sin mensajes de ida y vuelta.
+
+Si te interesa, te paso ejemplos y precio en 5 minutos. ¿Cuándo tenés un momento?
+    </div>
+    <button class="copy-btn" onclick="copyMsg('msg-0', this)">Copiar</button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Punto de Belleza</div>
+        <div class="card-barrio">Gurruchaga 517 · Villa Crespo · CABA</div>
+      </div>
+      <div class="card-score">9.0</div>
+    </div>
+    <div class="card-row"><span class="card-label">Contacto</span><span class="card-val">@puntodebelleza.517 · WA: 11-4914-3368</span></div>
+    <div class="card-row"><span class="card-label">Presencia</span><span class="card-val">Solo Instagram — sin web propia</span></div>
+    <div class="card-row"><span class="card-label">Turnos</span><span class="card-val">Solo por WhatsApp (manual)</span></div>
+    <div class="card-row"><span class="card-label">Galería</span><span class="card-val">Solo en Instagram</span></div>
+    <div class="card-row"><span class="card-label">Por qué ahora</span><span class="card-val">Gestionar turnos por WA manually consume tiempo. Una web lo automatiza y da imagen profesional.</span></div>
+    <hr class="divider" />
+    <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px;">MENSAJE PERSONALIZADO — WhatsApp directo</div>
+    <div class="card-msg" id="msg-1">
+¡Hola, Punto de Belleza! 💇‍♀️
+
+Vi que tomás turnos por WhatsApp — ¿cuántos mensajes recibís por día para coordinar horarios?
+
+Te propongo algo: una página web donde tus clientas reservan solas, ven tus trabajos en galería y consultan los servicios con precios. Vos recibís el turno confirmado sin ir y venir de mensajes.
+
+Te lo muestro con ejemplos concretos si querés. ¿Te parece?
+    </div>
+    <button class="copy-btn" onclick="copyMsg('msg-1', this)">Copiar</button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Barbería Argentina</div>
+        <div class="card-barrio">Caballito · Saavedra · Barracas · CABA</div>
+      </div>
+      <div class="card-score">8.8</div>
+    </div>
+    <div class="card-row"><span class="card-label">Contacto</span><span class="card-val">@barberia.argentina (Instagram)</span></div>
+    <div class="card-row"><span class="card-label">Presencia</span><span class="card-val">Solo Instagram — 3 sucursales, sin web</span></div>
+    <div class="card-row"><span class="card-label">Turnos</span><span class="card-val">Walk-in (orden de llegada)</span></div>
+    <div class="card-row"><span class="card-label">Galería</span><span class="card-val">Solo en Instagram</span></div>
+    <div class="card-row"><span class="card-label">Por qué ahora</span><span class="card-val">3 sucursales sin web unificada = mucha oportunidad perdida. Un sistema de turnos elimina colas.</span></div>
+    <hr class="divider" />
+    <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px;">MENSAJE PERSONALIZADO — DM Instagram</div>
+    <div class="card-msg" id="msg-2">
+¡Hola! Vi que tienen 3 locales y atienden sin turno previo. Eso genera espera y clientes que se van 💈
+
+Soy dev web especializado en peluquerías. Puedo armarles una web con sistema de turnos para las 3 sucursales, galería de trabajos y lista de servicios.
+
+Los clientes reservan solos desde el celular. Ustedes gestionan todo desde un panel.
+
+¿Me cuentan si les interesa? Tengo ejemplos para mostrarles.
+    </div>
+    <button class="copy-btn" onclick="copyMsg('msg-2', this)">Copiar</button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Barberin</div>
+        <div class="card-barrio">Soler 4475 · Palermo Soho · CABA</div>
+      </div>
+      <div class="card-score">8.2</div>
+    </div>
+    <div class="card-row"><span class="card-label">Contacto</span><span class="card-val">@barberin_palermo · fb: barberinpalermo</span></div>
+    <div class="card-row"><span class="card-label">Presencia</span><span class="card-val">Facebook + Instagram — sin web propia</span></div>
+    <div class="card-row"><span class="card-label">Turnos</span><span class="card-val">Por redes (sin sistema online)</span></div>
+    <div class="card-row"><span class="card-label">Horario</span><span class="card-val">Lun–Sáb 11–14 y 15–20</span></div>
+    <div class="card-row"><span class="card-label">Por qué ahora</span><span class="card-val">Palermo Soho = zona premium. Sin web pierden clientes que buscan barbería en Google Maps.</span></div>
+    <hr class="divider" />
+    <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px;">MENSAJE PERSONALIZADO — DM Instagram</div>
+    <div class="card-msg" id="msg-3">
+¡Hola, Barberin! 💈 Pasé por el perfil y el trabajo se ve muy bien.
+
+Una propuesta rápida: ¿tienen web propia? Vi que la presencia es solo por redes.
+
+Armo páginas para barberías con turnos online, galería de cortes y precios — los clientes reservan 24/7 sin mandarte mensaje. Y aparecen en Google cuando alguien busca "barbería Palermo".
+
+Si querés te paso un ejemplo en vivo. ¿Les interesa?
+    </div>
+    <button class="copy-btn" onclick="copyMsg('msg-3', this)">Copiar</button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Ego Barber Shop</div>
+        <div class="card-barrio">Guatemala 4725 · Palermo Soho · CABA</div>
+      </div>
+      <div class="card-score">8.0</div>
+    </div>
+    <div class="card-row"><span class="card-label">Contacto</span><span class="card-val">WA: 011 2390-3072 · @egobarbershop.ar</span></div>
+    <div class="card-row"><span class="card-label">Presencia</span><span class="card-val">negocio.site (básico) + Fresha</span></div>
+    <div class="card-row"><span class="card-label">Turnos</span><span class="card-val">Fresha (plataforma de terceros, con comisión)</span></div>
+    <div class="card-row"><span class="card-label">Galería</span><span class="card-val">Sin galería en web propia</span></div>
+    <div class="card-row"><span class="card-label">Por qué ahora</span><span class="card-val">Fresha cobra comisión. Web propia = sin intermediarios, imagen más profesional y control total.</span></div>
+    <hr class="divider" />
+    <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px;">MENSAJE PERSONALIZADO — WhatsApp</div>
+    <div class="card-msg" id="msg-4">
+¡Hola, Ego Barber! 💈
+
+Vi que usan Fresha para turnos — ¿saben que cada reserva puede costarles comisión?
+
+Armo webs propias para barberías: sistema de turnos sin comisión, galería de trabajos, servicios con precios. Los clientes reservan directo — el dinero es todo para ustedes.
+
+Si quieren les muestro cómo quedaría en 10 minutos. ¿Cuándo tienen un momento?
+    </div>
+    <button class="copy-btn" onclick="copyMsg('msg-4', this)">Copiar</button>
+  </div>
+
+</div>
+
+<!-- Export -->
+<div class="section-title">Exportar datos</div>
+<div class="export-bar">
+  <button class="export-btn" onclick="exportJSON()">📥 Exportar JSON</button>
+  <button class="export-btn" onclick="exportCSV()">📄 Exportar CSV</button>
+  <button class="export-btn" onclick="window.print()">🖨 Imprimir informe</button>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-title">Mensaje de contacto</div>
+    <div class="modal-msg" id="modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="copyModalMsg()">Copiar mensaje</button>
+      <button class="btn-secondary" onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Kit de prospección · Buenos Aires · Peluquerías &amp; Barberías · 2026
+</footer>
+
+<script>
+const data = [
+  {
+    rank: 1, name: "Lord Barbería", barrio: "Belgrano / Cañitas", direccion: "Migueletes 1264",
+    contacto: "facebook.com/lordbarberia", web: false, turnos: false, galeria: false,
+    oportunidad: "Alta", score: 9.3,
+    mensaje: "¡Hola! Vi que Lord Barbería atiende en Cañitas 💈\n\nSoy desarrollador web y armo páginas para peluquerías con sistema de turnos online, galería de trabajos y lista de servicios. Todo desde el celular, sin complicaciones.\n\nLa web permite que tus clientes reserven solos a cualquier hora — sin llamadas, sin mensajes de ida y vuelta.\n\nSi te interesa, te paso ejemplos y precio en 5 minutos. ¿Cuándo tenés un momento?"
+  },
+  {
+    rank: 2, name: "Punto de Belleza", barrio: "Villa Crespo", direccion: "Gurruchaga 517",
+    contacto: "WA: 11-4914-3368 / @puntodebelleza.517", web: false, turnos: false, galeria: false,
+    oportunidad: "Alta", score: 9.0,
+    mensaje: "¡Hola, Punto de Belleza! 💇‍♀️\n\nVi que tomás turnos por WhatsApp — ¿cuántos mensajes recibís por día para coordinar horarios?\n\nTe propongo algo: una página web donde tus clientas reservan solas, ven tus trabajos en galería y consultan los servicios con precios. Vos recibís el turno confirmado sin ir y venir de mensajes.\n\nTe lo muestro con ejemplos concretos si querés. ¿Te parece?"
+  },
+  {
+    rank: 3, name: "Barbería Argentina", barrio: "Caballito · Saavedra · Barracas", direccion: "3 sucursales",
+    contacto: "@barberia.argentina", web: false, turnos: false, galeria: false,
+    oportunidad: "Alta", score: 8.8,
+    mensaje: "¡Hola! Vi que tienen 3 locales y atienden sin turno previo. Eso genera espera y clientes que se van 💈\n\nSoy dev web especializado en peluquerías. Puedo armarles una web con sistema de turnos para las 3 sucursales, galería de trabajos y lista de servicios.\n\nLos clientes reservan solos desde el celular. Ustedes gestionan todo desde un panel.\n\n¿Me cuentan si les interesa? Tengo ejemplos para mostrarles."
+  },
+  {
+    rank: 4, name: "Barberin", barrio: "Palermo Soho", direccion: "Soler 4475",
+    contacto: "@barberin_palermo / fb: barberinpalermo", web: false, turnos: false, galeria: false,
+    oportunidad: "Alta", score: 8.2,
+    mensaje: "¡Hola, Barberin! 💈 Pasé por el perfil y el trabajo se ve muy bien.\n\nUna propuesta rápida: ¿tienen web propia? Vi que la presencia es solo por redes.\n\nArmo páginas para barberías con turnos online, galería de cortes y precios — los clientes reservan 24/7 sin mandarte mensaje. Y aparecen en Google cuando alguien busca 'barbería Palermo'.\n\nSi querés te paso un ejemplo en vivo. ¿Les interesa?"
+  },
+  {
+    rank: 5, name: "Ego Barber Shop", barrio: "Palermo Soho", direccion: "Guatemala 4725",
+    contacto: "WA: 011 2390-3072 / @egobarbershop.ar", web: "básica", turnos: "Fresha", galeria: false,
+    oportunidad: "Alta", score: 8.0,
+    mensaje: "¡Hola, Ego Barber! 💈\n\nVi que usan Fresha para turnos — ¿saben que cada reserva puede costarles comisión?\n\nArmo webs propias para barberías: sistema de turnos sin comisión, galería de trabajos, servicios con precios. Los clientes reservan directo — el dinero es todo para ustedes.\n\nSi quieren les muestro cómo quedaría en 10 minutos. ¿Cuándo tienen un momento?"
+  },
+  {
+    rank: 6, name: "Pelukids", barrio: "Buenos Aires", direccion: "—",
+    contacto: "pelukids.com.ar", web: true, turnos: false, galeria: "básica",
+    oportunidad: "Media", score: 7.0,
+    mensaje: "¡Hola, Pelukids! Vi su web y está bien, pero no tiene sistema de turnos online. Los papás podrían reservar solos sin llamar. ¿Les interesa modernizarla con esa función?"
+  },
+  {
+    rank: 7, name: "Vipeluquerías", barrio: "Boedo · Caballito", direccion: "Av. Boedo 813 / Av. Acoyte 36",
+    contacto: "vipeluquerias.com.ar", web: true, turnos: "solo WA", galeria: "básica",
+    oportunidad: "Media", score: 6.5,
+    mensaje: "¡Hola, Vipeluquerías! Tienen web pero los turnos son solo por WhatsApp. ¿Les interesa integrar un sistema de reservas online directo en la página?"
+  },
+  {
+    rank: 8, name: "Mala Testa Barbería", barrio: "Caballito", direccion: "—",
+    contacto: "malatestabarberia.com.ar", web: true, turnos: "solo WA", galeria: "básica",
+    oportunidad: "Media", score: 6.0,
+    mensaje: "¡Hola, Mala Testa! El sitio se ve bien pero vi que los turnos son por WhatsApp. Puedo integrar un sistema de reservas online para que los clientes agenden solos. ¿Les interesa?"
+  },
+  {
+    rank: 9, name: "Mala Peluquería", barrio: "Palermo (2 locales)", direccion: "Gorriti 4714 / Dorrego 3550",
+    contacto: "malapeluqueria.com", web: true, turnos: "parcial", galeria: "básica",
+    oportunidad: "Media", score: 5.2,
+    mensaje: "¡Hola, Mala Peluquería! Tienen web pero la galería y el sistema de turnos pueden mejorar bastante. Si les interesa una propuesta de mejora, me avisan."
+  },
+  {
+    rank: 10, name: "Hacha Brava", barrio: "Buenos Aires (varias suc.)", direccion: "—",
+    contacto: "hachabrava.com.ar", web: true, turnos: true, galeria: true,
+    oportunidad: "Baja", score: 2.5,
+    mensaje: "Hacha Brava ya tiene web, turnos y galería completos. No es un prospecto prioritario."
+  }
+];
+
+const msgs = data.map(d => d.mensaje);
+
+function openModal(idx) {
+  document.getElementById('modal-title').textContent = data[idx].name + ' — Mensaje de contacto';
+  document.getElementById('modal-body').textContent = msgs[idx];
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function copyMsg(id, btn) {
+  const txt = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(txt).then(() => {
+    btn.textContent = '¡Copiado!';
+    setTimeout(() => btn.textContent = 'Copiar', 2000);
+  });
+}
+
+function copyModalMsg() {
+  const txt = document.getElementById('modal-body').textContent.trim();
+  navigator.clipboard.writeText(txt).then(() => alert('¡Mensaje copiado!'));
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'prospectos-peluquerias-bsas.json';
+  a.click();
+}
+
+function exportCSV() {
+  const headers = ['Rank','Nombre','Barrio','Dirección','Contacto','Web','Turnos','Galería','Oportunidad','Score'];
+  const rows = data.map(d => [
+    d.rank, d.name, d.barrio, d.direccion, d.contacto,
+    d.web, d.turnos, d.galeria, d.oportunidad, d.score
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'prospectos-peluquerias-bsas.csv';
+  a.click();
+}
+
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
