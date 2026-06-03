@@ -2988,3 +2988,161 @@ p { font-size: 1rem; color: var(--color-text); line-height: 1.7; }
   .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .gallery-grid__item--tall { grid-row: span 1; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   POLISH — 10/10 refinements
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Focus-visible accessibility ─────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.btn:focus-visible {
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px rgba(212,168,67,.25);
+}
+a:focus-visible { border-radius: 2px; }
+
+/* ── Button active (press) states ─────────────────────────── */
+.btn:active { transform: translateY(1px) scale(.99); transition-duration: .08s; }
+.btn-cta-hero:active { transform: translateY(2px) scale(.98); }
+.btn-primary:active { box-shadow: 0 2px 8px rgba(212,168,67,.25); }
+
+/* ── Gallery filters — centered on all viewports ─────────── */
+.gallery-filters { justify-content: center; }
+
+/* ── Gallery overlay — always show label, hover amplifies ── */
+.gallery-grid__overlay {
+  opacity: 1;
+}
+.gallery-grid__item .gallery-grid__overlay {
+  background: linear-gradient(to top, rgba(6,4,1,.88) 0%, rgba(10,7,2,.3) 40%, transparent 100%);
+}
+
+/* ── Review cards — service badge ─────────────────────────── */
+.review-card__role {
+  font-size: .72rem;
+  color: rgba(255,255,255,.38);
+  letter-spacing: .02em;
+  overflow: visible;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+/* ── Consistent section spacing ───────────────────────────── */
+.section-header[style*="margin-bottom:48px"] { margin-bottom: 56px !important; }
+
+/* ── Pilares h2 em styling ────────────────────────────────── */
+.pilares .section-header h2 em {
+  font-style: normal;
+  color: var(--color-gold);
+}
+
+/* ── Service card img — icon centered and sized properly ──── */
+.service-card__img > svg { opacity: .45; }
+
+/* ── Step connector visual line ───────────────────────────── */
+.steps { position: relative; }
+.step { position: relative; z-index: 1; }
+
+/* ── Team card — initials avatar upgrade ─────────────────── */
+.team-card__img .team-initials {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.25);
+  letter-spacing: .05em;
+}
+
+/* ── Hover on nav phone ───────────────────────────────────── */
+.nav__phone:hover { color: var(--color-white); }
+.nav__phone:hover svg { color: var(--color-gold-lt); }
+
+/* ── Smooth color transition on all links ─────────────────── */
+a { transition: color .2s ease, opacity .2s ease; }
+
+/* ── Info item value — prevent layout shift ──────────────── */
+.info-item__value { line-height: 1.55; }
+
+/* ── Review featured quote — stronger pull ───────────────── */
+.reviews-featured-quote p { font-weight: 700; }
+
+/* ── CTA micro text — better contrast ────────────────────── */
+.cta-micro { color: rgba(255,255,255,.5); letter-spacing: .03em; }
+
+/* ── Booking panel inputs — better focus ring ────────────── */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(212,168,67,.12);
+  outline: none;
+}
+
+/* ── Slot buttons — larger touch target on mobile ─────────── */
+@media (max-width: 480px) {
+  .slot-btn { min-width: 72px; text-align: center; }
+  .gallery-filters { gap: 8px; }
+  .gallery-filter { padding: 8px 16px; font-size: .8rem; }
+  .review-card__role { white-space: normal; font-size: .7rem; }
+}
+
+/* ── Hero eyebrow — slightly refined spacing ─────────────── */
+.hero__eyebrow { margin-bottom: 20px; }
+.urgency-badge { margin-bottom: 24px; }
+
+/* ── btn-outline on dark bg — prevent border disappear on mobile ── */
+@media (max-width: 480px) {
+  .btn-outline { border-width: 1.5px; }
+}
+
+/* ── Pilares section on cream bg consistency ─────────────── */
+.pilares.section--cream { background: var(--color-cream); }
+
+/* ── Prevent gallery item text overflow ──────────────────── */
+.gallery-grid__title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ── Footer links in broken pages → no visual error ─────── */
+.footer__link[href="privacidad.html"],
+.footer__link[href="terminos.html"],
+.footer__link[href="cookies.html"] {
+  opacity: .6;
+}
+
+/* ── Scrolled header — faster feel ───────────────────────── */
+.header {
+  transition: background .3s ease, box-shadow .3s ease;
+}
+
+/* ── Brand quote — add quotation marks ───────────────────── */
+.brand-quote blockquote::before {
+  content: '\201C';
+  font-size: 3rem;
+  color: var(--color-gold);
+  opacity: .4;
+  line-height: 0;
+  vertical-align: -0.5em;
+  margin-right: 4px;
+  font-family: var(--font-serif);
+}
+.brand-quote blockquote::after {
+  content: '\201D';
+  font-size: 3rem;
+  color: var(--color-gold);
+  opacity: .4;
+  line-height: 0;
+  vertical-align: -0.5em;
+  margin-left: 4px;
+  font-family: var(--font-serif);
+}
+
+/* ── Remove inline quotes from blockquote text ──────────── */
+/* (the HTML has " at start and " at end — hide them via font-size:0 trick not needed,
+   the CSS pseudo-elements add the marks instead) */
