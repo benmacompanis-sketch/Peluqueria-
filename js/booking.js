@@ -199,12 +199,75 @@ window.selectDate = function(y, m, d) {
 };
 
 // ── PASO 4: Slots horarios ────────────────────────────────────────
-function updateSlotInfo() {
+async function updateSlotInfo() {
   if (!booking.date) return;
+
   const dateStr = booking.date.toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' });
   document.getElementById('step4-sub').textContent =
     dateStr.charAt(0).toUpperCase() + dateStr.slice(1) +
-    (booking.professional && booking.professional !== '0' ? ` · ${document.querySelector(`.professional-option[data-id="${booking.professional}"]`)?.dataset.name || ''}` : '');
+    (booking.professional && booking.professional !== '0'
+      ? ` · ${document.querySelector(`.professional-option[data-id="${booking.professional}"]`)?.dataset.name || ''}`
+      : '');
+
+  // Resetear todos los slots al estado original
+  document.querySelectorAll('.slot-btn').forEach(btn => {
+    btn.classList.remove('taken', 'selected');
+    // Restaurar disabled solo si era fijo (no tiene onclick)
+    if (!btn.getAttribute('onclick')) btn.disabled = true;
+    else btn.disabled = false;
+  });
+  document.getElementById('btn-step4').disabled = true;
+  booking.time = null;
+  document.getElementById('slotDuration').classList.add('hidden');
+
+  if (!db) return;
+
+  // Mostrar indicador de carga
+  document.getElementById('step4-sub').textContent += ' · Verificando disponibilidad…';
+
+  try {
+    const fecha = booking.date.toISOString().split('T')[0];
+    let query = db.from('reservas')
+      .select('hora, duracion, profesional')
+      .eq('fecha', fecha)
+      .in('estado', ['pendiente', 'confirmado']);
+
+    // Si eligió un profesional específico, filtrar por él
+    if (booking.professional && booking.professional !== '0') {
+      const profName = document.querySelector(`.professional-option[data-id="${booking.professional}"]`)?.dataset.name;
+      if (profName) query = query.eq('profesional', profName);
+    }
+
+    const { data: ocupados } = await query;
+
+    if (ocupados && ocupados.length) {
+      ocupados.forEach(r => {
+        if (!r.hora) return;
+        const [bh, bm] = r.hora.split(':').map(Number);
+        const inicioMin = bh * 60 + bm;
+        const finMin    = inicioMin + (r.duracion || 30);
+
+        // Tachar todos los slots que caigan dentro de esa reserva
+        document.querySelectorAll('.slot-btn').forEach(btn => {
+          const txt = btn.textContent.trim();
+          if (!txt.includes(':')) return;
+          const [sh, sm] = txt.split(':').map(Number);
+          const slotMin = sh * 60 + sm;
+          if (slotMin >= inicioMin && slotMin < finMin) {
+            btn.classList.add('taken');
+            btn.disabled = true;
+            btn.removeAttribute('onclick');
+          }
+        });
+      });
+    }
+
+    // Actualizar subtítulo sin el mensaje de carga
+    document.getElementById('step4-sub').textContent = document.getElementById('step4-sub').textContent.replace(' · Verificando disponibilidad…', '');
+
+  } catch(e) {
+    document.getElementById('step4-sub').textContent = document.getElementById('step4-sub').textContent.replace(' · Verificando disponibilidad…', '');
+  }
 }
 
 window.selectSlot = function(btn, time) {
