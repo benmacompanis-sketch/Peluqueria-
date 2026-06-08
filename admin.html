@@ -186,6 +186,28 @@
 }
 .admin-table tbody tr:hover { background: #fafaf8; }
 
+/* ── Inline action buttons ────────────────────────── */
+.accion-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid;
+  font-size: .78rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 4px;
+  transition: all .15s;
+  background: white;
+}
+.accion-btn--confirm { color: #8a6800; border-color: rgba(212,168,67,.5); }
+.accion-btn--confirm:hover { background: rgba(212,168,67,.12); }
+.accion-btn--complete { color: var(--color-success); border-color: rgba(45,122,79,.4); }
+.accion-btn--complete:hover { background: rgba(45,122,79,.08); }
+.accion-btn--cancel { color: #e74c3c; border-color: rgba(231,76,60,.35); }
+.accion-btn--cancel:hover { background: #fff5f5; }
+.accion-btn:disabled { opacity: .5; cursor: default; }
+
 /* ── Kebab btn ────────────────────────────────────── */
 .kebab-btn {
   width: 30px; height: 30px;
@@ -491,6 +513,15 @@
       const serviciosBadges = r.servicio
         ? r.servicio.split(' + ').map(s => `<span style="display:inline-block;background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.25);border-radius:4px;padding:2px 7px;font-size:.72rem;font-weight:600;margin:1px 2px">${s}</span>`).join('')
         : '—';
+      let acciones = '';
+      if (r.estado === 'pendiente') {
+        acciones += `<button onclick="event.stopPropagation();cambiarEstado('${r.id}','confirmado',this)" class="accion-btn accion-btn--confirm">✓ Confirmar</button>`;
+      } else if (r.estado === 'confirmado') {
+        acciones += `<button onclick="event.stopPropagation();cambiarEstado('${r.id}','completado',this)" class="accion-btn accion-btn--complete">✓ Completar</button>`;
+      }
+      if (r.estado !== 'cancelado' && r.estado !== 'completado') {
+        acciones += `<button onclick="event.stopPropagation();cambiarEstado('${r.id}','cancelado',this)" class="accion-btn accion-btn--cancel">✗ Cancelar</button>`;
+      }
       return `<tr onclick="abrirDetalle('${r.id}')">
         <td style="font-size:.85rem">${r.fecha}</td>
         <td><strong>${r.hora}</strong></td>
@@ -498,8 +529,9 @@
         <td>${serviciosBadges}</td>
         <td style="font-size:.88rem">${r.profesional || '—'}</td>
         <td><span class="badge ${badge}">${txt}</span></td>
-        <td>
-          <button class="kebab-btn" onclick="event.stopPropagation();abrirDetalle('${r.id}')" title="Ver detalle">
+        <td onclick="event.stopPropagation()" style="white-space:nowrap">
+          ${acciones}
+          <button class="kebab-btn" onclick="abrirDetalle('${r.id}')" title="Ver detalle">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
           </button>
         </td>
