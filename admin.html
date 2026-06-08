@@ -14,7 +14,7 @@
 <div class="admin-layout">
   <aside class="admin-sidebar">
     <div class="admin-sidebar__header">
-      <div class="admin-sidebar__logo">Aurum Studio Admin</div>
+      <div class="admin-sidebar__logo">Aurum Studio</div>
       <div class="admin-sidebar__role">Panel de Reservas</div>
     </div>
     <nav class="admin-nav">
@@ -39,7 +39,6 @@
     </div>
 
     <div class="admin-content">
-      <!-- Filtros -->
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
         <button class="filter-btn active" onclick="filtrar('todos',this)">Todos</button>
         <button class="filter-btn" onclick="filtrar('pendiente',this)">Pendientes</button>
@@ -48,7 +47,6 @@
         <button class="filter-btn" onclick="filtrar('cancelado',this)">Cancelados</button>
       </div>
 
-      <!-- Tabla -->
       <div style="background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden">
         <div style="overflow-x:auto">
           <table class="admin-table">
@@ -60,7 +58,7 @@
                 <th>Servicio</th>
                 <th>Profesional</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                <th style="width:40px"></th>
               </tr>
             </thead>
             <tbody id="reservasTableBody">
@@ -73,7 +71,97 @@
   </div>
 </div>
 
+<!-- ══════════ MODAL DETALLE ══════════════════════════════════════ -->
+<div id="detalleModal" class="det-overlay" onclick="if(event.target===this)cerrarDetalle()">
+  <div class="det-panel">
+
+    <button class="det-close" onclick="cerrarDetalle()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- Cabecera cliente -->
+    <div class="det-header">
+      <div class="det-avatar" id="det-avatar">AB</div>
+      <div>
+        <div class="det-name" id="det-name">—</div>
+        <div class="det-contact">
+          <a id="det-phone-link" href="#" class="det-contact-item">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.82 19.79 19.79 0 01.67 2.18 2 2 0 012.65 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <span id="det-phone">—</span>
+          </a>
+          <a id="det-email-link" href="#" class="det-contact-item">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span id="det-email">—</span>
+          </a>
+        </div>
+      </div>
+      <span class="det-badge" id="det-badge">—</span>
+    </div>
+
+    <!-- Tarjetas de info -->
+    <div class="det-cards">
+      <div class="det-card">
+        <div class="det-card__icon">📅</div>
+        <div class="det-card__label">Fecha</div>
+        <div class="det-card__value" id="det-fecha">—</div>
+      </div>
+      <div class="det-card">
+        <div class="det-card__icon">🕐</div>
+        <div class="det-card__label">Hora</div>
+        <div class="det-card__value" id="det-hora">—</div>
+      </div>
+      <div class="det-card">
+        <div class="det-card__icon">⏱</div>
+        <div class="det-card__label">Duración</div>
+        <div class="det-card__value" id="det-duracion">—</div>
+      </div>
+    </div>
+
+    <!-- Servicios -->
+    <div class="det-section">
+      <div class="det-section__label">Servicio</div>
+      <div id="det-servicios" class="det-tags">—</div>
+    </div>
+
+    <!-- Profesional -->
+    <div class="det-section">
+      <div class="det-section__label">Profesional</div>
+      <div class="det-prof" id="det-prof">—</div>
+    </div>
+
+    <!-- Notas -->
+    <div class="det-section" id="det-notas-wrap" style="display:none">
+      <div class="det-section__label">Notas del cliente</div>
+      <div class="det-notas" id="det-notas">—</div>
+    </div>
+
+    <!-- Acciones de estado -->
+    <div class="det-actions" id="det-actions"></div>
+
+    <!-- Borrar -->
+    <button class="det-delete-btn" id="det-delete-btn" onclick="">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+      Borrar reserva
+    </button>
+
+  </div>
+</div>
+
+<!-- ══════════ MODAL CONFIRM BORRADO ═════════════════════════════ -->
+<div id="deleteModal" class="det-overlay" onclick="if(event.target===this)cerrarDeleteModal()">
+  <div class="del-modal">
+    <div class="del-modal__icon">🗑</div>
+    <h3>¿Borrar esta reserva?</h3>
+    <p>Vas a eliminar permanentemente la reserva de <strong id="deleteModalName"></strong>.<br>Esta acción no se puede deshacer.</p>
+    <div class="del-modal__actions">
+      <button onclick="cerrarDeleteModal()" class="del-modal__cancel">Cancelar</button>
+      <button onclick="ejecutarBorrar()" id="deleteConfirmBtn" class="del-modal__confirm">Sí, borrar</button>
+    </div>
+  </div>
+</div>
+
 <style>
+/* ── Filter buttons ───────────────────────────────── */
 .filter-btn {
   padding: 8px 18px;
   border-radius: var(--radius-pill);
@@ -91,81 +179,250 @@
   border-color: var(--color-black);
 }
 
-/* Kebab menu */
+/* ── Row clickable ────────────────────────────────── */
+.admin-table tbody tr {
+  cursor: pointer;
+  transition: background .15s;
+}
+.admin-table tbody tr:hover { background: #fafaf8; }
+
+/* ── Kebab btn ────────────────────────────────────── */
 .kebab-btn {
   width: 30px; height: 30px;
   border-radius: 6px;
   border: 1px solid var(--color-border);
   background: white;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--color-muted);
-  transition: background .15s, color .15s;
-  vertical-align: middle;
-}
-.kebab-btn:hover { background: var(--color-cream); color: var(--color-text); }
-.kebab-menu {
-  display: none;
-  position: absolute;
-  right: 0; top: 36px;
-  background: white;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  min-width: 160px;
-  z-index: 100;
-  overflow: hidden;
-}
-.kebab-menu.open { display: block; }
-.kebab-menu button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 10px 16px;
-  font-size: .88rem;
-  font-weight: 500;
-  color: #e74c3c;
-  background: none;
-  border: none;
-  cursor: pointer;
   transition: background .15s;
 }
-.kebab-menu button:hover { background: #fff5f5; }
+.kebab-btn:hover { background: var(--color-cream); }
 
-/* Delete modal */
-.delete-modal-overlay {
+/* ── Overlay shared ───────────────────────────────── */
+.det-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.45);
+  background: rgba(0,0,0,.5);
   z-index: 1000;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(4px);
+  padding: 16px;
 }
-.delete-modal-overlay.open { display: flex; }
-.delete-modal {
+.det-overlay.open { display: flex; }
+
+/* ── Detail panel ─────────────────────────────────── */
+.det-panel {
   background: white;
-  border-radius: var(--radius-lg);
-  padding: 40px 36px;
-  max-width: 420px;
-  width: 90%;
+  border-radius: 20px;
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 80px rgba(0,0,0,.2);
+  position: relative;
+  animation: panelIn .25s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes panelIn {
+  from { transform: translateY(20px) scale(.97); opacity: 0; }
+  to   { transform: translateY(0)    scale(1);   opacity: 1; }
+}
+.det-close {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-muted);
+  transition: background .15s, color .15s;
+}
+.det-close:hover { background: var(--color-cream); color: var(--color-text); }
+
+/* Header */
+.det-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+.det-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-gold-dk), var(--color-gold));
+  color: white;
+  font-weight: 700;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-serif);
+}
+.det-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-family: var(--font-serif);
+  margin-bottom: 6px;
+}
+.det-contact { display: flex; flex-direction: column; gap: 3px; }
+.det-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .82rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color .15s;
+}
+.det-contact-item:hover { color: var(--color-gold); }
+.det-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+/* Info cards */
+.det-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.det-card {
+  background: var(--color-cream);
+  border-radius: 12px;
+  padding: 14px 12px;
   text-align: center;
-  box-shadow: var(--shadow-lg);
-  animation: modalIn .2s cubic-bezier(.34,1.56,.64,1);
 }
-@keyframes modalIn {
-  from { transform: scale(.92); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
+.det-card__icon { font-size: 1.2rem; margin-bottom: 6px; }
+.det-card__label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--color-muted); margin-bottom: 4px; }
+.det-card__value { font-weight: 700; font-size: .95rem; color: var(--color-text); }
+
+/* Sections */
+.det-section { margin-bottom: 18px; }
+.det-section__label {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--color-muted);
+  margin-bottom: 8px;
 }
-.delete-modal__icon { font-size: 2.5rem; margin-bottom: 12px; }
-.delete-modal h3 { font-size: 1.2rem; margin-bottom: 10px; }
-.delete-modal p { color: var(--color-muted); font-size: .9rem; line-height: 1.6; margin-bottom: 28px; }
-.delete-modal__actions { display: flex; gap: 12px; justify-content: center; }
-.delete-modal__cancel {
+.det-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.det-tag {
+  background: rgba(212,168,67,.1);
+  border: 1px solid rgba(212,168,67,.3);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-gold-dk);
+}
+.det-prof {
+  font-weight: 600;
+  font-size: .95rem;
+  color: var(--color-text);
+}
+.det-notas {
+  background: var(--color-cream);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: .88rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Action buttons */
+.det-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  padding-top: 6px;
+}
+.det-action-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 11px 16px;
+  border-radius: var(--radius-pill);
+  border: none;
+  font-size: .875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.det-action-btn--confirm { background: var(--color-gold); color: var(--color-black); }
+.det-action-btn--confirm:hover { background: var(--color-gold-lt); transform: translateY(-1px); }
+.det-action-btn--complete { background: var(--color-success); color: white; }
+.det-action-btn--complete:hover { background: #236040; transform: translateY(-1px); }
+.det-action-btn--cancel { background: white; color: #e74c3c; border: 1.5px solid #f5c6c2; }
+.det-action-btn--cancel:hover { background: #fff5f5; }
+.det-action-btn:disabled { opacity: .5; cursor: default; transform: none; }
+
+/* Delete button */
+.det-delete-btn {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #f5c6c2;
+  border-radius: var(--radius-md);
+  background: none;
+  color: #e74c3c;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background .15s;
+  margin-top: 4px;
+}
+.det-delete-btn:hover { background: #fff5f5; }
+
+/* Badge colors in modal */
+.det-badge.badge-pending   { background: rgba(212,168,67,.12); color: #8a6800; }
+.det-badge.badge-confirmed { background: rgba(37,99,235,.1);   color: #1d4ed8; }
+.det-badge.badge-completed { background: rgba(45,122,79,.12);  color: #1a5c38; }
+.det-badge.badge-cancelled { background: rgba(231,76,60,.1);   color: #b91c1c; }
+
+/* ── Delete confirm modal ─────────────────────────── */
+.del-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0,0,0,.2);
+  animation: panelIn .25s cubic-bezier(.34,1.56,.64,1);
+}
+.del-modal__icon { font-size: 2.5rem; margin-bottom: 12px; }
+.del-modal h3 { font-size: 1.15rem; font-family: var(--font-serif); margin-bottom: 10px; }
+.del-modal p { color: var(--color-muted); font-size: .9rem; line-height: 1.65; margin-bottom: 28px; }
+.del-modal__actions { display: flex; gap: 12px; justify-content: center; }
+.del-modal__cancel {
   padding: 10px 24px;
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-pill);
@@ -176,8 +433,8 @@
   color: var(--color-muted);
   transition: all .2s;
 }
-.delete-modal__cancel:hover { border-color: var(--color-text); color: var(--color-text); }
-.delete-modal__confirm {
+.del-modal__cancel:hover { border-color: var(--color-text); color: var(--color-text); }
+.del-modal__confirm {
   padding: 10px 24px;
   border: none;
   border-radius: var(--radius-pill);
@@ -188,8 +445,8 @@
   cursor: pointer;
   transition: background .2s;
 }
-.delete-modal__confirm:hover { background: #c0392b; }
-.delete-modal__confirm:disabled { opacity: .6; cursor: default; }
+.del-modal__confirm:hover { background: #c0392b; }
+.del-modal__confirm:disabled { opacity: .6; cursor: default; }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
@@ -203,8 +460,10 @@
   const badgeTxt = { pendiente:'Pendiente', confirmado:'Confirmado', completado:'Completado', cancelado:'Cancelado' };
 
   let todasReservas = [];
-  let filtroActivo = 'todos';
+  let filtroActivo  = 'todos';
+  let reservaActiva = null;
 
+  // ── Cargar ─────────────────────────────────────────────────────
   async function cargarReservas() {
     const tbody = document.getElementById('reservasTableBody');
     tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--color-muted);padding:40px">Cargando…</td></tr>';
@@ -218,6 +477,7 @@
     }
   }
 
+  // ── Render tabla ───────────────────────────────────────────────
   function renderTabla() {
     const tbody = document.getElementById('reservasTableBody');
     const lista = filtroActivo === 'todos' ? todasReservas : todasReservas.filter(r => r.estado === filtroActivo);
@@ -228,35 +488,26 @@
     tbody.innerHTML = lista.map(r => {
       const badge = badgeMap[r.estado] || 'badge-pending';
       const txt   = badgeTxt[r.estado] || r.estado;
-      let acciones = '';
-      if (r.estado === 'pendiente') {
-        acciones = `<button onclick="cambiarEstado('${r.id}','confirmado',this)" style="color:var(--color-gold);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Confirmar</button>`;
-      } else if (r.estado === 'confirmado') {
-        acciones = `<button onclick="cambiarEstado('${r.id}','completado',this)" style="color:var(--color-success);font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer;margin-right:8px">✓ Completar</button>`;
-      }
-      if (r.estado !== 'cancelado' && r.estado !== 'completado') {
-        acciones += `<button onclick="cambiarEstado('${r.id}','cancelado',this)" style="color:#e74c3c;font-size:.82rem;font-weight:600;background:none;border:none;cursor:pointer">✗ Cancelar</button>`;
-      }
-      return `<tr id="row-${r.id}">
+      const serviciosBadges = r.servicio
+        ? r.servicio.split(' + ').map(s => `<span style="display:inline-block;background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.25);border-radius:4px;padding:2px 7px;font-size:.72rem;font-weight:600;margin:1px 2px">${s}</span>`).join('')
+        : '—';
+      return `<tr onclick="abrirDetalle('${r.id}')">
         <td style="font-size:.85rem">${r.fecha}</td>
         <td><strong>${r.hora}</strong></td>
         <td>${r.nombre} ${r.apellido}<br><span style="font-size:.75rem;color:var(--color-muted)">${r.telefono}</span></td>
-        <td>${r.servicio ? r.servicio.split(' + ').map(s => `<span style="display:inline-block;background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.25);border-radius:4px;padding:2px 7px;font-size:.75rem;font-weight:600;margin:1px 2px;white-space:nowrap">${s}</span>`).join('') : '—'}</td>
-        <td>${r.profesional || '—'}</td>
+        <td>${serviciosBadges}</td>
+        <td style="font-size:.88rem">${r.profesional || '—'}</td>
         <td><span class="badge ${badge}">${txt}</span></td>
-        <td style="white-space:nowrap">
-          ${acciones}
-          <div class="kebab-wrap" style="display:inline-block;position:relative;margin-left:6px">
-            <button class="kebab-btn" onclick="toggleKebab(this)" title="Más opciones">⋯</button>
-            <div class="kebab-menu">
-              <button onclick="confirmarBorrar('${r.id}','${r.nombre} ${r.apellido}')">🗑 Borrar reserva</button>
-            </div>
-          </div>
+        <td>
+          <button class="kebab-btn" onclick="event.stopPropagation();abrirDetalle('${r.id}')" title="Ver detalle">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+          </button>
         </td>
       </tr>`;
     }).join('');
   }
 
+  // ── Filtrar ────────────────────────────────────────────────────
   window.filtrar = function(estado, btn) {
     filtroActivo = estado;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -264,80 +515,134 @@
     renderTabla();
   };
 
+  // ── Abrir detalle ──────────────────────────────────────────────
+  window.abrirDetalle = function(id) {
+    const r = todasReservas.find(x => x.id === id);
+    if (!r) return;
+    reservaActiva = r;
+
+    // Avatar initials
+    const initials = ((r.nombre||'')[0]||('')).toUpperCase() + ((r.apellido||'')[0]||'').toUpperCase();
+    document.getElementById('det-avatar').textContent = initials || '?';
+
+    // Nombre y contacto
+    document.getElementById('det-name').textContent = `${r.nombre} ${r.apellido}`;
+    document.getElementById('det-phone').textContent = r.telefono || '—';
+    document.getElementById('det-phone-link').href = r.telefono ? `tel:${r.telefono}` : '#';
+    document.getElementById('det-email').textContent = r.email || '—';
+    document.getElementById('det-email-link').href = r.email ? `mailto:${r.email}` : '#';
+
+    // Badge estado
+    const badgeEl = document.getElementById('det-badge');
+    badgeEl.textContent = badgeTxt[r.estado] || r.estado;
+    badgeEl.className = `det-badge ${badgeMap[r.estado] || 'badge-pending'}`;
+
+    // Tarjetas
+    document.getElementById('det-fecha').textContent = r.fecha || '—';
+    document.getElementById('det-hora').textContent  = r.hora  || '—';
+    document.getElementById('det-duracion').textContent = r.duracion ? `${r.duracion} min` : '—';
+
+    // Servicios
+    const tagsEl = document.getElementById('det-servicios');
+    if (r.servicio) {
+      tagsEl.innerHTML = r.servicio.split(' + ').map(s => `<span class="det-tag">${s}</span>`).join('');
+    } else {
+      tagsEl.innerHTML = '<span style="color:var(--color-muted);font-size:.9rem">—</span>';
+    }
+
+    // Profesional
+    document.getElementById('det-prof').textContent = r.profesional || 'Sin preferencia';
+
+    // Notas
+    const notasWrap = document.getElementById('det-notas-wrap');
+    if (r.notas) {
+      document.getElementById('det-notas').textContent = r.notas;
+      notasWrap.style.display = 'block';
+    } else {
+      notasWrap.style.display = 'none';
+    }
+
+    // Acciones según estado
+    const actEl = document.getElementById('det-actions');
+    actEl.innerHTML = '';
+    if (r.estado === 'pendiente') {
+      actEl.innerHTML += `<button class="det-action-btn det-action-btn--confirm" onclick="cambiarEstadoDetalle('confirmado')">✓ Confirmar turno</button>`;
+      actEl.innerHTML += `<button class="det-action-btn det-action-btn--cancel" onclick="cambiarEstadoDetalle('cancelado')">✗ Cancelar</button>`;
+    } else if (r.estado === 'confirmado') {
+      actEl.innerHTML += `<button class="det-action-btn det-action-btn--complete" onclick="cambiarEstadoDetalle('completado')">✓ Marcar completado</button>`;
+      actEl.innerHTML += `<button class="det-action-btn det-action-btn--cancel" onclick="cambiarEstadoDetalle('cancelado')">✗ Cancelar</button>`;
+    }
+
+    // Borrar
+    document.getElementById('det-delete-btn').onclick = () => confirmarBorrar(r.id, `${r.nombre} ${r.apellido}`);
+
+    document.getElementById('detalleModal').classList.add('open');
+  };
+
+  window.cerrarDetalle = function() {
+    document.getElementById('detalleModal').classList.remove('open');
+    reservaActiva = null;
+  };
+
+  // ── Cambiar estado desde detalle ──────────────────────────────
+  window.cambiarEstadoDetalle = async function(nuevoEstado) {
+    if (!reservaActiva) return;
+    const btns = document.querySelectorAll('.det-action-btn');
+    btns.forEach(b => b.disabled = true);
+    const { error } = await db.from('reservas').update({ estado: nuevoEstado }).eq('id', reservaActiva.id);
+    if (error) { btns.forEach(b => b.disabled = false); if (window.showToast) window.showToast('Error', 'error'); return; }
+    const r = todasReservas.find(x => x.id === reservaActiva.id);
+    if (r) r.estado = nuevoEstado;
+    renderTabla();
+    cerrarDetalle();
+    if (window.showToast) window.showToast('Estado actualizado', 'success');
+  };
+
+  // ── Cambiar estado desde tabla (deprecated but kept) ──────────
   window.cambiarEstado = async function(id, nuevoEstado, btn) {
     btn.disabled = true;
-    btn.textContent = '…';
     const { error } = await db.from('reservas').update({ estado: nuevoEstado }).eq('id', id);
-    if (error) { btn.disabled = false; btn.textContent = 'Error'; return; }
+    if (error) { btn.disabled = false; return; }
     const r = todasReservas.find(x => x.id === id);
     if (r) r.estado = nuevoEstado;
     renderTabla();
     if (window.showToast) window.showToast('Estado actualizado', 'success');
   };
 
-  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('es-AR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-  cargarReservas();
-
-  // ── Kebab menu ────────────────────────────────────────────
-  window.toggleKebab = function(btn) {
-    const menu = btn.nextElementSibling;
-    const isOpen = menu.classList.contains('open');
-    document.querySelectorAll('.kebab-menu.open').forEach(m => m.classList.remove('open'));
-    if (!isOpen) menu.classList.add('open');
-  };
-
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.kebab-wrap')) {
-      document.querySelectorAll('.kebab-menu.open').forEach(m => m.classList.remove('open'));
-    }
-  });
-
-  // ── Confirm & delete ──────────────────────────────────────
+  // ── Borrar ─────────────────────────────────────────────────────
   window.confirmarBorrar = function(id, nombre) {
-    document.querySelectorAll('.kebab-menu.open').forEach(m => m.classList.remove('open'));
-    const modal = document.getElementById('deleteModal');
-    document.getElementById('deleteModalName').textContent = nombre;
-    modal.dataset.targetId = id;
-    modal.classList.add('open');
+    cerrarDetalle();
+    setTimeout(() => {
+      document.getElementById('deleteModalName').textContent = nombre;
+      document.getElementById('deleteModal').dataset.targetId = id;
+      document.getElementById('deleteModal').classList.add('open');
+    }, 180);
   };
 
-  window.cerrarModal = function() {
+  window.cerrarDeleteModal = function() {
     document.getElementById('deleteModal').classList.remove('open');
   };
 
   window.ejecutarBorrar = async function() {
     const modal = document.getElementById('deleteModal');
-    const id = modal.dataset.targetId;
+    const id  = modal.dataset.targetId;
     const btn = document.getElementById('deleteConfirmBtn');
-    btn.disabled = true;
-    btn.textContent = 'Borrando…';
+    btn.disabled = true; btn.textContent = 'Borrando…';
     const { error } = await db.from('reservas').delete().eq('id', id);
     if (error) {
-      btn.disabled = false;
-      btn.textContent = 'Sí, borrar';
+      btn.disabled = false; btn.textContent = 'Sí, borrar';
       if (window.showToast) window.showToast('Error al borrar', 'error');
       return;
     }
     todasReservas = todasReservas.filter(r => r.id !== id);
     modal.classList.remove('open');
-    btn.disabled = false;
-    btn.textContent = 'Sí, borrar';
+    btn.disabled = false; btn.textContent = 'Sí, borrar';
     renderTabla();
     if (window.showToast) window.showToast('Reserva eliminada', 'success');
   };
-</script>
 
-<!-- Modal de confirmación de borrado -->
-<div id="deleteModal" class="delete-modal-overlay" onclick="if(event.target===this)cerrarModal()">
-  <div class="delete-modal">
-    <div class="delete-modal__icon">🗑</div>
-    <h3>¿Borrar esta reserva?</h3>
-    <p>Vas a eliminar permanentemente la reserva de <strong id="deleteModalName"></strong>. Esta acción no se puede deshacer.</p>
-    <div class="delete-modal__actions">
-      <button onclick="cerrarModal()" class="delete-modal__cancel">Cancelar</button>
-      <button onclick="ejecutarBorrar()" id="deleteConfirmBtn" class="delete-modal__confirm">Sí, borrar</button>
-    </div>
-  </div>
-</div>
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('es-AR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  cargarReservas();
+</script>
 </body>
 </html>
