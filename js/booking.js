@@ -354,7 +354,8 @@ window.submitBooking = function(e) {
       start.setHours(h, m, 0, 0);
       const end = new Date(start.getTime() + dur * 60000);
       const fmt = d => d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
-      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Turno G-M Peluqueros')}&dates=${fmt(start)}/${fmt(end)}&details=${encodeURIComponent('Peluquería G-M, Jorge Luis Borges 2241, Palermo')}&location=${encodeURIComponent('Jorge Luis Borges 2241, Palermo, Buenos Aires')}`;
+      const servicioNombre = booking.services.map(s => s.name).join(' + ') || 'Turno';
+      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Turno Aurum Studio — ' + servicioNombre)}&dates=${fmt(start)}/${fmt(end)}&details=${encodeURIComponent('Aurum Studio · Av. Santa Fe 2847, Palermo, CABA\nTel: (011) 4832-6194')}&location=${encodeURIComponent('Av. Santa Fe 2847, Palermo, Buenos Aires')}`;
       const calBtn = document.getElementById('addToCalendarBtn');
       if (calBtn) { calBtn.href = calUrl; calBtn.target = '_blank'; }
     }
