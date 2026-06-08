@@ -462,22 +462,81 @@
 
 <script>
 window.guardarComprobante = function() {
-  // Sincronizar datos al comprobante imprimible
-  document.getElementById('pc-service').textContent  = document.getElementById('conf-service')?.textContent || '—';
-  document.getElementById('pc-prof').textContent     = document.getElementById('conf-prof')?.textContent    || '—';
-  document.getElementById('pc-datetime').textContent = document.getElementById('conf-datetime')?.textContent || '—';
+  const service  = document.getElementById('conf-service')?.textContent  || '—';
+  const prof     = document.getElementById('conf-prof')?.textContent     || '—';
+  const datetime = document.getElementById('conf-datetime')?.textContent || '—';
 
-  // Intentar Web Share API (móvil) → si no, imprimir/PDF
-  if (navigator.share) {
-    const service  = document.getElementById('pc-service').textContent;
-    const datetime = document.getElementById('pc-datetime').textContent;
-    navigator.share({
-      title: 'Comprobante Aurum Studio',
-      text: `Tu turno está confirmado!\n\nServicio: ${service}\nFecha: ${datetime}\n\nAurum Studio · Av. Santa Fe 2847, Palermo`
-    }).catch(() => window.print());
-  } else {
-    window.print();
-  }
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Comprobante — Aurum Studio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', Arial, sans-serif; background: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 32px; }
+    .card { width: 100%; max-width: 400px; border: 2px solid #D4A843; border-radius: 18px; padding: 40px 36px; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: #141414; margin-bottom: 2px; }
+    .logo span { color: #D4A843; }
+    .address { font-size: .78rem; color: #7A7A7A; letter-spacing: .04em; margin-bottom: 28px; }
+    .check { width: 52px; height: 52px; border-radius: 50%; background: #D4A843; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .check svg { color: #141414; }
+    .title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { font-size: .85rem; color: #7A7A7A; margin-bottom: 28px; }
+    .divider { border: none; border-top: 1px solid #E6E1D8; margin: 20px 0; }
+    .row { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f0ece5; gap: 12px; }
+    .row:last-of-type { border-bottom: none; }
+    .row .lbl { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #7A7A7A; padding-top: 2px; flex-shrink: 0; }
+    .row .val { font-size: .9rem; font-weight: 600; color: #141414; text-align: right; }
+    .badge { display: inline-block; background: rgba(212,168,67,.12); border: 1px solid rgba(212,168,67,.35); border-radius: 6px; padding: 3px 10px; font-size: .78rem; font-weight: 700; color: #8a6800; margin-top: 4px; }
+    .footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid #E6E1D8; text-align: center; font-size: .75rem; color: #7A7A7A; line-height: 1.9; }
+    @media print { body { padding: 0; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo"><span>A</span>urum Studio</div>
+    <div class="address">Av. Santa Fe 2847, Palermo · (011) 4832-6194</div>
+
+    <div class="check">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="title">Turno confirmado</div>
+    <div class="subtitle">Este es tu comprobante de reserva</div>
+
+    <hr class="divider">
+
+    <div class="row">
+      <span class="lbl">Servicio</span>
+      <span class="val">${service.split(' + ').map(s => `<span class="badge">${s}</span>`).join(' ')}</span>
+    </div>
+    <div class="row">
+      <span class="lbl">Profesional</span>
+      <span class="val">${prof}</span>
+    </div>
+    <div class="row">
+      <span class="lbl">Fecha y hora</span>
+      <span class="val">${datetime}</span>
+    </div>
+
+    <div class="footer">
+      Pagás al finalizar tu visita · Sin cargo por reserva<br>
+      aurumstudio.com.ar
+    </div>
+  </div>
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.print();
+        window.onafterprint = function() { window.close(); };
+      }, 400);
+    };
+  <\/script>
+</body>
+</html>`;
+
+  const w = window.open('', '_blank', 'width=520,height=740');
+  if (w) { w.document.write(html); w.document.close(); }
 };
 </script>
 </body>
