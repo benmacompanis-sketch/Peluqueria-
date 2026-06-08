@@ -10,11 +10,11 @@ const db = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE
 
 // ── Estado del wizard ─────────────────────────────────────────────
 const booking = {
-  service: null,
+  services: [],   // array de {id, name, duration}
   professional: null,
   date: null,
   time: null,
-  duration: null,
+  duration: 0,    // suma de duraciones seleccionadas
 };
 
 let calendarYear  = new Date().getFullYear();
@@ -60,19 +60,42 @@ function updateStepBar(currentStep) {
   });
 }
 
-// ── PASO 1: Selección de servicio ─────────────────────────────────
+// ── PASO 1: Selección de servicios (multi-select) ─────────────────
 window.selectService = function(el) {
-  document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
+  const id       = el.dataset.id;
+  const name     = el.dataset.name;
+  const duration = parseInt(el.dataset.duration, 10);
 
-  booking.service   = el.dataset.id;
-  booking.duration  = parseInt(el.dataset.duration, 10);
-  const name        = el.dataset.name;
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    booking.services = booking.services.filter(s => s.id !== id);
+  } else {
+    el.classList.add('selected');
+    booking.services.push({ id, name, duration });
+  }
 
-  document.getElementById('btn-step1').disabled = false;
-  document.getElementById('selected-service-name').textContent = name;
-  document.getElementById('sum-service').textContent = name;
-  document.getElementById('sum-duration').textContent = booking.duration + ' minutos';
+  booking.duration = booking.services.reduce((sum, s) => sum + s.duration, 0);
+
+  const hasSelection = booking.services.length > 0;
+  document.getElementById('btn-step1').disabled = !hasSelection;
+
+  const names = booking.services.map(s => s.name).join(' + ');
+  const counter = document.getElementById('services-counter');
+  if (counter) {
+    if (hasSelection) {
+      counter.textContent = `${booking.services.length} servicio${booking.services.length > 1 ? 's' : ''} seleccionado${booking.services.length > 1 ? 's' : ''} · ${booking.duration} min total`;
+      counter.style.display = 'block';
+    } else {
+      counter.style.display = 'none';
+    }
+  }
+
+  const nameEl = document.getElementById('selected-service-name');
+  if (nameEl) nameEl.textContent = names || '—';
+  const sumService = document.getElementById('sum-service');
+  if (sumService) sumService.textContent = names || '—';
+  const sumDur = document.getElementById('sum-duration');
+  if (sumDur) sumDur.textContent = booking.duration > 0 ? booking.duration + ' minutos' : '—';
 };
 
 window.filterServices = function(query) {
@@ -226,15 +249,14 @@ window.submitBooking = function(e) {
   btn.disabled = true;
   btn.textContent = 'Confirmando…';
 
-  const serviceEl = document.querySelector('.service-option.selected');
-  const profEl    = document.querySelector('.professional-option.selected');
+  const profEl = document.querySelector('.professional-option.selected');
 
   const reserva = {
     nombre:      firstName,
     apellido:    lastName,
     telefono:    phone,
     email:       email,
-    servicio:    serviceEl?.dataset.name || '',
+    servicio:    booking.services.map(s => s.name).join(' + ') || '',
     profesional: profEl?.dataset.name   || '',
     fecha:       booking.date ? booking.date.toISOString().split('T')[0] : '',
     hora:        booking.time || '',

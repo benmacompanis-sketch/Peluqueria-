@@ -83,13 +83,15 @@
     <!-- ── PASO 1: Servicio ────────────────────────────────────── -->
     <div class="booking-panel" id="panel-1">
       <h2>¿Qué servicio buscás?</h2>
-      <p class="sub">Seleccioná el servicio que deseás reservar</p>
+      <p class="sub">Podés seleccionar <strong>más de un servicio</strong> — la duración total se calcula automáticamente</p>
 
-      <div style="margin-bottom:24px">
+      <div style="margin-bottom:12px">
         <input type="text" id="serviceSearch" placeholder="🔍  Buscar servicio…"
           style="width:100%;padding:12px 16px;border:1.5px solid var(--color-border);border-radius:var(--radius-pill);font-size:.95rem;outline:none;transition:border-color .2s"
           oninput="filterServices(this.value)">
       </div>
+
+      <div id="services-counter" style="display:none;background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.3);border-radius:var(--radius-pill);padding:8px 18px;font-size:.85rem;font-weight:600;color:var(--color-gold);margin-bottom:20px;text-align:center"></div>
 
       <div id="servicesContainer">
         <div style="margin-bottom:8px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--color-muted)">Cortes</div>

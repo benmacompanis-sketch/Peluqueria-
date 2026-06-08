@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Admin — [Nombre de tu peluquería]</title>
+  <title>Admin — Aurum Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
@@ -14,7 +14,7 @@
 <div class="admin-layout">
   <aside class="admin-sidebar">
     <div class="admin-sidebar__header">
-      <div class="admin-sidebar__logo">[Nombre de tu peluquería] Admin</div>
+      <div class="admin-sidebar__logo">Aurum Studio Admin</div>
       <div class="admin-sidebar__role">Panel de Reservas</div>
     </div>
     <nav class="admin-nav">
@@ -141,7 +141,7 @@
         <td style="font-size:.85rem">${r.fecha}</td>
         <td><strong>${r.hora}</strong></td>
         <td>${r.nombre} ${r.apellido}<br><span style="font-size:.75rem;color:var(--color-muted)">${r.telefono}</span></td>
-        <td>${r.servicio}</td>
+        <td>${r.servicio ? r.servicio.split(' + ').map(s => `<span style="display:inline-block;background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.25);border-radius:4px;padding:2px 7px;font-size:.75rem;font-weight:600;margin:1px 2px;white-space:nowrap">${s}</span>`).join('') : '—'}</td>
         <td>${r.profesional || '—'}</td>
         <td><span class="badge ${badge}">${txt}</span></td>
         <td>${acciones}</td>
