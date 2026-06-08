@@ -373,7 +373,10 @@
         </div>
 
         <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap">
-          <a href="mis-turnos.html" class="btn btn-primary btn-sm">Ver mis turnos</a>
+          <button onclick="guardarComprobante()" class="btn btn-primary btn-sm">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Guardar comprobante
+          </button>
           <a href="index.html" class="btn btn-outline-dark btn-sm">Volver al inicio</a>
         </div>
       </div>
@@ -390,5 +393,92 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="js/main.js"></script>
 <script src="js/booking.js"></script>
+
+<style>
+@media print {
+  body > *:not(#print-comprobante) { display: none !important; }
+  #print-comprobante { display: block !important; }
+}
+#print-comprobante {
+  display: none;
+  font-family: 'Inter', sans-serif;
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 36px;
+  border: 2px solid #D4A843;
+  border-radius: 16px;
+}
+#print-comprobante .pc-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #141414;
+  margin-bottom: 4px;
+}
+#print-comprobante .pc-sub {
+  font-size: .8rem;
+  color: #7A7A7A;
+  margin-bottom: 24px;
+  letter-spacing: .05em;
+}
+#print-comprobante .pc-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #D4A843;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  margin-bottom: 20px;
+}
+#print-comprobante .pc-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #E6E1D8;
+  font-size: .9rem;
+}
+#print-comprobante .pc-row span:first-child { color: #7A7A7A; }
+#print-comprobante .pc-row span:last-child { font-weight: 600; text-align: right; max-width: 60%; }
+#print-comprobante .pc-footer {
+  margin-top: 24px;
+  font-size: .78rem;
+  color: #7A7A7A;
+  text-align: center;
+  line-height: 1.8;
+}
+</style>
+
+<div id="print-comprobante">
+  <div class="pc-logo">Aurum Studio</div>
+  <div class="pc-sub">Av. Santa Fe 2847, Palermo · (011) 4832-6194</div>
+  <div class="pc-title">Comprobante de Turno</div>
+  <div class="pc-row"><span>Servicio</span><span id="pc-service">—</span></div>
+  <div class="pc-row"><span>Profesional</span><span id="pc-prof">—</span></div>
+  <div class="pc-row"><span>Fecha y hora</span><span id="pc-datetime">—</span></div>
+  <div class="pc-footer">
+    Pagás al finalizar tu visita · Sin cargo por reserva online<br>
+    aurumstudio.com.ar
+  </div>
+</div>
+
+<script>
+window.guardarComprobante = function() {
+  // Sincronizar datos al comprobante imprimible
+  document.getElementById('pc-service').textContent  = document.getElementById('conf-service')?.textContent || '—';
+  document.getElementById('pc-prof').textContent     = document.getElementById('conf-prof')?.textContent    || '—';
+  document.getElementById('pc-datetime').textContent = document.getElementById('conf-datetime')?.textContent || '—';
+
+  // Intentar Web Share API (móvil) → si no, imprimir/PDF
+  if (navigator.share) {
+    const service  = document.getElementById('pc-service').textContent;
+    const datetime = document.getElementById('pc-datetime').textContent;
+    navigator.share({
+      title: 'Comprobante Aurum Studio',
+      text: `Tu turno está confirmado!\n\nServicio: ${service}\nFecha: ${datetime}\n\nAurum Studio · Av. Santa Fe 2847, Palermo`
+    }).catch(() => window.print());
+  } else {
+    window.print();
+  }
+};
+</script>
 </body>
 </html>
